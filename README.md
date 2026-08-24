@@ -11,6 +11,7 @@ This repository makes the boundary between research stages explicit. Some projec
 | ECG/EEG | Automated peri-ictal ECG feature extraction | Implemented research software | [ECG_FE_Detector_Interface](https://github.com/Abkob/ECG_FE_Detector_Interface) |
 | EEG/ECoG | Patient-aware seizure feature studies | Exploratory implementation | [Research_BCI](https://github.com/Abkob/Research_BCI) |
 | Ear-EEG | Ambulatory sensing and stimulation concept | Evidence map and staged research plan | [Case study](case-studies/ear-eeg-research-plan.md) |
+| Mobile health / IMU | NeuroSense Parkinson's monitoring | Team design study and clinician-dashboard prototype | [Case study](case-studies/neurosense-parkinsons-monitoring.md) |
 | Assistive sensing | Multimodal prosthetic-liner sensor slab | Team design and literature-to-requirements study | [Case study](case-studies/smart-prosthetic-liner.md) |
 | Robotics / CV | Vision-guided movement through rubble | Literature and system-architecture map | [Case study](case-studies/rubble-guided-movement.md) |
 | 3D vision | Sparse-camera room reconstruction | Literature map and feasibility conclusion | [Case study](case-studies/room-reconstruction.md) |

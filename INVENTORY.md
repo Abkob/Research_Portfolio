@@ -9,6 +9,7 @@ This public portfolio was assembled from local project repositories, reports, re
 - Research questions, architecture conclusions, and validation plans
 - Primary-source DOI or project links where useful
 - Aggregate technical facts already documented in project materials
+- An anonymized NeuroSense dashboard reconstruction and an original public case-study synthesis
 
 ## Not uploaded
 
@@ -18,6 +19,7 @@ This public portfolio was assembled from local project repositories, reports, re
 - Downloaded journal PDFs or extracted publisher figures
 - API keys, environment files, connection strings, or deployment secrets
 - Whole team reports or unpublished collaborator material
+- NeuroSense participant metadata, raw sensor data, internal meeting transcript, and illustrative metrics presented as clinical results
 - Generated build directories, package caches, model weights, and redundant archives
 
 ## Why
