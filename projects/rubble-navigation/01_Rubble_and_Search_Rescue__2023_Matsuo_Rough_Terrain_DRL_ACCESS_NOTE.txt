@@ -1,0 +1,7 @@
+﻿Autonomous Navigation of Rescue Robot on International Standard Rough Terrain by Using Deep Reinforcement Learning
+Hayato Matsuo, Noritaka Sato, Yoshifumi Morita (IEEE SSRR 2023)
+
+DOI: https://doi.org/10.1109/SSRR59696.2023.10499955
+Publisher: https://ieeexplore.ieee.org/document/10499955
+
+No legal open-access PDF was located. The publisher/DOI record is included instead of bypassing access controls.

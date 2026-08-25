@@ -1,0 +1,9 @@
+SAR Nets: An Evaluation of Semantic Segmentation Networks with Attention Mechanisms for Search and Rescue Scenes
+Andres Salas-Espinales, Ricardo Vazquez-Martin, Alfonso Garcia-Cerezo, Anthony Mandow (IEEE SSRR 2023)
+
+DOI: https://doi.org/10.1109/SSRR59696.2023.10499929
+Publisher: https://ieeexplore.ieee.org/document/10499929
+Public author-uploaded full text:
+https://www.researchgate.net/publication/380010149_SAR_Nets_An_Evaluation_of_Semantic_Segmentation_Networks_with_Attention_Mechanisms_for_Search_and_Rescue_Scenes
+
+The former University of Malaga repository record (handle 10630/28175) was withdrawn. The public author copy is readable and downloadable at the ResearchGate link above, but the host blocked automated file export during collection assembly, so this direct access note is included instead of a mislabeled or incomplete file.

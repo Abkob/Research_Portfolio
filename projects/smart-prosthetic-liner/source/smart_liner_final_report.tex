@@ -1,0 +1,374 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fix-cm}
+\usepackage[a4paper,top=22mm,bottom=22mm,left=22mm,right=22mm]{geometry}
+\usepackage{fontspec}
+% Prefer the AUB brand typeface when it is installed, with a portable TeX
+% fallback so the source does not depend on one contributor's local path.
+\IfFontExistsTF{Proxima Nova}{
+  \setmainfont[AutoFakeBold=2,AutoFakeSlant=0.2]{Proxima Nova}
+  \setsansfont[AutoFakeBold=2,AutoFakeSlant=0.2]{Proxima Nova}
+  \newfontface\rationaleheavy[FakeBold=2.5]{Proxima Nova}
+}{
+  \setmainfont{TeX Gyre Heros}
+  \setsansfont{TeX Gyre Heros}
+  \newfontface\rationaleheavy{TeX Gyre Heros Bold}
+}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[hidelinks]{hyperref}
+
+% AUB brand palette (Brand Identity Guidelines, 2024).
+\definecolor{AUBRed}{HTML}{840132}
+\definecolor{AUBBlack}{HTML}{000000}
+\definecolor{AUBGray}{HTML}{808080}
+\definecolor{AUBPale}{HTML}{F5ECEF}
+\definecolor{AUBLine}{HTML}{D9D9D9}
+\definecolor{AUBGreen}{HTML}{26613A}
+\definecolor{AUBYellow}{HTML}{EB9F00}
+\definecolor{AUBCoral}{HTML}{C85143}
+\definecolor{AUBBlue}{HTML}{005E99}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.28}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{AUBGray}BMEN502 \textbar{} Concept Exploration and Testing}
+\fancyhead[R]{\small\color{AUBRed}\bfseries SMART LINER}
+\fancyfoot[L]{\small\color{AUBGray}American University of Beirut}
+\fancyfoot[R]{\small\color{AUBGray}Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{AUBRed}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{22pt}
+
+\title{Smart Multimodal Flexible Prosthetic Liner for Real-Time Discomfort-Risk Monitoring}
+\author{}
+\date{}
+
+\newcommand{\sectiontitle}[1]{%
+  \vspace{0.4em}%
+  {\color{AUBRed}\Large\bfseries #1}\par
+  \vspace{0.25em}%
+  {\color{AUBBlack}\rule{\textwidth}{0.8pt}}\par
+  \vspace{0.45em}%
+}
+
+\newcommand{\focuslabel}[1]{%
+  \par\vspace{0.18em}{\fontsize{8}{9}\selectfont\bfseries\color{AUBRed}FOCUS: #1}%
+}
+
+\newcommand{\rationalepts}[1]{%
+  \begin{itemize}[
+    leftmargin=1.15em,
+    label=\textcolor{AUBRed}{\textbullet},
+    itemsep=0.12em,
+    topsep=0pt,
+    parsep=0pt,
+    partopsep=0pt]
+    #1
+  \end{itemize}%
+}
+
+\newcommand{\rationalelead}[1]{{\rationaleheavy #1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\newcommand{\qtwosubsection}[1]{%
+  \vspace{0.3em}%
+  {\fontsize{13}{15}\selectfont\bfseries\color{AUBRed}#1}\par
+  \vspace{0.16em}%
+  {\color{AUBLine}\rule{\textwidth}{0.55pt}}\par
+  \vspace{0.3em}%
+}
+
+\newcommand{\figureplaceholder}[3]{%
+  \begingroup
+  \setlength{\fboxsep}{0pt}%
+  \fcolorbox{AUBLine}{AUBPale}{%
+    \parbox[c][#1][c]{\dimexpr\linewidth-2\fboxrule\relax}{%
+      \centering
+      {\fontsize{8}{9}\selectfont\bfseries\color{AUBRed}FIGURE PLACEHOLDER}\par
+      \vspace{0.35em}
+      {\fontsize{10}{11.5}\selectfont\bfseries\color{AUBBlack}#2}\par
+      \vspace{0.3em}
+      {\fontsize{8.4}{9.8}\selectfont\color{AUBGray}#3}\par
+    }}%
+  \endgroup
+}
+
+% Used where the report defines the required structure of an evidence panel.
+% The wording identifies an output format without implying that project data
+% have already been collected.
+\newcommand{\plannedoutput}[3]{%
+  \begingroup
+  \setlength{\fboxsep}{0pt}%
+  \fcolorbox{AUBLine}{AUBPale}{%
+    \parbox[c][#1][c]{\dimexpr\linewidth-2\fboxrule\relax}{%
+      \centering
+      {\fontsize{8}{9}\selectfont\bfseries\color{AUBRed}EVIDENCE OUTPUT FORMAT}\par
+      \vspace{0.35em}
+      {\fontsize{10}{11.5}\selectfont\bfseries\color{AUBBlack}#2}\par
+      \vspace{0.3em}
+      {\fontsize{8.4}{9.8}\selectfont\color{AUBGray}#3}\par
+    }}%
+  \endgroup
+}
+
+\newcommand{\evidencebox}[2]{%
+  \noindent\colorbox{AUBPale}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \fontsize{9.3}{11}\selectfont
+      {\bfseries\color{AUBRed}#1}\quad #2}}%
+}
+
+% A compact provenance line used beneath project tables and schematics.  It
+% makes the boundary between published evidence and project-specific decisions
+% explicit without pretending that an original project table was reproduced
+% from a paper.
+\newcommand{\sourceanchor}[1]{%
+  \vspace{0.22em}\noindent
+  {\fontsize{7.7}{9}\selectfont\color{AUBGray}\raggedright%
+   \textbf{\color{AUBRed}Evidence anchor.} #1\par}}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% AUB-branded title page
+% -----------------------------------------------------------------------------
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+  \thispagestyle{empty}
+
+  % The AUB guide prioritizes the colored horizontal logo. At 30 mm high this
+  % follows the stated A4 stand-alone print size and retains generous clear space.
+  \begin{center}
+    \includegraphics[height=30mm]{assets/aub-logo-horizontal.png}
+  \end{center}
+
+  \vspace{18mm}
+  {\color{AUBRed}\rule{22mm}{1.4pt}}\par
+  \vspace{7mm}
+
+  {\fontsize{11}{13}\selectfont\bfseries\color{AUBGray}
+  BMEN502 \textbar{} SUMMER 2026 \textbar{} GROUP ASSIGNMENT}\par
+
+  \vspace{7mm}
+  {\fontsize{25}{29}\selectfont\bfseries\color{AUBBlack}
+  Smart Multimodal Flexible Prosthetic Liner\par}
+  \vspace{2mm}
+  {\fontsize{22}{26}\selectfont\bfseries\color{AUBRed}
+  for Real-Time Discomfort-Risk Monitoring\par}
+
+  \vspace{8mm}
+  {\large\color{AUBGray}
+  A scalable array of 5.2 mm silicone sensor slabs for spatial monitoring of
+  pressure, shear, temperature, and humidity.\par}
+
+  \vspace{13mm}
+  \begin{tikzpicture}
+    \shade[left color=AUBGreen,right color=AUBYellow]
+      (0,0) rectangle (5.2,0.24);
+    \shade[left color=AUBYellow,right color=AUBCoral]
+      (5.2,0) rectangle (10.4,0.24);
+    \shade[left color=AUBCoral,right color=AUBRed]
+      (10.4,0) rectangle (15.6,0.24);
+    \node[anchor=west,font=\scriptsize\bfseries,text=AUBGray] at (0,-0.42)
+      {LOWER INTERFACE RISK};
+    \node[anchor=east,font=\scriptsize\bfseries,text=AUBGray] at (15.6,-0.42)
+      {HIGHER INTERFACE RISK};
+  \end{tikzpicture}
+
+  \vfill
+  {\color{AUBRed}\rule{\textwidth}{0.8pt}}\par
+  \vspace{4mm}
+  \begin{minipage}[t]{0.49\textwidth}
+    \small\color{AUBGray}
+    \textbf{Course}\par
+    BMEN502 - Concept Exploration and Testing
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.46\textwidth}
+    \raggedleft\small\color{AUBGray}
+    \textbf{Academic Year}\par
+    2026-2027\par
+    \textbf{Instructor}\par
+    Dr. Khraiche
+  \end{minipage}
+
+  \vspace{7mm}
+  {\small\bfseries\color{AUBRed}QUESTIONS 1--4 \textbar{} PROTOTYPE STRATEGY, VALIDATION, AND REQUIREMENTS}
+\end{titlepage}
+\hypersetup{pageanchor=true}
+\setcounter{page}{1}
+\newgeometry{top=12mm,bottom=12mm,left=12mm,right=12mm,
+             headheight=22pt,headsep=4mm,footskip=8mm}
+
+% -----------------------------------------------------------------------------
+% Question 1
+% -----------------------------------------------------------------------------
+\sectiontitle{Q1. Questions to Be Addressed Through Prototyping}
+
+{\fontsize{10}{11.8}\selectfont
+The system under development is a flexible, multimodal prosthetic liner formed
+from multiple 5.2 mm silicone sensor slabs. Each slab combines sensing elements
+for pressure, shear, temperature, and humidity. The following questions were
+selected because their answers would reduce the most consequential technical,
+clinical-use, integration, and manufacturing risks before development proceeds
+to a complete wearable liner.\par}
+
+\vspace{0.1em}
+
+\begingroup
+\fontsize{9.6}{10.9}\selectfont
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{longtable}{>{\centering\arraybackslash\bfseries\color{AUBRed}}p{0.55cm}
+                  >{\raggedright\arraybackslash}p{9.3cm}
+                  >{\raggedright\arraybackslash}p{7.55cm}}
+\rowcolor{AUBRed}
+{\color{white}\textbf{No.}} &
+{\color{white}\textbf{Prototype question}} &
+{\color{white}\textbf{Rationale for selection}} \\
+\endfirsthead
+
+\rowcolor{AUBRed}
+{\color{white}\textbf{No.}} &
+{\color{white}\textbf{Prototype question}} &
+{\color{white}\textbf{Rationale for selection}} \\
+\endhead
+
+\rowcolor{AUBPale}
+\hypertarget{q1-question-1}{1} &
+\textbf{Can pressure, shear, temperature, and humidity sensors be successfully
+integrated into the 5.2 mm silicone slab while producing stable and
+interpretable signals?}
+\focuslabel{Overall technical feasibility} &
+\rationalepts{%
+  \item \rationalelead{Integration and signal quality:} Confirms that all four sensor types can coexist within the 5.2 mm slab, while checking sensitivity, signal separation, and stability after integration.
+  \item \rationalelead{Decision:} Determines whether the overall concept is technically feasible.
+} \\
+
+\hypertarget{q1-question-2}{2} &
+\textbf{Can the humidity sensors detect moisture changes through a protective
+layer without being damaged or saturated by liquid sweat?}
+\focuslabel{Environmental protection and vapour access} &
+\rationalepts{%
+  \item \rationalelead{Vapour access and protection:} Verifies water-vapour access through the protective layer while testing resistance to sweat saturation, leakage, and permanent damage.
+  \item \rationalelead{Stability:} Measures drift and recovery after moisture exposure.
+} \\
+
+\rowcolor{AUBPale}
+\hypertarget{q1-question-3}{3} &
+\textbf{Can the integrated slab detect controlled conditions representing
+slipping, perspiration, thermal buildup, and potentially harmful localized
+loading?}
+\focuslabel{Bench and simulated-use detection} &
+\rationalepts{%
+  \item \rationalelead{Response and detection:} Links each controlled condition to its expected sensor response and tests spatial and temporal detection of slip, moisture, heat, and loading.
+  \item \rationalelead{Evidence:} Builds bench evidence before human-subject testing.
+} \\
+
+\hypertarget{q1-question-4}{4} &
+\textbf{Can the prototype be manufactured using the available materials and
+equipment at a reasonable and scalable cost?}
+\focuslabel{Manufacturability and cost} &
+\rationalepts{%
+  \item \rationalelead{Constraints and production:} Identifies material, equipment, alignment, and assembly constraints while estimating fabrication cost, labour, and repeatability.
+  \item \rationalelead{Scalability:} Determines whether production can scale to a complete liner.
+} \\
+
+\rowcolor{AUBPale}
+\hypertarget{q1-question-5}{5} &
+\textbf{Can the software accurately combine pressure, shear, temperature, and
+humidity signals from multiple 5.2 mm sensor slabs, assign each measurement to
+its correct liner coordinates, and generate an interpretable real-time heatmap
+of interface-condition or discomfort-risk hotspots?}
+\focuslabel{Signal fusion, coordinate mapping, and visualization} &
+\rationalepts{%
+  \item \rationalelead{Spatial accuracy:} Verifies sensor-to-coordinate mapping and hotspot localization.
+  \item \rationalelead{Fusion and performance:} Tests normalization and fusion across four sensing modes and multiple slabs, while assessing real-time speed and stability without hiding sensor disagreement.
+} \\
+
+\hypertarget{q1-question-6}{6} &
+\textbf{Are the current number and locations of the sensors sufficient to
+detect localized pressure, shear, temperature, and moisture hotspots throughout
+the monitored liner area?}
+\focuslabel{Sensor density and spatial coverage} &
+\rationalepts{%
+  \item \rationalelead{Localization and coverage:} Compares known stimulus positions with reconstructed hotspots, revealing coverage gaps, spatial blur, and location errors.
+  \item \rationalelead{Design decision:} Guides the final sensor count and placement.
+} \\
+
+\rowcolor{AUBPale}
+\hypertarget{q1-question-7}{7} &
+\textbf{How much calibration drift occurs after prolonged exposure to body
+temperature, humidity, repeated compression, shear, and bending?}
+\focuslabel{Durability and measurement stability} &
+\rationalepts{%
+  \item \rationalelead{Drift under stress:} Quantifies changes in baseline, sensitivity, hysteresis, and repeatability while evaluating body heat, humidity, compression, shear, and bending.
+  \item \rationalelead{Maintenance decision:} Establishes stability limits and recalibration needs.
+} \\
+
+\bottomrule
+\end{longtable}
+\endgroup
+
+\sourceanchor{Progress-report question set. Its measurement boundaries are
+anchored to published prosthetic-interface sensing and review evidence
+\cite{paterno2020,q3kwak2020,q3armitage2026}; the wording is not copied from
+those sources. Use \emph{interface-condition heatmap} until the displayed score
+is validated against user-reported discomfort or clinically justified limits.}
+
+\vspace{0.15em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.8mm]
+  \tikzstyle{qflow}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=6mm,text width=30mm,align=center,
+    font=\fontsize{7.1}{8}\selectfont]
+  \node[qflow] (a) {integrate four\\sensor modes};
+  \node[qflow,right=of a] (b) {apply known\\bench conditions};
+  \node[qflow,right=of b] (c) {recover modality\\and coordinate};
+  \node[qflow,right=of c] (d) {verify drift,\\coverage, and cost};
+  \draw[->,color=AUBRed,thick] (a)--(b);
+  \draw[->,color=AUBRed,thick] (b)--(c);
+  \draw[->,color=AUBRed,thick] (c)--(d);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.6}{8.8}\selectfont\color{AUBGray}
+\textbf{Figure Q1-1. Prototype evidence chain.} Each question removes a defined
+technical risk before subsequent participant-specific or clinical interpretation.\par}
+
+\clearpage
+
+% -----------------------------------------------------------------------------
+% Question 2
+% -----------------------------------------------------------------------------
+\input{q2_revised.tex}
+\input{q3_controlled_conditions.tex}
+\input{q4_design_requirements.tex}
+\input{q5_bench_testing.tex}
+\input{q6_individual_abdulrahman.tex}
+\input{q6_individual_hawraa.tex}
+\input{q6_individual_amir.tex}
+\input{report_references.tex}
+
+\end{document}

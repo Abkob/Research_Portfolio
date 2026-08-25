@@ -41,3 +41,6 @@ If only fixed cameras are available, they need overlapping views, reliable calib
 ## Source boundary
 
 The local archive contains a 13-paper reading order and integrity checksums. This public case study links the conclusion and method families without republishing those PDFs.
+
+- [Archive reading guide](READING_GUIDE.md)
+- [Source-archive SHA-256 checksums](SOURCE_ARCHIVE_SHA256SUMS.txt)

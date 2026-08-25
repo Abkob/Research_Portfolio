@@ -1,0 +1,51 @@
+% -----------------------------------------------------------------------------
+% Q6 -- individual assignment: Amir
+% Source: Amir Assignment - Prosthesis Project.docx
+% Wording, image, caption, and references are preserved.
+% -----------------------------------------------------------------------------
+
+\clearpage
+\hypertarget{q6-amir}{}
+\sectiontitle{Q6. Individual Assignment -- Amir}
+\qtwosubsection{Smart Pediatric Prosthetic Liner: Individual Design Reflection}
+
+\subsubsection*{1. Three state-of-the-art technologies I'd put next to our design:}
+
+\textbf{Rogers group's skin-interfaced sensor system (Kwak et al., 2020, Science Translational Medicine).} This one is already sitting in our own reference list; it's basically the closest thing to a direct ancestor of what we're proposing. It's a soft, wireless sensor that reads pressure and temperature right at the skin-prosthesis interface, tested on both prosthesis simulators and two real amputee patients. What it doesn't do is sheer or humidity, and it isn't built specifically for kids or for growth, which is exactly the gap we're trying to fill. Reading it made me feel better about our sensor choices, honestly, because it validates that pressure + temperature at the interface is a proven, publishable signal.
+
+\textbf{The motorized, sensor-driven transfemoral socket (Paternò et al., 2025, Advanced Intelligent Systems).} This one uses a sensorized liner basically like ours, but instead of just reporting pressure to a phone, it closes the loop. A cable-driven motor tightens or loosens the socket in real time based on what the sensors read, in open or closed-loop mode. Our design stops at telling the caregiver something is wrong; this one fixes it on the spot. It's a good reminder that “smart liner” can mean either “sensing” or “sensing + acting,” and we picked the more conservative half for good reason given the pediatric population, but it's worth naming that we made that choice.
+
+\textbf{SurroSense Rx smart insole (Orpyx Medical Technologies).} This one isn't even a prosthetic — it's an FDA-cleared insole for people with diabetic neuropathy, with eight pressure sensors that wirelessly ping a smartwatch when pressure at a given spot has been too high for too long. I included it on purpose because it's the part of our pipeline that's already proven at commercial, market scale: continuous pressure sensing plus a simple alert to change behavior. A randomized trial (Abbott et al., 2019) showed it cut ulcer recurrence in half. It tells me the caregiver-alert side of our system is the least risky part of the whole proposal. The hard, unproven part is squeezing 4 sensor modalities into something soft enough and small enough for a child's limb.
+
+\subsubsection*{2. Challenges still facing our design:}
+
+\textbf{Growth is the whole problem and we've only half-solved it.} We made the ESP32 pod detachable so the electronics can move to a new liner as the kid grows, which is smart, but the liner itself, the sensor-embedded part, still has to be refabricated from scratch every time a socket is resized. For a population that might need a new socket every few months, that's a real cost and turnaround problem we haven't solved, just relocated.
+
+\textbf{Delamination and drift under real use, not bench use.} The 100,000-cycle and 20-wash numbers sound solid, but a kid running around Beirut or a refugee camp in Gaza is not the same load profile as the ones in the lab. Sweat, heat, sand, and the fact that kids do not baby their equipment are all variables the bench test can't fully capture.
+
+\textbf{Power and connectivity assumptions may not hold in the field.} 72 hours of battery and a 3-meter BLE range are fine in a clinic. In a low-resource setting where a family might not have a smartphone charged every day, or where the caregiver app needs a data connection to sync to the cloud dashboard, the weakest link in the whole “real-time remote monitoring” pitch might be infrastructure, not our engineering.
+
+\subsubsection*{3. Expertise we were missing:}
+
+\textbf{Nobody has prosthetic-specific biomechanics training.} General mechanical engineering gets you stress analysis, materials selection, structural design, but it doesn't teach you how a residual limb's volume actually shrinks over the course of a day under load, where pressure typically concentrates around bony prominences and the distal end, or what pressure-and-time combination is actually considered dangerous versus just uncomfortable. This is a subfield inside biomechanics, and none of us, including me with my mechanical background, had formal exposure to it. It mattered because sensor placement and threshold logic are only as good as the anatomy assumptions behind them, if we guessed wrong about where pressure concentrates, we could end up monitoring the wrong spots precisely.
+
+\textbf{Nobody has regulatory or medical-device standards knowledge.} Even before clinical trials, the biocompatibility testing protocol you'd eventually need (ISO 10993), the risk-management framework medical devices are expected to follow (ISO 14971), and general design-control documentation are things that should shape early decisions, how you validate a sensor, what you log and why, not bolted on right before you submit for approval. None of the three majors on the team, mechanical, chemistry, or CSE, covers regulatory affairs, and it showed: we made early material and documentation choices by checking “does this seem safe” rather than against any actual standard.
+
+\textbf{For how we dealt with it:} on the biomechanics side we substituted literature for people, leaning on published pressure/time thresholds like the ones Orpyx and Kwak et al. (2020) report, and treating those numbers as our best available proxy for real clinical judgment about where and how much pressure matters. On the regulatory side we didn't really close the gap, we just flagged it, Hawraa (chemistry major) cross-checked our silicone choices against biocompatibility grades used in other published prosthetic-sensor work as a rough check, but a real ISO 10993 test plan and a proper risk file are work for a better-resourced phase of this project.
+
+\subsubsection*{4. My vision for the final product}
+
+What I want this project to become is a field-serviceable liner kit rather than a single fixed device. Concretely: a small family of liner sizes with the sensor layer standardized enough that a clinic in Beirut or a field hospital in Gaza can swap in a new size without shipping a whole new device from a lab. The ESP32 pod stays the expensive, reusable brain that migrates from liner to liner as the kid grows, exactly like how we already plan. I want the same modularity pushed into the liner itself, maybe through a standardized sensor-and-connector interface instead of one continuously co-cured unit.
+
+On the software side, I want the “comfort map” to eventually get boring in the best way. Not a dashboard clinicians have to remember to check, but something that only pings anyone when a threshold is actually crossed, the way SurroSense does. Longer term, I would like the system to start learning each kid's normal baseline instead of using one fixed pressure/temperature cutoff for every child, since a 6-year-old and a 14-year-old are not going to look the same on these sensors even in a socket that fits well. None of that needs to be in the first grant cycle, but it's the direction I think “adaptive” should point toward.
+
+\subsubsection*{Schematic}
+
+Below is my own diagram of how data actually moves through the system. Sensor layer, to the ESP32 pod, to the caregiver's phone, up to the clinical dashboard, with the feedback loop running back down when someone needs to act on it, plus the liner cross-section showing where each of the four sensor types sits.
+
+\begin{center}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.48\textheight,keepaspectratio]{assets/q6_amir/amir_data_flow_and_liner_cross_section.png}
+  \par\vspace{0.35em}
+  {\fontsize{8.2}{9.5}\selectfont\textbf{Figure 1.} Data flow from the sensorized liner through the ESP32 pod, caregiver app, and clinical dashboard, with the alert/adjustment feedback loop shown in orange; inset shows the three-layer liner cross-section with the four sensor modalities in the middle sensing layer.\par}
+\end{center}

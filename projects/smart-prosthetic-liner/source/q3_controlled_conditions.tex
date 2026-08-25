@@ -1,0 +1,1335 @@
+% =============================================================================
+% Question 3 - controlled-condition detection
+% =============================================================================
+\clearpage
+\hypertarget{q3-functional-blocks}{}
+\sectiontitle{Q3A. Selection of the Critical Functional Blocks}
+
+\evidencebox{Concept-exploration question:}{\textbf{Can the integrated slab
+detect controlled conditions representing slipping, perspiration, thermal
+buildup, and potentially harmful localized loading?}}
+
+{\fontsize{9.35}{11.05}\selectfont
+A functional block was retained when it (1) transforms a physical input into a
+distinct and testable output, (2) contains uncertainty that is not resolved by
+the literature for this directly printed 5.2 mm PDMS slab, (3) can fail
+independently of the other blocks, and (4) would invalidate a downstream claim
+if it failed. This method keeps the decomposition tied to technical feasibility
+rather than to arbitrary component names. Published solutions are leveraged
+where they already establish a mechanism; project-specific proof is reserved
+for transfer to the present geometry, material stack, fabrication process, and
+coordinate system \cite{albrecht2019,liew2020,aitmammar2020,q3kwak2020}.\par}
+
+\vspace{0.45em}
+\begingroup
+\fontsize{7.8}{9.15}\selectfont
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash\bfseries\color{AUBRed}}p{0.72cm}
+                            >{\raggedright\arraybackslash\bfseries}p{3.25cm}
+                            Y
+                            >{\raggedright\arraybackslash}p{4.45cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Functional block} &
+\color{white}\textbf{Why it is isolated} &
+\color{white}\textbf{First technical-feasibility question} \\
+FB1 & Interface mechanics and contact transfer & Every sensor depends on how
+the compliant slab transfers concentrated and distributed loading. & Does the
+5.2 mm PDMS geometry preserve a usable local response without unacceptable
+spatial spreading or mechanical cross-coupling? \\
+\rowcolor{AUBPale}
+FB2 & Normal-pressure and directional-shear transduction & Force magnitude and
+direction arise from the same deformable interface but require separable
+outputs \cite{albrecht2019}. & Can normal and two-axis tangential loading be
+recovered over the selected range after integration? \\
+FB3 & Temperature transduction & Printed silver resistance is temperature
+sensitive, but bending, strain, encapsulation, and thermal mass can alter the
+response \cite{liew2020,q3kwak2020}. & Does the embedded element measure local
+temperature with adequate accuracy, response, and recovery? \\
+\rowcolor{AUBPale}
+FB4 & Vapour humidity and liquid-sweat interface & Vapour access is required,
+whereas direct liquid exposure can saturate or damage the sensing route
+\cite{aitmammar2020,paterno2020}. & Can RH change and liquid exposure be
+distinguished while the protected route remains recoverable? \\
+FB5 & Printed-PDMS circuit integrity and encapsulation & Wetting, swelling,
+adhesion, cracking, leakage, and cyclic strain are material/process risks
+\cite{albrecht2018stretch,sun2016}. & Do the printed conductors and insulation
+remain continuous and stable after environmental and mechanical exposure? \\
+\rowcolor{AUBPale}
+FB6 & Signal conditioning, calibration, and synchronization & Multimodal
+channels require independent calibration and a common time base before their
+outputs can be compared \cite{q3tang2022,q3kwak2020}. & Can raw channels be
+converted into traceable physical units without timing or cross-talk errors? \\
+FB7 & Slip and relative-motion discrimination & Shear is a force condition;
+slip is relative motion and therefore needs an independent displacement
+reference \cite{noll2018,q3tang2022}. & Can true translation be distinguished
+from high shear without motion? \\
+\rowcolor{AUBPale}
+FB8 & Coordinate registration and multimodal interpretation & Measurements
+become useful only when mapped to the correct slab location while retaining
+modality-specific evidence \cite{q3turner2021}. & Can event type and location
+be recovered without misleading interpolation or averaging? \\
+\end{tabularx}
+\endgroup
+
+\sourceanchor{Functional blocks selected from the concept's physical signal
+path and from unresolved transfer risks identified in the sensor, prosthetic
+interface, and printed-PDMS literature
+\cite{albrecht2019,liew2020,aitmammar2020,albrecht2018stretch,
+q3tang2022,noll2018,q3turner2021}.}
+
+\vspace{0.55em}
+\evidencebox{Selection result:}{Eight blocks are retained, exceeding the six
+required by the assignment. FB1--FB6 establish whether the slab can produce
+traceable measurements; FB7--FB8 establish whether those measurements support
+the stated condition and coordinate. A failure in an upstream block is not
+averaged into a downstream software score.}
+
+\clearpage
+\sectiontitle{Q3B. Definition and Boundaries of the Functional Blocks}
+
+{\fontsize{9.35}{11.05}\selectfont
+Each block below has an explicit input, transformation, and output and is tied
+to the engineering discipline that governs its dominant uncertainty. The
+boundaries prevent one successful subsystem from being used as evidence for a
+different subsystem. The validation fixtures and reference instruments are
+not product blocks; they are the independent means used later to examine the
+eight product blocks.\par}
+
+\vspace{0.45em}
+\begingroup
+\fontsize{7.75}{9.1}\selectfont
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.75cm}
+                            >{\raggedright\arraybackslash}p{5.55cm}
+                            >{\raggedright\arraybackslash}p{3.15cm}Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Block} &
+\color{white}\textbf{Input $\rightarrow$ transformation $\rightarrow$ output} &
+\color{white}\textbf{Dominant discipline} &
+\color{white}\textbf{Boundary of responsibility} \\
+FB1: interface transfer & Contact force, heat, and moisture $\rightarrow$ PDMS
+deformation/diffusion $\rightarrow$ condition delivered at an active region. &
+Mechanical engineering; transport phenomena. & Ends at the local stimulus
+reaching the sensor plane; it does not include electrical conversion. \\
+\rowcolor{AUBPale}
+FB2: pressure/shear & Normal and tangential stress $\rightarrow$ four-capacitor
+geometry $\rightarrow$ calibrated $F_z,F_x,F_y$ or stresses. & Mechanical and
+electrical engineering. & Includes axis separation and mechanical cross-talk;
+excludes deciding whether motion occurred. \\
+FB3: temperature & Local heat flux/temperature $\rightarrow$ resistance change
+$\rightarrow$ calibrated temperature trace. & Thermal and electrical
+engineering. & Includes thermal lag and strain sensitivity; excludes clinical
+interpretation of temperature. \\
+\rowcolor{AUBPale}
+FB4: humidity/sweat route & Water vapour or liquid exposure $\rightarrow$
+protected dielectric response $\rightarrow$ RH-related signal plus liquid-state
+flag. & Materials science; electrical engineering. & Includes vapour access,
+saturation, drying, and protection; RH is not treated as sweat rate. \\
+FB5: printed hardware & Printing, curing, bending, wetting, and cycling
+$\rightarrow$ conductor/insulator state $\rightarrow$ continuity, leakage,
+adhesion, and baseline stability. & Materials science; manufacturing. & Covers
+the physical circuit stack, not sensor calibration or software compensation. \\
+\rowcolor{AUBPale}
+FB6: measurement chain & Raw capacitance/resistance and timestamps $\rightarrow$
+conditioning, calibration, filtering, and synchronization $\rightarrow$
+physical-unit channels with quality flags. & Electrical, instrumentation, and
+data engineering. & Ends before event classification; retains raw data and
+calibration provenance. \\
+FB7: slip discrimination & Synchronized pressure/shear patterns plus an
+independent displacement reference $\rightarrow$ event comparison
+$\rightarrow$ slip/no-slip, direction, and onset error. & Mechatronics and
+signal processing. & Requires motion evidence; high shear alone remains a
+force event. \\
+\rowcolor{AUBPale}
+FB8: spatial interpretation & Calibrated channels plus CAD coordinates
+$\rightarrow$ registration/localization $\rightarrow$ modality-specific event
+location and bounded interface-condition display. & Computer science/software
+engineering. & Includes coverage and confidence; excludes a validated clinical
+discomfort or injury score. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.55em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=4mm]
+  \tikzstyle{fbbox}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=10mm,text width=32mm,align=center,
+    font=\fontsize{7}{8}\selectfont]
+  \node[fbbox] (input) {controlled interface\\condition};
+  \node[fbbox,right=of input] (physical) {FB1--FB5\\physical transfer\\and sensors};
+  \node[fbbox,right=of physical] (chain) {FB6\\traceable\\measurement chain};
+  \node[fbbox,right=of chain] (meaning) {FB7--FB8\\event and coordinate};
+  \draw[->,thick,color=AUBRed] (input)--(physical);
+  \draw[->,thick,color=AUBRed] (physical)--(chain);
+  \draw[->,thick,color=AUBRed] (chain)--(meaning);
+  \draw[->,thick,dashed,color=AUBGray]
+    ([yshift=-4mm]meaning.south west) to[bend left=20]
+    node[below,font=\fontsize{6.8}{7.8}\selectfont]{independent reference closes the validation loop}
+    ([yshift=-4mm]input.south east);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.55}{8.75}\selectfont\color{AUBGray}
+\textbf{Figure Q3-0A. Functional-block signal path.} Physical transduction,
+measurement conversion, and interpretation remain separate claim layers. The
+external reference evaluates the chain but is not itself part of the product.\par}
+
+\clearpage
+\sectiontitle{Q3C. Literature Evidence and Project-Specific Proof}
+
+{\fontsize{9.25}{10.95}\selectfont
+The literature establishes that the individual sensing and interpretation
+mechanisms are plausible, but no reviewed study implements this exact set of
+directly printed sensors in the present 5.2 mm slab. The matrix therefore
+separates \textbf{knowledge that can be leveraged} from the limited set of
+\textbf{project-specific relationships that must be established}. The detailed
+literature plots, fixtures, equations, protocols, and decision metrics in the
+remainder of Q3 provide the evidence route for these relationships.\par}
+
+\vspace{0.4em}
+\begingroup
+\fontsize{7.55}{8.9}\selectfont
+\setlength{\tabcolsep}{2.35pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.5cm}
+                            >{\raggedright\arraybackslash}p{6.15cm}Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Functional block} &
+\color{white}\textbf{Known and leveraged from prior work} &
+\color{white}\textbf{Relationship established for this prototype} \\
+FB1: interface transfer & Prosthetic-interface loading is cyclic,
+multidirectional, location-dependent, and sensitive to contact geometry; PDMS
+also introduces viscoelastic recovery \cite{q3sanders1992,q3tang2022,
+albrecht2019}. & Transfer from a known contact area and coordinate through the
+5.2 mm slab, including spatial spread, recovery, and coupling between adjacent
+regions. \\
+\rowcolor{AUBPale}
+FB2: pressure/shear & A four-capacitor printed cell can separate common-mode
+normal loading from directional shear over a demonstrated force range, while
+also exhibiting priming, drift, and hysteresis \cite{albrecht2019}. & The
+specimen-specific sensitivity matrix, usable range, axis error, hysteresis, and
+cross-sensitivity after printing and integration. \\
+FB3: temperature & Printed silver meanders show an approximately linear
+resistance--temperature relationship, and soft prosthetic sensors can track
+skin-interface temperature \cite{liew2020,q3kwak2020}. & Calibration near the
+skin-relevant range, thermal response/recovery, spatial leakage, and separation
+of temperature from force- and strain-induced resistance changes. \\
+\rowcolor{AUBPale}
+FB4: humidity/sweat route & Printed capacitive RH sensors respond to vapour;
+prosthetic-liner RH can continue rising after temperature begins to recover
+\cite{aitmammar2020,paterno2020}. & Vapour response through the selected
+protection, liquid-sweat saturation and drying behaviour, temperature coupling,
+and post-exposure drift or damage. \\
+FB5: printed hardware & Oxygen-plasma treatment enables AgNP printing on PDMS;
+solvent absorption can swell PDMS, and partially embedded conductors improve
+mechanical retention \cite{albrecht2018stretch,sun2016}. & Continuity,
+insulation, adhesion, resistance, cracking, and calibration stability for the
+actual ink--printer--PDMS process under bending, heat, moisture, and cycling. \\
+\rowcolor{AUBPale}
+FB6: measurement chain & Published systems synchronize stress with motion and
+multiple skin-interface modalities while retaining independent signals
+\cite{q3tang2022,q3kwak2020}. & Channel calibration, common-clock accuracy,
+sampling and packet-loss behaviour, filtering delay, and traceability from raw
+channel to physical unit. \\
+FB7: slip discrimination & Relative limb--socket motion can be measured against
+an independent displacement reference, and stress and motion are related but
+not interchangeable \cite{noll2018,q3tang2022}. & Separation of translated
+contact from high-shear/no-motion trials, including direction, onset time,
+preload dependence, and forward/reverse consistency. \\
+\rowcolor{AUBPale}
+FB8: spatial interpretation & Socket pressure data can be registered to sensor
+coordinates and displayed using several interpolation methods
+\cite{q3turner2021}. & Correct sensor-to-CAD mapping, localization error at
+sensor centres and gaps, validated coverage, combined-event separation, and a
+display that preserves disagreement between modalities. \\
+\end{tabularx}
+\endgroup
+
+\sourceanchor{Known mechanisms and transferable solutions are drawn from the
+printed-sensor, prosthetic-interface, multimodal monitoring, relative-motion,
+and spatial-visualization literature. Only the right-hand column is specific to
+the present prototype \cite{albrecht2019,liew2020,aitmammar2020,
+albrecht2018stretch,sun2016,q3kwak2020,noll2018,q3turner2021}.}
+
+\vspace{0.55em}
+\evidencebox{Risk-order consequence:}{FB1--FB6 are examined before FB7--FB8.
+This follows the assignment's feasibility logic: an event classifier or smooth
+map cannot rescue inaccurate transduction, damaged conductors, unsynchronized
+channels, or an unprotected humidity route.}
+
+\clearpage
+\sectiontitle{Q3C. Operational Definitions and Claim Boundary}
+
+{\fontsize{9.55}{11.3}\selectfont
+Q3 is a \textbf{bench-validation question}. A known physical condition is
+applied at a known time and coordinate, and the integrated 5.2 mm PDMS slab is
+evaluated for the correct sensing modality, direction where applicable,
+location, magnitude, and duration. This stage addresses bench performance;
+participant discomfort and skin-injury thresholds belong to a subsequent
+clinical-validation stage. Accordingly, the admissible claim is detection of
+\emph{simulated interface-condition events}; a clinical discomfort-risk claim
+requires comparison with user-reported discomfort, skin observations, and
+anatomically justified thresholds \cite{q3armitage2026}.\par}
+
+\hypertarget{q3-operational-definitions}{}
+\qtwosubsection{3.1 Operational meaning of each condition}
+
+\begingroup
+\fontsize{8.55}{10.05}\selectfont
+\setlength{\tabcolsep}{3.2pt}
+\renewcommand{\arraystretch}{1.14}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.6cm}
+                            >{\raggedright\arraybackslash}p{4.0cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Reported condition} &
+\color{white}\textbf{Controlled ground truth} &
+\color{white}\textbf{Required evidence from the slab} &
+\color{white}\textbf{Evidence boundary at this stage} \\
+Localized loading & Known normal force, contact area, coordinate, and loading
+time. & Pressure channel responds at the correct coordinate; magnitude follows
+calibration; neighbouring and non-pressure channels remain bounded. & The load
+is painful, unsafe, or tissue-damaging. \\
+\rowcolor{AUBPale}
+Directional shear & Known tangential force in $+x,-x,+y,-y$ under a documented
+normal preload. & Correct shear direction and magnitude are recovered without
+being confused with normal compression. & A shear peak by itself proves that
+the liner slipped. \\
+Slipping or pistoning & Known relative translation measured independently by a
+stage, displacement gauge, encoder, or video reference. & A time-linked change
+in shear, pressure distribution, or detected coordinate agrees with the
+reference displacement. & Slip is inferred from one high shear reading without
+independent motion evidence. \\
+\rowcolor{AUBPale}
+Thermal buildup & Known temperature step, ramp, or sustained heated contact at
+a known coordinate. & Temperature follows the reference with measured error,
+response time, recovery time, and limited mechanical cross-sensitivity. & The
+temperature constitutes a clinical burn or injury threshold. \\
+Perspiration-related condition & Vapour exposure expressed as relative humidity
+(RH), tested separately from a known liquid artificial-sweat dose. & The
+humidity channel detects vapour; liquid exposure, saturation, drying, recovery,
+and permanent drift are separately reported. & RH is treated as sweat rate, or
+liquid presence is assumed from RH alone. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Operational definitions used for the current validation, anchored to published
+prosthetic-interface pressure, shear, temperature, and microclimate evidence
+\cite{q3sanders1992,q3tang2022,paterno2020,q3kwak2020}.}
+
+\vspace{0.2em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=3mm]
+  \tikzstyle{opbox}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=7mm,text width=34mm,align=center,
+    font=\fontsize{7}{8}\selectfont]
+  \node[opbox] (g) {independent\\ground truth};
+  \node[opbox,right=of g] (s) {slab modality\\and coordinate};
+  \node[opbox,right=of s] (c) {reference\\comparison};
+  \node[opbox,right=of c] (b) {bounded engineering\\claim};
+  \draw[->,thick,color=AUBRed] (g)--(s);
+  \draw[->,thick,color=AUBRed] (s)--(c);
+  \draw[->,thick,color=AUBRed] (c)--(b);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q3-0. Claim-control chain.} The sensor output cannot label its
+own test; every event requires an external reference and a limited claim.\par}
+
+\vspace{0.55em}
+\evidencebox{Central distinction:}{\textbf{Shear is a force condition; slip is a
+motion condition.} Slip can generate shear, but slip detection requires a
+displacement ground truth. Likewise, humidity describes water vapour, whereas
+perspiration can also produce liquid sweat. These conditions are therefore
+labelled and tested separately.}
+
+\clearpage
+\sectiontitle{Q3C. Quantitative Literature Evidence}
+
+\hypertarget{q3-mechanical-evidence}{}
+\qtwosubsection{3.2 Mechanical loading and motion}
+
+{\fontsize{9.55}{11.3}\selectfont
+Simultaneous pressure and shear measurement is necessary because interface
+loading is multidirectional. Sanders \textit{et al.} measured resultant shear
+of 5.6--39.0 kPa at the tibial flares and 5.0--40.7 kPa posteriorly during
+walking; the waveforms were commonly double-peaked, with peaks occurring at
+25--40\% and 65--85\% of stance \cite{q3sanders1992}. Tang \textit{et al.}
+combined multidirectional stress sensing with three-dimensional motion capture
+and reported posterior-proximal peak pressure of 55--59 kPa and shear of
+12--19 kPa across nine sessions over 12 months in one transfemoral participant
+\cite{q3tang2022}. Figure Q3-1 summarizes these reported ranges. They are
+\textbf{context values, not universal pass/fail thresholds}.\par}
+
+\begin{minipage}[t]{0.55\textwidth}
+  \vspace{0pt}
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+    width=0.90\linewidth,
+    height=63mm,
+    xmin=0,xmax=65,
+    xlabel={Reported interface stress (kPa)},
+    ytick={1,2,3,4},
+    yticklabels={Tang $p$,Tang $\tau$,Sanders tibial $\tau$,Sanders posterior $\tau$},
+    y dir=reverse,
+    tick label style={font=\fontsize{7.6}{8.6}\selectfont},
+    label style={font=\fontsize{8.2}{9.2}\selectfont},
+    xmajorgrids,
+    grid style={AUBLine},
+    axis line style={AUBGray},
+    every axis plot/.append style={thick}]
+    \addplot[only marks,mark=*,mark size=2.4pt,color=AUBRed,
+      error bars/.cd,x dir=both,x explicit]
+      coordinates {
+        (57,1) +- (2,0)
+        (15.5,2) +- (3.5,0)
+        (22.3,3) +- (16.7,0)
+        (22.85,4) +- (17.85,0)
+      };
+  \end{axis}
+  \end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+  \vspace{0pt}
+  \centering
+  {\fontsize{8.4}{9.7}\selectfont\bfseries\color{AUBRed}
+  Reported shear-peak timing during stance}\par
+  \vspace{1.0em}
+  \begin{tikzpicture}[x=0.075\linewidth,y=1cm]
+    \draw[->,color=AUBGray] (0,0) -- (10.35,0);
+    \foreach \x/\lab in {0/0,2.5/25,4/40,6.5/65,8.5/85,10/100}{
+      \draw[color=AUBGray] (\x,0.08)--(\x,-0.08)
+        node[below,font=\fontsize{7}{8}\selectfont] {\lab};}
+    \fill[AUBPale] (2.5,0.18) rectangle (4,0.82);
+    \draw[AUBRed,thick] (2.5,0.18) rectangle (4,0.82);
+    \fill[AUBPale] (6.5,0.18) rectangle (8.5,0.82);
+    \draw[AUBRed,thick] (6.5,0.18) rectangle (8.5,0.82);
+    \node[font=\fontsize{7.3}{8.3}\selectfont] at (3.25,0.5) {Peak 1};
+    \node[font=\fontsize{7.3}{8.3}\selectfont] at (7.5,0.5) {Peak 2};
+    \node[below,font=\fontsize{7.3}{8.4}\selectfont] at (5,-0.55)
+      {Stance phase (\%)};
+  \end{tikzpicture}
+  \vspace{1.1em}
+
+  {\fontsize{8.2}{9.7}\selectfont\raggedright
+  The Q3 dynamic protocol therefore contains repeated loading and unloading
+  rather than only a static maximum. Cyclic loading also exposes
+  hysteresis, priming, and recovery in the PDMS force cell
+  \cite{albrecht2019}.\par}
+\end{minipage}
+
+\vspace{0.3em}
+{\fontsize{8.25}{9.6}\selectfont\color{AUBGray}
+\textbf{Figure Q3-1. Literature-derived mechanical context.} Left: reported
+min--max ranges from Tang \textit{et al.} and Sanders \textit{et al.}; right:
+reported stance-phase windows for the two common shear peaks
+\cite{q3sanders1992,q3tang2022}. Values describe their participants, sensor
+locations, and protocols and are not transferred as clinical thresholds.\par}
+
+\vspace{0.6em}
+{\fontsize{9.4}{11.1}\selectfont
+Zhang and Roberts reported a 226 kPa finite-element peak pressure at the
+patellar tendon and a 50 kPa peak shear stress at the anterolateral tibia in
+their participant-specific model and measurements \cite{q3zhang2001}. The
+large difference between reported studies reinforces the need to record
+anatomical location, activity, contact area, and duration and to avoid a single
+global pressure threshold. The 2026 systematic review by Armitage
+\textit{et al.} similarly found no consistent pressure threshold for comfort or
+discomfort across regions and activities \cite{q3armitage2026}.\par}
+
+\clearpage
+\sectiontitle{Q3C. Thermal and Moisture Literature}
+
+\hypertarget{q3-microclimate-evidence}{}
+\qtwosubsection{3.3 Expected time-dependent microclimate behaviour}
+
+{\fontsize{9.5}{11.25}\selectfont
+Patern\`o \textit{et al.} instrumented a personalized transtibial liner with
+12 temperature/RH loggers and used a protocol comprising 50 min seated rest,
+30 min treadmill walking, and 50 min recovery \cite{paterno2020}. Temperature
+rose during activity and decreased after activity, while RH continued to rise.
+Figure Q3-2 replots their tabulated means and standard deviations. This pattern
+supports time-series assessment rather than reliance on a single end-point.\par}
+
+\begin{minipage}[t]{0.49\textwidth}
+  \vspace{0pt}\centering
+  \begin{tikzpicture}
+  \begin{axis}[
+    width=\linewidth,height=64mm,
+    xmin=0.75,xmax=4.25,ymin=29.5,ymax=37,
+    ylabel={Temperature ($^{\circ}$C)},
+    xtick={1,2,3,4},
+    xticklabels={R1 start,R1 end,Walk end,R2 end},
+    tick label style={font=\fontsize{7.3}{8.3}\selectfont},
+    xticklabel style={font=\fontsize{6.7}{7.6}\selectfont},
+    label style={font=\fontsize{8.1}{9.1}\selectfont},
+    legend style={font=\fontsize{7}{7.9}\selectfont,draw=none,at={(0.5,1.02)},anchor=south,legend columns=2},
+    ymajorgrids,grid style={AUBLine},axis line style={AUBGray}]
+    \addplot[color=AUBRed,mark=*,thick,error bars/.cd,y dir=both,y explicit]
+      coordinates {(1,31.42) +- (0,0.86) (2,31.20) +- (0,1.01)
+                   (3,34.62) +- (0,0.57) (4,33.91) +- (0,0.63)};
+    \addlegendentry{Personalized liner}
+    \addplot[color=AUBGray,mark=square*,thick,error bars/.cd,y dir=both,y explicit]
+      coordinates {(1,32.91) +- (0,0.32) (2,33.52) +- (0,0.38)
+                   (3,35.72) +- (0,0.28) (4,34.80) +- (0,0.49)};
+    \addlegendentry{Pe-lite system}
+  \end{axis}
+  \end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+  \vspace{0pt}\centering
+  \begin{tikzpicture}
+  \begin{axis}[
+    width=\linewidth,height=64mm,
+    xmin=0.75,xmax=4.25,ymin=60,ymax=89,
+    ylabel={Relative humidity (\%RH)},
+    xtick={1,2,3,4},
+    xticklabels={R1 start,R1 end,Walk end,R2 end},
+    tick label style={font=\fontsize{7.3}{8.3}\selectfont},
+    xticklabel style={font=\fontsize{6.7}{7.6}\selectfont},
+    label style={font=\fontsize{8.1}{9.1}\selectfont},
+    legend style={font=\fontsize{7}{7.9}\selectfont,draw=none,at={(0.5,1.02)},anchor=south,legend columns=2},
+    ymajorgrids,grid style={AUBLine},axis line style={AUBGray}]
+    \addplot[color=AUBRed,mark=*,thick,error bars/.cd,y dir=both,y explicit]
+      coordinates {(1,68.13) +- (0,1.33) (2,77.37) +- (0,2.11)
+                   (3,79.87) +- (0,2.39) (4,83.48) +- (0,2.28)};
+    \addlegendentry{Personalized liner}
+    \addplot[color=AUBGray,mark=square*,thick,error bars/.cd,y dir=both,y explicit]
+      coordinates {(1,71.25) +- (0,3.54) (2,77.94) +- (0,3.48)
+                   (3,80.37) +- (0,3.01) (4,83.07) +- (0,3.34)};
+    \addlegendentry{Pe-lite system}
+  \end{axis}
+  \end{tikzpicture}
+\end{minipage}
+
+\vspace{0.25em}
+{\fontsize{8.2}{9.55}\selectfont\color{AUBGray}
+\textbf{Figure Q3-2. Published temperature and RH progression.} Replotted from
+Tables 2 and 3 of Patern\`o \textit{et al.}; points are the reported mean across
+12 sensors and error bars are the reported standard deviation
+\cite{paterno2020}. R1 start: initial rest; R1 end: end of 50-min rest;
+Walk end: end of 30-min walking; R2 end: end of 50-min recovery. This was a
+single-participant case study and does not define universal thresholds.\par}
+
+\vspace{0.55em}
+\begingroup
+\fontsize{8.7}{10.3}\selectfont
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{3.0cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Literature observation} &
+\color{white}\textbf{Implication for Q3} &
+\color{white}\textbf{Necessary control} \\
+Temperature plateaued after donning and rose rapidly during walking
+\cite{paterno2020}. & Include equilibration, a controlled heat step or ramp,
+and a recovery interval. & Reference thermocouple/RTD at the same contact
+location; record ambient temperature. \\
+\rowcolor{AUBPale}
+RH continued rising through activity and recovery \cite{paterno2020}. & Do not
+expect humidity response to follow the temperature waveform or recover at the
+same rate. & Reference hygrometer or calibrated chamber; document airflow and
+sealed volume. \\
+Multimodal pressure, temperature, and moisture surface with independent event observations
+\cite{q3woo2022}. & Validate event labels against external observations rather
+than declaring success from the sensor output itself. & Blinded event log or
+automated fixture log containing true event time and location. \\
+\rowcolor{AUBPale}
+Soft prosthetic-interface platform with concurrent pressure and temperature
+\cite{q3kwak2020}. & Time-synchronize modalities and
+retain separate physical-unit traces before any combined display. & Common
+clock, timestamp audit, and packet-loss report. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Literature-derived observations and project test controls from
+prosthetic-liner and multimodal interface-monitoring studies
+\cite{paterno2020,q3woo2022,q3kwak2020}.}
+
+\clearpage
+\sectiontitle{Q3C. Evidence Architecture and Ground Truth}
+
+\hypertarget{q3-ground-truth}{}
+\qtwosubsection{3.4 Specimens, fixtures, and ground truth}
+
+{\fontsize{9.55}{11.3}\selectfont
+The primary test article is the directly printed 56 mm $\times$ 55 mm
+$\times$ 5.2 mm PDMS slab defined in Q2. The PET print remains a fabrication
+control where a comparable electrical measurement is possible; it is not a
+liner-material alternative. At least three independently fabricated PDMS
+specimens and five repeated cycles per condition define the replication target.
+The specimen register records the achieved count and keeps independent slabs
+distinct from repeated cycles.
+Every file records specimen ID, channel ID, CAD coordinate, calibration
+version, stimulus program, reference-instrument ID, sampling rate, and ambient
+conditions.\par}
+
+\begin{center}
+\begin{tikzpicture}[node distance=7mm,>=stealth]
+  \tikzstyle{qbox}=[draw=AUBLine,fill=AUBPale,rounded corners=1.5pt,
+    minimum height=11mm,text width=30mm,align=center,
+    font=\fontsize{8}{9}\selectfont]
+  \node[qbox] (stim) {Programmed stimulus\\force, motion, heat, RH};
+  \node[qbox,right=of stim] (slab) {Printed PDMS slab\\known CAD coordinate};
+  \node[qbox,right=of slab] (daq) {Synchronized acquisition\\raw sensor channels};
+  \node[qbox,right=of daq] (eval) {Blind comparison\\signal vs. ground truth};
+  \draw[->,thick,color=AUBRed] (stim)--(slab);
+  \draw[->,thick,color=AUBRed] (slab)--(daq);
+  \draw[->,thick,color=AUBRed] (daq)--(eval);
+  \draw[->,thick,dashed,color=AUBGray]
+    ([yshift=-4mm]stim.south east) to[bend right=18]
+    node[below,font=\fontsize{7}{8}\selectfont]{reference instrument and fixture log}
+    ([yshift=-4mm]eval.south west);
+\end{tikzpicture}
+\end{center}
+
+{\fontsize{8.2}{9.5}\selectfont\color{AUBGray}
+\textbf{Figure Q3-3. Ground-truth validation architecture.} The slab output is
+not used to label its own test. Stimulus magnitude, time, direction, and
+coordinate are measured independently and then compared with the synchronized
+sensor record.\par}
+
+\vspace{0.55em}
+\begingroup
+\fontsize{8.1}{9.45}\selectfont
+\setlength{\tabcolsep}{2.8pt}
+\renewcommand{\arraystretch}{1.11}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash\bfseries\color{AUBRed}}p{0.75cm}
+                            >{\raggedright\arraybackslash\bfseries}p{2.65cm}
+                            >{\raggedright\arraybackslash}p{4.35cm}
+                            >{\raggedright\arraybackslash}p{4.0cm}Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Condition} &
+\color{white}\textbf{Programmed input} &
+\color{white}\textbf{Independent reference} &
+\color{white}\textbf{Primary evidence} \\
+B0 & Baseline & Unloaded slab after thermal/RH equilibration; electronics on
+and fixture untouched. & Reference temperature/RH; zero-force check; logged
+DAQ offset. & Noise, zero drift, channel covariance, false-event rate. \\
+\rowcolor{AUBPale}
+P1 & Local pressure & Normal-force staircase and cyclic load at sensor centres,
+between sensors, and near slab boundaries; fixed contactor area. & Calibrated
+load cell or force gauge plus measured contact area. & Pressure sensitivity,
+linearity, hysteresis, recovery, coordinate response. \\
+S1 & Directional shear & Constant normal preload followed by signed tangential
+force in both slab axes. & Two-axis force reference or tangential force gauge;
+stage direction log. & Shear magnitude/direction, cross-axis error, pressure
+cross-talk. \\
+\rowcolor{AUBPale}
+SL1 & Slip/pistoning & Programmed translation under contact, initially spanning
+0.5--4.5 mm as a literature-anchored pilot range \cite{q3yu2024}. & Encoder,
+LVDT/digital indicator, or calibrated video displacement. & Event detection,
+direction, onset-time error, and displacement-linked spatial change. \\
+T1 & Thermal buildup & Equilibrated baseline followed by 25--45 $^{\circ}$C
+steps or a body-relevant subset; localized and uniform heating. & Contact
+thermocouple or traceable RTD at the same coordinate. & Temperature RMSE,
+response/recovery time, spatial leakage, force sensitivity. \\
+\rowcolor{AUBPale}
+H1 & Vapour humidity & 20--95\%RH chamber steps or the available validated
+subset, following the calibration range used by Patern\`o \textit{et al.}
+\cite{paterno2020}. & Calibrated chamber or reference hygrometer positioned
+beside the slab. & RH RMSE, response/recovery, saturation, temperature coupling. \\
+W1 & Liquid sweat & Known artificial-sweat dose normalized by exposed area;
+separate deposition, dwell, and drying stages. & Calibrated pipette or gravimetric
+mass; image/time log of wetted area. & Detection, saturation, leakage current,
+recovery, permanent drift, damage. \\
+\rowcolor{AUBPale}
+C1 & Combined events & Pressure+shear, temperature+RH, pressure+liquid, then all
+available modalities at one or separated coordinates. & All corresponding
+references synchronized to one clock. & Missed events, false events,
+cross-sensitivity, and degradation from isolated-condition performance. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Implementation-ready test matrix. Reference methods and pilot ranges
+are anchored to published force, motion, and liner microclimate studies
+\cite{q3sanders1992,q3yu2024,paterno2020}; they are not clinical thresholds.}
+
+\clearpage
+\sectiontitle{Q3C. Published Phantom Precedents and Resources}
+
+\hypertarget{q3-phantom-precedents}{}
+\qtwosubsection{3.4.1 Three literature precedents retained as build options}
+
+{\fontsize{9.3}{11}\selectfont
+No single phantom reproduces pressure, shear, liquid sweat, vapour humidity,
+temperature, and residual-limb volume change. The three candidates below are
+therefore retained as complementary, published build options. The photographs
+are reproduced from the cited papers, and every unchecked box means
+\emph{availability at AUB Biomedical Engineering has not yet been confirmed}.\par}
+
+\qtwosubsection{Candidate A --- Patern\`o variable-volume transfemoral simulator}
+
+\noindent
+\begin{minipage}[t]{0.385\linewidth}
+\vspace{0pt}
+\centering
+\includegraphics[width=\linewidth]{assets/q3/phantoms/paterno2025_fig5a.png}
+\vspace{0.2em}
+
+{\fontsize{7.45}{8.7}\selectfont\raggedright\color{AUBGray}
+\textbf{Figure Q3-4A. Published transfemoral simulator.} Cropped from
+Patern\`o \textit{et al.}, Figure~5a: anatomical hip model, silicone tissue
+layers, hydraulic chamber, and two syringe pumps \cite{paterno2025socket}.
+CC BY 4.0; only the panel boundary was cropped.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.59\linewidth}
+\vspace{0pt}
+{\fontsize{8.05}{9.35}\selectfont
+\textbf{Best-matched role.} Controlled whole-limb volume/preload change and
+pressure-map response in transfemoral geometry. The published chamber produced
+reversible changes up to approximately $\pm7.5\%$, with volume checked by 3D
+scanning \cite{paterno2025socket}.\par}
+\vspace{0.15em}
+\begingroup
+\fontsize{7.55}{8.75}\selectfont
+\setlength{\tabcolsep}{2.3pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\linewidth}{>{\bfseries\color{AUBRed}}p{2.05cm}Y
+ >{\centering\arraybackslash}p{1.05cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{Subsystem} & \color{white}\textbf{Required items} &
+\color{white}\textbf{AUB?} \\
+Geometry & Functional hip-joint model or equivalent; 3D-printed proximal
+attachment; rigid mounting frame. & $\square$ \\
+\rowcolor{AUBPale}
+Tissue body & Molds and graded silicone layers representing muscle, fat, and
+skin; release agent and casting tools. & $\square$ \\
+Hydraulics & Sealed internal water chamber, tubing, fittings, valves, and
+leak-test supplies. & $\square$ \\
+\rowcolor{AUBPale}
+Actuation & Two motorized syringe pumps (published: NE-1010) or validated
+equivalent; syringes and water reservoir. & $\square$ \\
+Ground truth & 3D scanner or validated geometric-volume method; reference
+pressure and displacement instruments. & $\square$ \\
+\end{tabularx}
+\endgroup
+\end{minipage}
+
+\vspace{0.45em}
+\qtwosubsection{Candidate B --- McGrath sweating residuum/socket simulator}
+
+\noindent
+\begin{minipage}[t]{0.385\linewidth}
+\vspace{0pt}
+\centering
+\includegraphics[width=\linewidth]{assets/q3/phantoms/mcgrath2021_fig1.jpg}
+\vspace{0.2em}
+
+{\fontsize{7.45}{8.7}\selectfont\raggedright\color{AUBGray}
+\textbf{Figure Q3-4B. Published sweating-interface simulator.} McGrath
+\textit{et al.}, Figure~1: printed bones, porous silicone residuum, water inlet,
+liner/check socket, and cyclic test-machine mounting
+\cite{mcgrath2021sweat}. CC BY 4.0.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.59\linewidth}
+\vspace{0pt}
+{\fontsize{8.05}{9.35}\selectfont
+\textbf{Best-matched role.} Liquid-moisture and moisture-induced axial slip
+testing. The paper applied 20~mL of water through molded pores and compared dry
+and wet cyclic displacement with standard and perforated liners
+\cite{mcgrath2021sweat}. This is not a vapour-RH calibration chamber.\par}
+\vspace{0.15em}
+\begingroup
+\fontsize{7.55}{8.75}\selectfont
+\setlength{\tabcolsep}{2.3pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\linewidth}{>{\bfseries\color{AUBRed}}p{2.05cm}Y
+ >{\centering\arraybackslash}p{1.05cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{Subsystem} & \color{white}\textbf{Required items} &
+\color{white}\textbf{AUB?} \\
+Geometry & Cast/scan-derived transtibial shape; printed bone model; two-part
+negative mold. & $\square$ \\
+\rowcolor{AUBPale}
+Porous body & Silicone soft-tissue body; 3-mm pore-forming straws/rods; silicone
+adhesive and seals. & $\square$ \\
+Water delivery & Graduated syringe, rubber tubing, proximal inlet, measured
+water dose, and drying arrangement. & $\square$ \\
+\rowcolor{AUBPale}
+Socket interface & Pin-lock check socket, lock, standard liner, and perforated
+comparison liner. & $\square$ \\
+Cyclic reference & Universal test machine or controlled axial load fixture;
+force and displacement logging. & $\square$ \\
+\end{tabularx}
+\endgroup
+\end{minipage}
+
+\clearpage
+\sectiontitle{Q3C. Phantom Selection Logic}
+
+\qtwosubsection{Candidate C --- Phillips dual-hardness, water-bladder mock limb}
+
+\noindent
+\begin{minipage}[t]{0.56\linewidth}
+\vspace{0pt}
+\centering
+\includegraphics[width=\linewidth]{assets/q3/phantoms/phillips2025_fig1.png}
+\vspace{0.2em}
+
+{\fontsize{7.45}{8.7}\selectfont\raggedright\color{AUBGray}
+\textbf{Figure Q3-4C. Published low-cost adjustable mock limb.} Phillips
+\textit{et al.}, Figure~1: urethane casting sequence, TPU bladder, sensor
+placement, rigid socket, Arduino, and motorized syringe system
+\cite{phillips2025}. CC BY 4.0; only page margins were cropped.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.415\linewidth}
+\vspace{0pt}
+{\fontsize{8.0}{9.3}\selectfont
+\textbf{Best-matched role.} A reproducible, relatively accessible adjustable
+limb for pressure/preload and volume-change studies. The published build used
+three water-filled bladders, reached controlled changes up to $\pm5\%$, and cost
+less than CAD~400 \cite{phillips2025}.\par}
+\vspace{0.15em}
+\begingroup
+\fontsize{7.35}{8.55}\selectfont
+\setlength{\tabcolsep}{2.15pt}
+\renewcommand{\arraystretch}{1.07}
+\begin{tabularx}{\linewidth}{>{\bfseries\color{AUBRed}}p{1.7cm}Y
+ >{\centering\arraybackslash}p{0.9cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{Subsystem} & \color{white}\textbf{Required items} &
+\color{white}\textbf{AUB?} \\
+Core/body & 30-mm aluminum mandrel; VytaFlex 60 core and VytaFlex 20 outer
+layer or characterized equivalents. & $\square$ \\
+\rowcolor{AUBPale}
+Molds & Printed PLA inner, outer, lid, and bladder-cavity molds; epoxy seal,
+release agent, and clamp stand. & $\square$ \\
+Bladders & Three heat-sealed 6$\times$10-cm TPU bladders; 6.4-mm fittings,
+tubing, Parafilm/seals, and water. & $\square$ \\
+\rowcolor{AUBPale}
+Actuation & Motorized syringe system, linear actuator, Arduino, motor driver,
+power supply, and computer. & $\square$ \\
+Interface / ref. & 5-mm PLA socket; reference pressure film/system;
+volume and circumference measurements. & $\square$ \\
+\end{tabularx}
+\endgroup
+\end{minipage}
+
+\vspace{0.55em}
+\qtwosubsection{3.4.2 Evidence-based selection for the project tests}
+
+\begingroup
+\fontsize{7.85}{9.15}\selectfont
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.09}
+\begin{tabularx}{\linewidth}{>{\bfseries\color{AUBRed}}p{2.25cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Published option} & \color{white}\textbf{Use it for} &
+\color{white}\textbf{Evidence already demonstrated} &
+\color{white}\textbf{Boundary requiring a separate fixture} \\
+Patern\`o 2025 & Transfemoral volume/preload steps and sensor-map response to
+global fit change. & Hydraulic chamber, two pumps, repeated 3D volume
+measurement, and approximately $\pm7.5\%$ range. & Does not generate liquid
+sweat or controlled vapour RH; comparatively complex fabrication. \\
+\rowcolor{AUBPale}
+McGrath 2021 & Liquid-sweat exposure and wet-interface slip under axial cyclic
+loading. & Porous silicone body, measured 20-mL water dose, dry/wet liner
+comparison, and displacement reference. & Transtibial geometry; no controlled
+vapour RH or temperature field; liquid distribution was not perfectly uniform. \\
+Phillips 2025 & Low-cost volume/preload and localized pressure changes using
+independent bladders. & Dual-hardness body, three water bladders, Arduino
+actuation, $\pm5\%$ change, and build cost below CAD~400. & No sweating pores or
+RH control; published pressure film exhibited long-duration drift. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{The three options are published implementations, not speculative
+phantom sketches \cite{paterno2025socket,mcgrath2021sweat,phillips2025}. Their
+functions are complementary: volume/preload, liquid-moisture slip, and low-cost
+localized adjustability, respectively.}
+
+\vspace{0.35em}
+\evidencebox{Implementation rule:}{Retain all three as possible constructions,
+then select the first build through the AUB inventory register. Use the
+Patern\`o or Phillips architecture for pressure/volume localization and the
+McGrath architecture for liquid-sweat/slip. Vapour humidity and contact
+temperature still require the separate calibrated chamber and reference probes
+defined in Test Matrix H1/T1; no phantom substitutes for those ground truths.}
+
+\vspace{0.35em}
+\evidencebox{Safety and scope:}{Use guards, hard stops, and leak checks; begin
+with small loads and place no person in the fixture. These phantoms validate
+sensor response, coordinate mapping, and controlled interface conditions. They
+do not establish human comfort, tissue equivalence, or clinical safety.}
+
+\clearpage
+\sectiontitle{Q3C. Measurement Models}
+
+\hypertarget{q3-measurement-models}{}
+\qtwosubsection{3.5 Converting raw channels into testable measurements}
+
+{\fontsize{9.4}{11.1}\selectfont
+All comparisons use baseline-corrected raw measurements. For channel $j$
+of slab $i$, the baseline-corrected signal is
+\begin{equation}
+  \widetilde{s}_{ij}(t)=s_{ij}(t)-\overline{s}_{ij,0},
+  \qquad
+  \overline{s}_{ij,0}=\frac{1}{N_0}\sum_{k=1}^{N_0}s_{ij}(t_k),
+  \label{eq:q3baseline}
+\end{equation}
+where the baseline window $N_0$ is recorded before the stimulus. Filtering may
+remove electrical noise, while both raw and filtered data are retained and
+the filter type, cutoff, phase delay, and missing samples reported. Thus,
+Equation~\eqref{eq:q3baseline} makes the zeroing operation explicit and
+reproducible.\par
+
+\textbf{Pressure and shear.} The four-capacitor force cell is calibrated as a
+multivariable system because normal and tangential loads can affect more than
+one capacitor. For the calibration vector
+$\Delta\mathbf c=[\Delta C_1,\Delta C_2,\Delta C_3,\Delta C_4]^T$,
+\begin{equation}
+  \Delta\mathbf c=\mathbf K
+  \begin{bmatrix}F_x&F_y&F_z\end{bmatrix}^{T}+\boldsymbol\varepsilon,
+  \qquad
+  \widehat{\mathbf F}=\mathbf K^{+}\Delta\mathbf c,
+  \label{eq:q3forcecal}
+\end{equation}
+where $\mathbf K$ is fitted from signed, known loads and $\mathbf K^{+}$ is its
+pseudoinverse. This empirical matrix accommodates unequal printed channels and
+is safer than assuming perfect geometric symmetry. Equation~\eqref{eq:q3forcecal}
+is therefore the primary force-recovery model. The engineering stresses
+under a documented contact area $A$ are
+\begin{equation}
+  p=\frac{F_z}{A},\qquad
+  \tau_x=\frac{F_x}{A},\qquad
+  \tau_y=\frac{F_y}{A},\qquad
+  \tau=\sqrt{\tau_x^2+\tau_y^2}.
+  \label{eq:q3stress}
+\end{equation}
+Albrecht \textit{et al.} found linear response between 0.1 and 8 N in their
+printed cell, but also reported priming, drift, and shear hysteresis linked to
+the viscoelastic PDMS spacer \cite{albrecht2019}; the project's own
+$\mathbf K$ and working range are therefore obtained from the present slab
+before applying
+Equation~\eqref{eq:q3stress}.\par
+
+\textbf{Temperature and humidity.} Calibration coefficients are fitted against
+reference instruments rather than copied from the source papers:
+\begin{equation}
+ \widehat{T}=a_0+a_1R_T+a_2R_T^2,
+ \qquad
+ \widehat{RH}=b_0+b_1C_H+b_2C_H^2+b_3\widehat{T},
+ \label{eq:q3microcal}
+\end{equation}
+where $R_T$ is the printed meander resistance and $C_H$ is the humidity-IDE
+capacitance. Equation~\eqref{eq:q3microcal} allows curvature and thermal
+compensation to be tested rather than presumed. The temperature term in the RH equation is retained only if
+model comparison shows that it reduces reference error; otherwise it is
+removed to avoid unnecessary fitting. Calibration, cross-validation, and Q3
+testing data are held separate.\par
+
+\textbf{Exposure over time.} A peak alone cannot describe a sustained event.
+For a window $[t_0,t_1]$, report the pressure-time and shear-time integrals
+\begin{equation}
+ PTI=\int_{t_0}^{t_1}\max[p(t)-p_0,0]\,\mathrm{d}t,
+ \qquad
+ STI=\int_{t_0}^{t_1}\max[\tau(t)-\tau_0,0]\,\mathrm{d}t,
+ \label{eq:q3dose}
+\end{equation}
+along with peak, mean, and dwell time. Here $p_0$ and $\tau_0$ are engineering
+noise or event-detection levels established during B0, not clinical injury
+thresholds; Equation~\eqref{eq:q3dose} therefore describes exposure above a
+measured detection level, not biological damage.\par
+
+\textbf{Slip label.} A trial is labelled as true controlled slip only when the
+independent reference satisfies
+\begin{equation}
+ y_{\mathrm{slip}}(t)=
+ \begin{cases}
+ 1,&|d_{\mathrm{ref}}(t)-d_{\mathrm{ref}}(t-\Delta t)|\ge d_{\min},\\
+ 0,&\text{otherwise},
+ \end{cases}
+ \label{eq:q3slip}
+\end{equation}
+where $d_{\min}$ is the verified resolution of the displacement fixture.
+Sensor-based detection is then compared with the external label in
+Equation~\eqref{eq:q3slip}. Without
+$d_{\mathrm{ref}}$, the result is reported as a \emph{shear event}, not slip.\par}
+
+\vspace{0.45em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.7mm]
+  \tikzstyle{calbox}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=7mm,text width=31mm,align=center,
+    font=\fontsize{6.9}{7.8}\selectfont]
+  \node[calbox] (r) {raw channels +\\fixture references};
+  \node[calbox,right=of r] (b) {baseline and\\quality audit};
+  \node[calbox,right=of b] (m) {calibration matrix /\\microclimate model};
+  \node[calbox,right=of m] (u) {physical units +\\uncertainty};
+  \node[calbox,right=of u] (e) {event and\\location metrics};
+  \draw[->,thick,color=AUBRed] (r)--(b);
+  \draw[->,thick,color=AUBRed] (b)--(m);
+  \draw[->,thick,color=AUBRed] (m)--(u);
+  \draw[->,thick,color=AUBRed] (u)--(e);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q3-5. Calibration-to-decision pipeline.} Raw channels remain
+traceable to the external reference before any event label or map is produced.\par}
+\sourceanchor{The equations are project calibration definitions. Sensor-specific
+transfer functions are estimated from the present slab; published devices
+provide mechanisms and candidate forms, not transferable coefficients
+\cite{albrecht2019,liew2020,aitmammar2020}.}
+
+\clearpage
+\sectiontitle{Q3C. Condition-by-Condition Evidence Protocol}
+
+\hypertarget{q3-execution-sequence}{}
+\qtwosubsection{3.6 Defined execution sequence}
+
+\begingroup
+\fontsize{8.35}{9.8}\selectfont
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.13}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.8cm}
+                            >{\raggedright\arraybackslash}p{5.0cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Protocol} &
+\color{white}\textbf{Stimulus sequence} &
+\color{white}\textbf{Control and negative test} &
+\color{white}\textbf{Required plots} \\
+P1: localized normal loading & Apply an unloaded baseline, increasing force
+steps, dwell, decreasing steps, recovery, and repeated cyclic loading. Repeat
+at every active footprint, at inter-sensor midpoints, and near slab edges. &
+Repeat the fixture motion without contact; rotate or replace the contactor while
+keeping force and area documented. & Raw and calibrated traces; applied versus
+estimated force; residual plot; hysteresis loop; coordinate-response map. \\
+\rowcolor{AUBPale}
+S1: directional shear & Establish constant $F_z$, then apply $+x,-x,+y,-y$
+force staircases and cycles. Include at least one priming cycle before the
+reported cycles because PDMS viscoelasticity can cause first-cycle differences
+\cite{albrecht2019}. & Normal preload without tangential motion; tangential
+fixture motion without contact; repeat after rotating the slab 180 degrees. &
+$\widehat F_x,\widehat F_y,\widehat F_z$ versus references; vector-angle error;
+cross-axis matrix; loading/unloading curves. \\
+SL1: controlled slip & Translate the contactor by known distances at several
+speeds under low, medium, and high normal preload. Program forward, reverse,
+stop-start, and no-slip high-shear trials. & High shear with no displacement is
+the critical negative control; free motion without contact checks fixture
+artefacts. Yu \textit{et al.} support direct displacement characterization
+\cite{q3yu2024}. & Reference displacement and sensor traces on
+one time axis; detected versus true event raster; onset-time and distance error. \\
+\rowcolor{AUBPale}
+T1: thermal buildup & Equilibrate, apply temperature steps or a controlled ramp,
+hold, then remove heat and continue through recovery. Test localized contact
+and whole-environment heating separately. & Reference sensor at the active
+location; heater motion with heater off; force-only contact at constant
+temperature. & Estimated versus reference temperature; RMSE; response and
+recovery curves; spatial thermal spread. \\
+H1: vapour humidity & Equilibrate at low RH, apply increasing chamber steps,
+decreasing steps, and recovery. Repeat at two or more temperatures to expose
+temperature coupling. & Sealed dry-air step; chamber program with unpowered
+sensor; reference probe placed beside the active region. & Capacitance and
+calibrated RH; reference residuals; hysteresis; response/recovery time. \\
+\rowcolor{AUBPale}
+W1: artificial sweat & Deposit a recorded areal dose, hold, remove surface
+liquid, dry, and repeat after recovery. Inspect protection, conductors, leakage,
+and permanent offset before the next dose. & Equal-volume deionized-water test
+only if chemically relevant and approved; dry pipette contact; protected versus
+unprotected route from Q2. & Wetting-area image; raw signal; saturation duration;
+drying/recovery; pre/post calibration and leakage. \\
+C1: combinations & Begin with pressure+shear and temperature+RH; progress to
+events applied at the same coordinate, then separated coordinates, and finally
+all available modalities. Randomize trial order. & Repeat each constituent as
+an isolated event on the same specimen and day. & Synchronized small multiples;
+isolated-versus-combined error; confusion matrix; missed and false event map. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Execution protocol anchored to published printed
+force-cell behaviour, direct displacement validation, and liner microclimate
+measurements \cite{albrecht2019,noll2018,paterno2020}.}
+
+\vspace{0.6em}
+\evidencebox{Order of testing:}{Run B0, isolated P1/S1/T1/H1, and the protected
+liquid test W1 before slip and combined-condition trials. This order identifies
+individual calibration and damage before several sources are superimposed.
+Randomize trials within each completed block and do not tune thresholds on the
+same repetitions used for final reporting.}
+
+\vspace{0.65em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=4mm]
+  \tikzstyle{tracebox}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=11mm,text width=40mm,align=center,
+    font=\fontsize{7.2}{8.2}\selectfont]
+  \node[tracebox] (branch) {select Figure Q3-4\\validation branch};
+  \node[tracebox,right=of branch] (truth) {record independent\\ground truth};
+  \node[tracebox,right=of truth] (sync) {synchronize with\\raw slab channels};
+  \node[tracebox,right=of sync] (plots) {produce Section 3.8\\reference plots};
+  \draw[->,thick,color=AUBRed] (branch)--(truth);
+  \draw[->,thick,color=AUBRed] (truth)--(sync);
+  \draw[->,thick,color=AUBRed] (sync)--(plots);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.6}{8.8}\selectfont\color{AUBGray}
+\textbf{Figure Q3-6. Fixture-to-evidence trace.} Each validation branch records
+a separately measured reference channel, synchronizes it with the raw slab
+output, and carries both into the final plots.\par}
+
+\clearpage
+\sectiontitle{Q3C. Evidence Metrics and Decision Gates}
+
+\hypertarget{q3-metrics}{}
+\qtwosubsection{3.7 Measurement quality, detection, and localization}
+
+{\fontsize{9.25}{10.95}\selectfont
+For each condition, report the calibration model, full test range, number of
+specimens, repetitions, mean, standard deviation, raw traces, and rejected
+trials with reasons. The core accuracy and localization quantities are
+\begin{align}
+ RMSE_m &=\sqrt{\frac{1}{N}\sum_{k=1}^{N}
+   \left(\widehat{x}_{m,k}-x_{m,k}^{\mathrm{ref}}\right)^2},
+ & NRMSE_m&=\frac{RMSE_m}{x_{m,\max}^{\mathrm{ref}}-x_{m,\min}^{\mathrm{ref}}},
+ \label{eq:q3rmse}\\
+ \widehat{\mathbf r}(t)&=
+ \frac{\sum_i w_i(t)\mathbf r_i}{\sum_i w_i(t)},
+ & e_{\mathrm{loc}}&=\left\|\widehat{\mathbf r}-\mathbf r_{\mathrm{true}}\right\|_2,
+ \label{eq:q3loc}
+\end{align}
+where $m$ denotes modality, $\mathbf r_i$ is the CAD coordinate of sensor $i$,
+and $w_i$ is a non-negative baseline-corrected response for the modality under
+test. Equation~\eqref{eq:q3rmse} evaluates reference agreement, while
+Equation~\eqref{eq:q3loc} evaluates spatial recovery. The centroid is an
+engineering localization estimator used for Q3; Q5 evaluates and selects the
+final interpolation algorithm.\par
+
+\begin{equation}
+ H_m=\frac{\max_x|y_{\uparrow}(x)-y_{\downarrow}(x)|}{y_{\mathrm{FS}}},
+ \qquad
+ XT_{m\rightarrow n}=\frac{\max|\Delta y_n|}{\max|\Delta y_m|},
+ \label{eq:q3hystxt}
+\end{equation}
+Equation~\eqref{eq:q3hystxt} defines full-scale-normalized hysteresis and
+cross-sensitivity from stimulated
+modality $m$ into non-target modality $n$. Response time $t_{90}$ is the time
+to reach 90\% of the final step response; recovery time is defined analogously
+after removal. For event labels, report sensitivity, specificity, precision,
+and F1 score from the complete confusion matrix rather than accuracy alone.\par}
+
+\begingroup
+\fontsize{8.25}{9.7}\selectfont
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{3.2cm}
+                            >{\raggedright\arraybackslash}p{4.1cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Gate} &
+\color{white}\textbf{Provisional engineering target} &
+\color{white}\textbf{Report required} &
+\color{white}\textbf{Interpretation if failed} \\
+Calibration fit & $R^2\ge0.95$ and NRMSE $\le10\%$ of calibrated full scale
+for each modality. & Per-specimen fit and held-out-test error; residuals versus
+input and time. & Revise geometry, electronics, range, or calibration model;
+do not hide nonlinear regions. \\
+\rowcolor{AUBPale}
+Repeatability & Coefficient of variation $\le10\%$ at repeated levels after
+the stated priming procedure. & Within-cycle, between-cycle, and
+between-specimen variation. & Manufacturing or viscoelastic response is not
+yet sufficiently controlled. \\
+Hysteresis & $H_m\le10\%$ full scale over the declared operating range. & Full
+loading/unloading loops at slow and dynamic rates. & Restrict the range or use
+history-aware calibration; report the limitation. \\
+\rowcolor{AUBPale}
+Cross-sensitivity & Non-target response $\le15\%$ of the target full-scale
+response in isolated tests. & Complete modality-by-modality and axis-by-axis
+cross-talk matrix. & Independent interpretation requires redesign or
+multivariate compensation when this gate is not met. \\
+Event detection & Sensitivity and specificity each $\ge90\%$ on held-out
+repetitions. & Confusion matrix with event counts, not percentages alone. &
+Thresholds or features are not transferable to unseen repetitions. \\
+\rowcolor{AUBPale}
+Localization & Median error no greater than half the nearest-neighbour sensor
+pitch; 95th percentile also reported. & Error by coordinate, boundary location,
+and isolated/combined condition. & Sensor density or coordinate mapping is
+insufficient; this result feeds Q6. \\
+Combined-condition robustness & No more than 10 percentage-point loss in event
+sensitivity relative to isolated tests. & Paired isolated/combined comparison
+on the same specimens. & Cross-sensitivity or signal fusion masks a modality. \\
+\rowcolor{AUBPale}
+Damage and recovery & No open/short circuit, leakage, delamination, permanent
+saturation, or greater than 10\% full-scale baseline shift after recovery. &
+Electrical inspection and pre/post calibration for every specimen. & Stop
+progression to combined tests or liner integration. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.4em}
+{\fontsize{8.25}{9.55}\selectfont\color{AUBGray}
+\textbf{Table note.} These numerical gates are the selected engineering
+targets for preregistration before data collection. They are not published
+clinical safety or discomfort thresholds and may be revised only before the
+held-out Q3 evaluation, with the revision documented.\par}
+\sourceanchor{Preregistration gates selected for this development stage. They are not
+presented as clinical limits; the literature review reports substantial
+participant, location, and protocol variability \cite{q3armitage2026}.}
+
+\vspace{0.35em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=3mm]
+  \tikzstyle{gatebox}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=8mm,text width=39mm,align=center,
+    font=\fontsize{7}{8}\selectfont]
+  \node[gatebox] (g1) {1. isolated-modality\\calibration pass};
+  \node[gatebox,right=of g1] (g2) {2. combined-event\\separation pass};
+  \node[gatebox,right=of g2] (g3) {3. post-exposure\\integrity pass};
+  \node[gatebox,right=of g3] (g4) {4. proceed to\\curved integration};
+  \draw[->,thick,color=AUBRed] (g1)--(g2);
+  \draw[->,thick,color=AUBRed] (g2)--(g3);
+  \draw[->,thick,color=AUBRed] (g3)--(g4);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q3-7. Sequential engineering gates.} Failure at an earlier
+gate blocks the more complex claim rather than being averaged into a total
+score.\par}
+
+\clearpage
+\sectiontitle{Q3C. Validation Outputs and Interpretation}
+
+\hypertarget{q3-validation-outputs}{}
+\qtwosubsection{3.8 Evidence output formats and interpretation criteria}
+
+{\fontsize{9.25}{10.95}\selectfont
+The assignment asks what remains to be learned or proven and how the prototype
+is evaluated, including tools, rationale, expected outcome, and design impact.
+The panels below consolidate the reporting outputs paired with the
+project-specific proof relationships in the Q3C matrix. They define the
+evidence format and are not presented as completed measurements.\par}
+
+\begin{minipage}[t]{0.485\textwidth}
+  \plannedoutput{42mm}{Calibration and transient plots}{
+  Required contents: reference-versus-estimate plots with held-out points,
+  raw and filtered traces, hysteresis, response/recovery markers, error bars,
+  and specimen IDs for pressure, shear, temperature, and RH.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \plannedoutput{42mm}{Known versus detected event locations}{
+  Required contents: CAD sensor coordinates, true stimulus coordinates,
+  detected centroids, error vectors, sensor footprints, and a
+  confidence/coverage mask. Do not interpolate outside validated coverage.}
+\end{minipage}
+
+\vspace{0.45em}
+\begin{minipage}[t]{0.485\textwidth}
+  \plannedoutput{39mm}{Slip ground-truth comparison}{
+  Required contents: synchronized reference displacement, normal pressure, signed
+  shear, detected event state, onset-time error, and forward/reverse trials.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \plannedoutput{39mm}{Combined-condition small multiples}{
+  Required contents: separate physical-unit traces and maps before any
+  combined score; show disagreement, false events, missed events, and
+  isolated-condition baselines.}
+\end{minipage}
+
+\vspace{0.5em}
+\begingroup
+\fontsize{8.55}{10.05}\selectfont
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.14}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{3.4cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Evidence field} &
+\color{white}\textbf{Recorded evidence} &
+\color{white}\textbf{Design interpretation} \\
+Test population & Number of independently fabricated slabs, cycles, stimulus
+coordinates, and accepted/rejected trials. & Do not treat repeated cycles on
+one slab as independent specimens. \\
+\rowcolor{AUBPale}
+Reference agreement & $R^2$, RMSE/NRMSE, bias, 95\% limits of agreement where
+sample size supports them, and residual plots. & A high $R^2$ does not remove
+systematic bias; always report an error metric. \\
+Dynamic response & Peak, mean, integral, $t_{90}$, recovery, hysteresis, and
+drift for each modality. & Compare with the condition's reference timescale;
+do not require humidity to respond as fast as pressure. \\
+\rowcolor{AUBPale}
+Detection performance & Full confusion matrix, sensitivity, specificity,
+precision, and F1 by event type. & Results are engineering event recognition,
+not diagnostic sensitivity for injury or discomfort. \\
+Spatial performance & Median, interquartile range, and 95th-percentile
+localization error; boundary and inter-sensor errors shown separately. & A
+visually smooth map is not evidence of correct localization. \\
+\rowcolor{AUBPale}
+Combined-condition effect & Difference between isolated and combined trials in
+error, sensitivity, response time, and baseline. & If modalities disagree,
+retain separate outputs; do not average away the disagreement. \\
+Post-exposure integrity & Continuity, insulation/leakage, visible damage,
+baseline and sensitivity changes after liquid, heat, shear, and cyclic load. &
+Passing detection before damage does not establish reusability. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Evidence reporting template aligned with the external
+reference architecture in Figure Q3-3 and the published distinction between
+force and relative motion \cite{q3tang2022,noll2018}.}
+
+\vspace{0.65em}
+\evidencebox{Connection to Q5 software work:}{Q3 uses the CAD
+coordinates only to verify whether a known event was detected at the correct
+location. Detailed interpolation, threshold fusion, real-time rendering, and
+the selected interface-condition heatmap architecture are developed in Q5.
+Turner \textit{et al.} provide a key reference for comparing radial-basis,
+Clough--Tocher, nearest-neighbour, and linear interpolation on a prosthetic
+socket model \cite{q3turner2021}.}
+
+\clearpage
+\sectiontitle{Q3C. F = Interim Functional-Block Verdict}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.7mm]
+  \tikzstyle{maturity}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=8mm,text width=36mm,align=center,
+    font=\fontsize{7}{8}\selectfont]
+  \node[maturity] (m1) {literature\\plausibility};
+  \node[maturity,right=of m1] (m2) {flat-slab\\calibration};
+  \node[maturity,right=of m2] (m3) {phantom\\condition detection};
+  \node[maturity,right=of m3] (m4) {subsequent participant-\\specific validation};
+  \draw[->,thick,color=AUBRed] (m1)--(m2);
+  \draw[->,thick,color=AUBRed] (m2)--(m3);
+  \draw[->,thick,dashed,color=AUBGray] (m3)--(m4);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.6}{8.8}\selectfont\color{AUBGray}
+\textbf{Figure Q3-8. Claim maturity at the present project stage.} Q3 ends at
+controlled phantom detection; the dashed clinical step is outside the current
+evidence.\par}
+
+\begingroup
+\setlength{\fboxsep}{7pt}
+\fcolorbox{AUBRed}{AUBPale}{%
+\begin{minipage}{0.96\linewidth}
+{\fontsize{12.2}{14.2}\selectfont\bfseries\color{AUBRed}
+F = FUNCTIONAL BLOCKS DEFINED; LITERATURE BASIS ESTABLISHED}
+\par
+\vspace{0.35em}
+{\fontsize{9.45}{11.15}\selectfont
+\begin{itemize}[leftmargin=1.25em,itemsep=0.3em,topsep=0.1em]
+  \item \textbf{Leveraged knowledge:} prior studies support the underlying
+  mechanical, thermal, humidity, printed-PDMS, relative-motion, and spatial
+  visualization mechanisms
+  \cite{q3sanders1992,q3tang2022,paterno2020,q3kwak2020,q3armitage2026}.
+  \item \textbf{Prototype-specific proof:} the right-hand column of the Q3C
+  matrix identifies the relationships that are not transferable from those
+  studies: calibration, separation, localization, recovery, and integrity for
+  this slab and sensor placement.
+  \item \textbf{Decision rule:} report ``yes,'' ``partial,'' or ``no'' from the
+  preregistered gates in Sections 3.6--3.8. A partial result names the
+  passing and failing modalities; an overall average cannot conceal failed
+  localization, separation, recovery, or integrity.
+  \item \textbf{Clinical boundary:} even a complete engineering pass supports
+  only detection of controlled interface conditions. The words
+  \emph{discomfort}, \emph{harmful}, or \emph{skin risk} require subsequent
+  participant-specific validation and clinical oversight.
+  \item \textbf{Evidence sequence:} B0 and isolated-condition calibration
+  precede blinded slip, combined-condition, heatmap, and whole-liner claims.
+\end{itemize}
+\textbf{Current verdict: Q3A identifies the eight critical blocks, Q3B defines
+their engineering boundaries, and Q3C distinguishes leveraged literature from
+the specimen-level evidence required for the present prototype.}}
+\end{minipage}}
+\endgroup
+
+\vspace{0.75em}
+\evidencebox{Claim-evidence statement:}{This is the appropriate boundary for an
+open-ended project progress report: the functional architecture, literature
+basis, candidate fixtures, ground-truth comparisons, metrics, and evidence
+formats are established. A claim that the slab \textbf{successfully detects}
+the four conditions is reserved for specimen-level experimental results.}
+
+\clearpage

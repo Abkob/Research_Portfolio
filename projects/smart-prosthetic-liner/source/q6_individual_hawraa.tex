@@ -1,0 +1,313 @@
+% -----------------------------------------------------------------------------
+% Q6 -- individual assignment: Hawraa
+% Source: individual assignment-hawraa.docx
+% Substantive wording is preserved; only document-layout artifacts are removed.
+% -----------------------------------------------------------------------------
+
+\definecolor{HawraaNavy}{HTML}{12355B}
+\definecolor{HawraaBlue}{HTML}{1769AA}
+\definecolor{HawraaTeal}{HTML}{1769AA}
+\definecolor{HawraaMint}{HTML}{EDF5FB}
+\definecolor{HawraaIce}{HTML}{EEF4F8}
+\definecolor{HawraaSand}{HTML}{EDF5FB}
+
+\fancypagestyle{hawraa}{%
+  \fancyhf{}%
+  \fancyhead[L]{\small\color{AUBGray}BMEN502 \textbar{} Concept Exploration and Testing}%
+  \fancyhead[R]{\small\color{HawraaBlue}\bfseries INDIVIDUAL Q6 \textbar{} HAWRAA}%
+  \fancyfoot[L]{\small\color{AUBGray}American University of Beirut}%
+  \fancyfoot[R]{\small\color{AUBGray}Page \thepage\ of \pageref{LastPage}}%
+  \renewcommand{\headrulewidth}{0.7pt}%
+  \renewcommand{\headrule}{\hbox to\headwidth{\color{HawraaBlue}\leaders\hrule height \headrulewidth\hfill}}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+\newcommand{\hawraasectiontitle}[1]{%
+  \vspace{0.4em}%
+  {\color{HawraaBlue}\Large\bfseries #1}\par
+  \vspace{0.25em}%
+  {\color{AUBBlack}\rule{\textwidth}{0.8pt}}\par
+  \vspace{0.45em}%
+}
+
+\newcommand{\hawraaband}[1]{%
+  \vspace{0.3em}%
+  {\fontsize{13}{15}\selectfont\bfseries\color{HawraaBlue}#1}\par
+  \vspace{0.16em}%
+  {\color{AUBLine}\rule{\textwidth}{0.55pt}}\par
+  \vspace{0.3em}%
+}
+
+\newcommand{\hawraacomparison}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{8pt}%
+  \noindent\colorbox{HawraaMint}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \fontsize{9.15}{11.1}\selectfont #1}}\par
+  \endgroup
+}
+
+\newcommand{\hawraasource}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{7pt}%
+  \noindent\colorbox{HawraaIce}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \fontsize{7.8}{9.25}\selectfont\color{AUBGray}#1}}\par
+  \endgroup
+}
+
+\newcommand{\hawraacompactband}[1]{%
+  \vspace{0.15em}%
+  {\fontsize{9.7}{11.4}\selectfont\bfseries\color{HawraaBlue}#1}\par
+  \vspace{0.16em}%
+  {\color{AUBLine}\rule{\linewidth}{0.55pt}}\par
+  \vspace{0.25em}%
+}
+
+\newcommand{\hawraacompactcomparison}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{5pt}%
+  \noindent\colorbox{HawraaMint}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \raggedright\fontsize{6.9}{8.2}\selectfont #1}}\par
+  \endgroup
+}
+
+\newcommand{\hawraacompactsource}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{4.5pt}%
+  \noindent\colorbox{HawraaIce}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \raggedright\fontsize{5.7}{6.7}\selectfont\color{AUBGray}#1}}\par
+  \endgroup
+}
+
+\newcommand{\hawraachallenge}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{8pt}%
+  \noindent\colorbox{HawraaSand}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \fontsize{9.1}{11.15}\selectfont #1}}\par
+  \endgroup
+}
+
+\clearpage
+\pagestyle{hawraa}
+\thispagestyle{hawraa}
+\hypertarget{q6-hawraa}{}
+
+\hawraasectiontitle{Q6. Individual Assignment -- Hawraa}
+
+\begingroup
+\setlength{\fboxsep}{9pt}%
+\noindent\colorbox{HawraaMint}{%
+  \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+    {\fontsize{9}{11}\selectfont\bfseries\color{HawraaBlue}Question :6}\par
+    \vspace{0.2em}
+    {\fontsize{12}{14.5}\selectfont\bfseries\color{AUBBlack}
+      State-of-the-Art Technologies Comparable to the Proposed Design}\par
+  }}\par
+\endgroup
+
+\vspace{0.5em}
+\noindent
+\begin{minipage}[t]{0.486\linewidth}
+\vspace{0pt}
+\hawraacompactband{1. Össur AeroFit\texttrademark{} Vented Liner--Socket System}
+
+\vspace{0.4em}
+{\raggedright\fontsize{7.2}{8.65}\selectfont
+The Össur AeroFit\texttrademark{} vented liner--socket system is a commercially
+available prosthetic interface designed to reduce moisture accumulation at the
+skin--liner interface. The system combines a vented silicone liner containing
+an integrated mesh with a vented socket that promotes both vertical and
+horizontal airflow during walking. This ventilation mechanism allows
+perspiration to escape from the socket, thereby reducing the warm and humid
+environment that commonly develops inside conventional prosthetic liners. In a
+randomized crossover clinical study involving individuals with transfemoral
+amputation, the vented system significantly reduced relative humidity by
+approximately 30\% and improved users' perceived sweating without compromising
+socket suspension, stability, or overall comfort. (Gnyawali et al. 2023)\par}
+
+\vspace{0.4em}
+\hawraacompactcomparison{\textbf{Comparison with the proposed design.} Unlike the
+AeroFit\texttrademark{} system, which relies solely on passive ventilation, the
+proposed smart prosthetic liner adopts a multifunctional approach. It combines
+a reinforced PAM--CMC double-network hydrogel to absorb and manage moisture,
+microencapsulated phase-change materials (mPCMs) to regulate temperature, and
+embedded flexible sensors to continuously monitor pressure, temperature, and
+humidity. By integrating both active microclimate regulation and real-time
+physiological monitoring, the proposed design aims not only to reduce moisture
+but also to improve thermal comfort and provide objective data for optimizing
+socket fit and residual-limb health.}
+
+\vspace{0.38em}
+\hawraacompactsource{\textit{Gnyawali, Surya C., Jeffrey A. Denune, Bryce Hockman,
+Jóna Valgerður Kristjánsdóttir, Margrét Sól Ragnarsdóttir, Lava R. Timsina,
+Subhadip Ghatak, Knut Lechler, Chandan K. Sen, and Sashwati Roy. 2023.
+``Moisture Mitigation Using a Vented Liner and a Vented Socket System for
+Individuals with Transfemoral Amputation.''} \textit{Scientific Reports}
+\textit{ 13: 16557.} \url{https://doi.org/10.1038/s41598-023-43572-2}}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.486\linewidth}
+\vspace{0pt}
+\begin{center}
+\includegraphics[width=\linewidth,height=0.405\textheight,keepaspectratio]
+  {assets/q6_hawraa/aerofit_comparison.png}\par
+\end{center}
+\end{minipage}
+
+% The source DOCX's ``Top of Form'' and ``Bottom of Form'' strings are web-copy
+% interface artifacts surrounding the figure and are therefore not typeset.
+\vspace{0.55em}
+\noindent
+\begin{minipage}[t]{0.486\linewidth}
+\vspace{0pt}
+\hawraacompactband{2. Roliner: Dynamically Adaptive Prosthetic Liner}
+
+\vspace{0.38em}
+{\raggedright\fontsize{6.95}{8.35}\selectfont
+Roliner is a novel soft metamaterial prosthetic liner designed to dynamically
+adapt to changes in the residual limb during daily activities. The liner is
+fabricated from silicone elastomers containing embedded millifluidic channels
+that can be pneumatically pressurized to modify the liner's shape, volume, and
+mechanical properties in real time. Controlled through a portable
+electro-pneumatic unit and smartphone application, Roliner enables personalized
+adjustment of socket fit, helping accommodate residual-limb volume fluctuations
+caused by muscle atrophy, body weight changes, edema, or physical activity.
+Preclinical testing demonstrated improved comfort, prosthetic utility,
+residual limb health, and fitting while maintaining gait performance comparable
+to conventional prosthetic liners.\par}
+
+\vspace{0.38em}
+\hawraacompactcomparison{\textbf{Comparison with the proposed design.} While Roliner
+focuses on active mechanical adaptation through pneumatic actuation, the
+proposed smart prosthetic liner emphasizes passive microclimate regulation
+using a reinforced PAM--CMC hydrogel and microencapsulated phase-change
+materials (mPCMs), combined with embedded flexible sensors for continuous
+monitoring of pressure, temperature, and humidity. This approach avoids the
+need for pneumatic hardware while providing thermal regulation, moisture
+control, and real-time physiological monitoring within a simpler multilayer
+liner architecture.}
+
+\vspace{0.35em}
+\hawraacompactsource{Tanriverdi, Ugur, Guglielmo Senesi, Tarek Asfour, Hasan Kurt,
+Sabrina L. Smith, Diana Toderita, Joseph Shalhoub, Laura Burgess, Anthony M. J.
+Bull, and Firat Güder. 2025. ``Dynamically Adaptive Soft Metamaterial for
+Wearable Human--Machine Interfaces.'' \textit{Nature Communications} 16: 2621.
+\url{https://doi.org/10.1038/s41467-025-57634-8}}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.486\linewidth}
+\vspace{0pt}
+\hawraacompactband{3- SmartTemp\textregistered{} Prosthetic Liner (by WillowWood)}
+
+\vspace{0.38em}
+{\raggedright\fontsize{6.95}{8.35}\selectfont
+The SmartTemp\textregistered{} prosthetic liner is a commercially available
+silicone liner designed to improve the thermal environment inside the
+prosthetic socket by incorporating phase-change materials (PCMs) into a
+conventional silicone liner. PCMs absorb, store, and release thermal energy
+during phase transitions, allowing the liner to buffer temperature fluctuations
+and delay heat accumulation at the skin--liner interface. In a double-blind
+randomized crossover clinical trial involving 16 individuals with transtibial
+amputations, the SmartTemp liner significantly reduced residual-limb skin
+temperature and perspiration compared with a conventional silicone liner
+following 25 minutes of cycling and a 10-minute recovery period. The reduction
+in heat and moisture improved the internal socket environment and may help
+reduce discomfort, improve suspension, and decrease the risk of skin
+complications associated with excessive perspiration.\par}
+
+\vspace{0.38em}
+\hawraacompactcomparison{Similar to SmartTemp, the proposed smart prosthetic liner
+incorporates microencapsulated phase-change materials (mPCMs) to regulate
+residual-limb temperature. However, the proposed design extends this concept by
+integrating mPCMs within a reinforced PAM--CMC double-network hydrogel, which
+provides simultaneous thermal regulation and passive moisture management. In
+addition, embedded flexible sensors continuously monitor pressure, temperature,
+and humidity, enabling real-time assessment of the skin--liner interface.
+Consequently, the proposed liner offers a multifunctional approach that
+combines climate regulation, physiological monitoring, and structural
+reinforcement within a single multilayer system rather than relying solely on
+PCM-based cooling.}
+
+\vspace{0.35em}
+\hawraacompactsource{Wernke, Matthew M., Ryan M. Schroeder, Christopher T. Kelley,
+Jeffrey A. Denune, and James M. Colvin. 2015. ``SmartTemp Prosthetic Liner
+Significantly Reduces Residual Limb Temperature and Perspiration.''
+\textit{Journal of Prosthetics and Orthotics} 27 (4): 134--139.}
+\end{minipage}
+
+\clearpage
+\thispagestyle{hawraa}
+\hawraasectiontitle{Challenges Still Facing the Proposed Design.}
+
+\vspace{0.8em}
+\hawraachallenge{Despite integrating several advanced technologies, the
+proposed smart prosthetic liner still faces a number of engineering challenges
+before clinical implementation. The successful integration of the reinforced
+PAM--CMC hydrogel, microencapsulated phase-change materials (mPCMs), embedded
+flexible sensors, and the outer structural layer into a single durable and
+flexible system remains a major challenge. In addition, the hydrogel must
+maintain its mechanical integrity under repeated compression, shear loading,
+and prolonged moisture exposure, while the embedded sensors must provide
+accurate and stable measurements during continuous bending and daily prosthetic
+use. Future development also requires transferring the printed sensors from the
+current PET substrate to PDMS to improve flexibility and wearer comfort,
+although reliable printing on PDMS is more challenging because of its low
+surface energy and reduced ink adhesion. Finally, the complete three-layer
+liner has not yet been fabricated or clinically validated, and therefore
+comprehensive mechanical, environmental, and user-based testing will be
+necessary to evaluate its long-term performance, durability, and effectiveness
+in improving prosthetic comfort and residual-limb health.}
+
+\vspace{0.6em}
+\hawraachallenge{The development of the proposed smart prosthetic liner
+required expertise beyond the knowledge available within our team. One of the
+main gaps was advanced biomaterials engineering, particularly in designing and
+fabricating reinforced hydrogel systems incorporating microencapsulated
+phase-change materials (mPCMs). This expertise was essential to optimize the
+hydrogel composition, mechanical durability, moisture absorption, and thermal
+regulation required for long-term prosthetic use. A second area of missing
+expertise was prosthetics and orthotics, particularly regarding socket design,
+liner fabrication, and clinical evaluation of prosthetic interfaces. Such
+expertise is necessary to ensure that the proposed liner is compatible with
+existing prosthetic systems and meets user comfort and clinical requirements.
+Finally, expertise in flexible electronics manufacturing was needed to
+integrate printed sensors into a soft wearable substrate such as PDMS while
+maintaining reliable electrical performance.}
+
+\vspace{0.6em}
+\hawraachallenge{To address these limitations, the design process relied
+extensively on published scientific literature, commercial prosthetic
+technologies, and expert consultation. Evidence from recent studies was used to
+guide the selection of materials and the overall liner architecture, while
+commercially available systems such as SmartTemp\textregistered{}, Roliner, and
+Össur AeroFit\texttrademark{} were analyzed to identify current design
+strategies and limitations. Because of the limited fabrication expertise and
+available resources, only the flexible sensor was fabricated as a
+proof-of-concept prototype on a PET substrate using a Voltera printer. The
+complete three-layer smart liner and sensor integration on PDMS were therefore
+proposed as future work requiring collaboration with specialists in
+biomaterials, prosthetics, and flexible electronics.}
+
+\clearpage
+\thispagestyle{hawraa}
+\vspace*{\fill}
+\begin{center}
+\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]
+  {assets/q6_hawraa/three_layer_liner_design.png}\par
+\end{center}
+\vspace*{\fill}
+
+\clearpage
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{AUBGray}BMEN502 \textbar{} Concept Exploration and Testing}
+\fancyhead[R]{\small\color{AUBRed}\bfseries SMART LINER}
+\fancyfoot[L]{\small\color{AUBGray}American University of Beirut}
+\fancyfoot[R]{\small\color{AUBGray}Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{AUBRed}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}

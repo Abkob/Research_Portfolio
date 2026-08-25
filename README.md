@@ -1,57 +1,59 @@
 # Research Portfolio
 
-**A curated index of research questions, evidence maps, implementations, and engineering case studies across biomedical signals, assistive sensing, and computer vision.**
+A public, project-by-project archive of my research questions, evidence maps, code, reports, presentations, and engineering artifacts.
 
-This repository makes the boundary between research stages explicit. Some projects have tested code; others are literature maps or design studies. Raw datasets, patient records, business databases, copyrighted PDFs, and collaborators' unpublished material are not redistributed.
+The folders are intentionally segregated. Authored or team-attributed project work lives under `projects/`; books and course references live in [REFERENCE_LIBRARY.md](REFERENCE_LIBRARY.md); downloaded journal and commercial-book files are not redistributed.
 
-## Portfolio at a glance
+## Biomedical signals and assistive technology
 
-| Area | Project | Stage | Public evidence |
-|---|---|---|---|
-| ECG/EEG | Automated peri-ictal ECG feature extraction | Implemented research software | [ECG_FE_Detector_Interface](https://github.com/Abkob/ECG_FE_Detector_Interface) |
-| EEG/ECoG | Patient-aware seizure feature studies | Exploratory implementation | [Research_BCI](https://github.com/Abkob/Research_BCI) |
-| BCI / assistive robotics | MotorBrace EEG–EMG intent detection and knee orthosis | Team research prototype | [MotorBrace_BCI_EMG](https://github.com/Abkob/MotorBrace_BCI_EMG) |
-| Precision agriculture / CV | AARS drone-guided WeedBot and SoilBot system | Multidisciplinary prototype research | [AARS_Agro_Remediation](https://github.com/Abkob/AARS_Agro_Remediation) |
-| Medical imaging | Brain-tumor segmentation and ensemble experiment log | Provenance-bounded reproduction study | [Case study](case-studies/brain-tumor-segmentation-experiment-log.md) |
-| Environmental vision | COCO fire-detection data preparation | Small exploratory implementation | [Case study](case-studies/fire-detection-data-preparation.md) |
-| Ear-EEG | Ambulatory sensing and stimulation concept | Evidence map and staged research plan | [Case study](case-studies/ear-eeg-research-plan.md) |
-| Mobile health / IMU | NeuroSense Parkinson's monitoring | Team design study and clinician-dashboard prototype | [Case study](case-studies/neurosense-parkinsons-monitoring.md) |
-| Assistive sensing | Multimodal prosthetic-liner sensor slab | Team design and literature-to-requirements study | [Case study](case-studies/smart-prosthetic-liner.md) |
-| Robotics / CV | Vision-guided movement through rubble | Literature and system-architecture map | [Case study](case-studies/rubble-guided-movement.md) |
-| 3D vision | Sparse-camera room reconstruction | Literature map and feasibility conclusion | [Case study](case-studies/room-reconstruction.md) |
-| Research systems | Evidence-centric project and resource management | Implemented application | [Amina OS](https://github.com/Abkob/Amina) |
-| Privacy-first analytics | Local student-record ingestion and semantic matching | Implemented application | [WSP Offline System](https://github.com/Abkob/WSP_automationexcel) |
+| Project | Stage | Artifacts in this repository |
+|---|---|---|
+| [Smart multimodal prosthetic liner](projects/smart-prosthetic-liner/) | Team design and literature-to-engineering study | Team report, two review PDFs, TeX sources, CAD/PCB files, original renders |
+| [Ear-EEG research plan](projects/ear-eeg/) | Evidence map and staged validation plan | Detailed plan, source index, dataset-access notes |
+| [NeuroSense Parkinson's monitoring](projects/neurosense/) | Team digital-health design study | Case study, anonymized interface, historical team-code snapshot |
+| [ECG feature detector](https://github.com/Abkob/ECG_FE_Detector_Interface) | Implemented research software | Package, tests, notebooks, reports, ECG/EEG literature review |
+| [BCI and epilepsy research](https://github.com/Abkob/Research_BCI) | Exploratory implementation | EEG/ECoG notebooks, patient-aware experiments, provenance notes |
+| [MotorBrace](https://github.com/Abkob/MotorBrace_BCI_EMG) | Team research prototype | Sanitized notebooks, proposal and mechanical-design reports |
 
-## Stage vocabulary
+## Computer vision, robotics, and imaging
+
+| Project | Stage | Artifacts in this repository |
+|---|---|---|
+| [Rubble navigation](projects/rubble-navigation/) | Literature and system-architecture map | Case study, access notes, dataset links |
+| [Sparse-camera room reconstruction](projects/room-reconstruction/) | Literature map and feasibility conclusion | Case study, reading guide, source-archive checksums |
+| [Brain-tumor segmentation](projects/brain-tumor-segmentation/) | Provenance-bounded reproduction study | Experiment log; unclear-license derivative code excluded |
+| [Fire-detection data preparation](projects/fire-detection/) | Small exploratory implementation | Data-preparation case study |
+| [AARS Agro-Remediation](https://github.com/Abkob/AARS_Agro_Remediation) | Multidisciplinary prototype research | Segmentation notebooks and selected team reports |
+
+## Research infrastructure
+
+| Project | Stage | Public repository |
+|---|---|---|
+| Amina OS | Implemented local-first evidence and project system | [Amina](https://github.com/Abkob/Amina) |
+| WSP Offline System | Implemented privacy-first local analytics application | [WSP_automationexcel](https://github.com/Abkob/WSP_automationexcel) |
+
+## How to read the stage labels
 
 - **Evidence map:** sources are organized around a research question; no implementation claim.
 - **Design study:** literature is translated into requirements and a proposed validation plan.
-- **Exploratory implementation:** code exists, but the evaluation is not a locked external benchmark.
-- **Implemented research software:** code, tests, and documentation exist; clinical or deployment validity is still bounded.
-- **Validated system:** reserved for a prespecified evaluation on appropriate independent data.
+- **Exploratory implementation:** code exists, but evaluation is not a locked external benchmark.
+- **Implemented research software:** code, tests, and documentation exist; clinical or deployment validity remains bounded.
+- **Validated system:** reserved for prespecified evaluation on appropriate independent data.
 
-## Research themes
+## Repository map
 
-### Biomedical signals
+```text
+Research_Portfolio/
+├── projects/                  # one directory per project
+│   ├── smart-prosthetic-liner/
+│   ├── ear-eeg/
+│   ├── neurosense/
+│   ├── rubble-navigation/
+│   ├── room-reconstruction/
+│   ├── brain-tumor-segmentation/
+│   └── fire-detection/
+├── REFERENCE_LIBRARY.md       # extracurricular reference catalog
+└── INVENTORY.md               # inclusion, attribution, and safety boundary
+```
 
-Signal quality comes before inference. My ECG and EEG work emphasizes domain-specific quality masks, patient-aware baselines, leakage-resistant evaluation, and interpretable features before black-box scoring.
-
-### Literature-to-engineering translation
-
-I use literature to define what should be measured, which geometry or method is transferable, what performance is only source-reported, and what must be revalidated in a new material, device, cohort, or site.
-
-### Cross-domain prototyping
-
-MotorBrace and AARS connect model development to physical-system requirements. Both repositories distinguish implemented notebooks from proposed sensing, control, and deployment layers, so architecture diagrams do not overstate validation.
-
-### Reproducible systems
-
-Research code should expose its data boundary, configuration, tests, limitations, and claim status. Operational data and copyrighted sources stay outside public Git history.
-
-## Source boundary
-
-See [INVENTORY.md](INVENTORY.md) for what was intentionally included, summarized, linked, or excluded when curating material from local project archives.
-
-## Research identity
-
-[Abdulrahman Kobeissi](https://github.com/Abkob) · [ORCID 0009-0007-3870-4619](https://orcid.org/0009-0007-3870-4619)
+See [INVENTORY.md](INVENTORY.md) for the curation decisions and exclusions.

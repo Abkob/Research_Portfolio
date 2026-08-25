@@ -1,0 +1,776 @@
+% =============================================================================
+% Q6 -- individual assignment: Abdulrahman Kobeissi
+% Parts 6.1--6.3. The final-product vision and schematic are developed later.
+% =============================================================================
+
+\providecommand{\qyes}{%
+  \colorbox{AUBGreen}{\textcolor{white}{\bfseries\ensuremath{\checkmark}}}}
+\providecommand{\qpartial}{%
+  \colorbox{AUBYellow}{\textcolor{white}{\bfseries\ensuremath{\sim}}}}
+\providecommand{\qgap}{%
+  \colorbox{AUBCoral}{\textcolor{white}{\bfseries\ensuremath{\times}}}}
+
+\clearpage
+\hypertarget{q6-overview}{}
+\sectiontitle{Q6. Individual Assignment -- Abdulrahman Kobeissi}
+
+\qtwosubsection{6.1 Three comparable state-of-the-art technologies}
+
+{\fontsize{9.15}{10.75}\selectfont
+The comparison was restricted to systems that solve one of the three central
+parts of the present concept: multimodal interface sensing, physical liner
+integration, or spatial pressure mapping. The selected technologies are not
+presented as identical competitors. Together, they expose which functional
+blocks already have credible solutions and which combination remains specific
+to the proposed modular 5.2~mm PDMS liner. A commercial screen also considered
+the current Tekscan F-Socket system, which uses a paper-thin trimmable sensor,
+wired USB acquisition at up to 160~Hz, and real-time 2D/3D pressure software
+\cite{tekscanfsocket2026}. The pliance-PMS system was selected for the detailed
+commercial comparison because its official documentation discloses sensor
+technology, element geometry, range, calibration, channel capacity, telemetry,
+and mapping functions \cite{novelpliance2019}.\par}
+
+\vspace{0.45em}
+\begin{center}
+{\fontsize{7.3}{8.45}\selectfont
+\qyes\ \textbf{green check:} function demonstrated in both systems\qquad
+\qpartial\ \textbf{yellow partial:} related function, but adaptation or proof is required\qquad
+\qgap\ \textbf{red cross:} function absent or deliberately excluded}
+\end{center}
+
+\begingroup
+\fontsize{7.45}{8.75}\selectfont
+\setlength{\tabcolsep}{2.6pt}\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{3.0cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Technology} & \color{white}\textbf{Implemented architecture} &
+\color{white}\textbf{Evidence already demonstrated} &
+\color{white}\textbf{Main boundary relative to our concept} \\
+Kwak \textit{et al.}, 2020 & Millimetre-scale 3D Au/PI strain-gauge pressure
+sensor plus on-chip temperature sensor; battery-free inner device; paired
+NFC/BLE outer module and portable GUI. & Linear pressure response across the
+prosthetic range; real-time pressure and temperature at multiple landmarks;
+feasibility in transtibial and transfemoral users \cite{q3kwak2020}. & No
+humidity measurement, no directional shear output, no liner-wide interpolated
+map, and no printed silver-on-PDMS integration. \\
+\rowcolor{AUBPale}
+Patern\`o \textit{et al.}, 2020 & Twelve commercial Hygrochron iButtons embedded
+in CAD-defined blind enclosures in a personalised cryogenically machined
+neoprene liner. & Calibrated temperature/RH sensing, anatomical alignment,
+wearable liner manufacture, and a 130-min single-participant protocol
+\cite{paterno2020}. & Discrete 5.89-mm-thick loggers, offline retrieval,
+temperature/RH only, no printed electrodes, and no real-time spatial fusion. \\
+novel pliance-PMS & Flexible capacitive pressure pads connected to a wearable
+analyser, SD/Bluetooth telemetry, homogeneous-pressure calibration, and 2D/3D
+expert software. & Up to 1024 elements; disclosed pads contain 18--90
+10$\times$10~mm sensels, are below 1~mm uncoated thickness, cover 10--600~kPa,
+and support static/dynamic socket evaluation \cite{novelpliance2019}. & Mature
+pressure-only measurement apparatus rather than a multimodal sensing liner;
+no printed Ag/PDMS, temperature, RH, or directional shear channel. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.55em}
+\noindent
+\begin{minipage}[t]{0.32\linewidth}\centering
+\includegraphics[width=\linewidth,height=0.145\textheight,keepaspectratio]
+  {paper_sources/q5_figures/crops/kwak2020_fig1.png}\par
+{\fontsize{6.55}{7.45}\selectfont\raggedright
+Kwak Fig.~1: sensors, NFC/BLE modules, and the three-block wireless data path
+\cite{q3kwak2020}.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\linewidth}\centering
+\includegraphics[width=\linewidth,height=0.145\textheight,keepaspectratio]
+  {paper_sources/figures_selected/paterno_fig3_liner_design_and_prototype.png}\par
+{\fontsize{6.55}{7.45}\selectfont\raggedright
+Patern\`o Fig.~3: CAD, machined liner halves, logger enclosures, and final liner
+\cite{paterno2020}.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\linewidth}\centering
+\includegraphics[width=\linewidth,height=0.145\textheight,keepaspectratio]
+  {paper_sources/q6_comparators/crops/pliance_socket_sensors.png}\par
+{\fontsize{6.55}{7.45}\selectfont\raggedright
+pliance-PMS datasheet: flexible capacitive pads mounted at selected socket
+locations \cite{novelpliance2019}.\par}
+\end{minipage}
+
+\vfill
+{\fontsize{6.75}{7.75}\selectfont\color{AUBGray}
+\textbf{Figure Q6-1. Comparator selection.} The three systems were selected by
+functional proximity, not visual similarity. Paper figures retain their
+original citations; the commercial image is an attributed product-datasheet
+excerpt. Detailed evidence appears on the following three pages.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-kwak}{}
+\sectiontitle{Q6.1 Comparator 1 -- Kwak Wireless Multimodal System}
+
+\begin{minipage}[t]{0.36\linewidth}
+\centering
+\includegraphics[width=\linewidth,height=0.275\textheight,keepaspectratio]
+  {paper_sources/q5_figures/crops/kwak2020_fig1.png}\par
+{\fontsize{6.65}{7.55}\selectfont\raggedright
+\textbf{Published system.} Battery-free pressure/temperature devices sit on
+the residual-limb skin; a battery-powered NFC/BLE module sits outside the
+socket and relays the data to a portable GUI. Original Fig.~1
+\cite{q3kwak2020}.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.61\linewidth}
+{\fontsize{7.6}{8.85}\selectfont
+\textbf{Technical architecture.}\par
+\begin{itemize}[leftmargin=1.15em,itemsep=0.18em,topsep=0.25em]
+\item The pressure transducer is a buckled 3D Au/PI strain-gauge structure,
+approximately 1.95$\times$1.95~mm laterally and 0.5~mm high, supported by a
+strain-limiting frame rather than printed directly on a liner.
+\item The wireless device uses an fPCB, NFC power/data at 13.56~MHz, and a
+10-Hz on-chip ADC. The external module forwards data by BLE over more than
+10~m; its two-AAA-cell implementation was reported for about 2~h operation.
+\item Reported pressure performance included $R^2>0.99$, hysteresis error below
+0.02\%, negligible static drift, and a range designed to span interface loads
+up to approximately 350~kPa. The design intentionally suppresses shear
+sensitivity rather than measuring shear.
+\item Multi-site pressure and temperature were demonstrated on two prosthesis
+users. The authors explicitly identify humidity, shear, larger participant
+samples, and automatic fit evaluation as extensions rather than completed
+functions \cite{q3kwak2020}.
+\end{itemize}}
+\end{minipage}
+
+\vspace{0.55em}
+\begingroup
+\fontsize{7.15}{8.35}\selectfont
+\setlength{\tabcolsep}{2.4pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.55cm}Y >{\centering\arraybackslash}p{1.55cm}Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Feature} & \color{white}\textbf{Kwak implementation} &
+\color{white}\textbf{Status} & \color{white}\textbf{Direct comparison with our 5.2 mm slab} \\
+Normal pressure & 3D metal strain-gauge transducer with silicone encapsulation
+and an independent calibration. & \qyes\par shared & Our pressure block also
+requires normal-load calibration, but uses four printed capacitive sectors and
+must preserve that response after PDMS molding; see
+\reportlink{q2-pressure-shear}{Q2 Section 2.3}. \\
+\rowcolor{AUBPale}
+Temperature & On-chip temperature channel on the same wireless device. &
+\qyes\par shared & Both systems measure temperature, but ours uses a printed
+resistive meander that needs slab-specific TCR, self-heating, and bending tests
+in \reportlink{q5-microclimate}{Q5 Section 5.4}. \\
+Directional shear & Designed to be insensitive to shear; no signed $x/y$
+output. & \qgap\par absent & Directional shear is a required independent modality
+in our four-capacitor design, making cross-axis separation a major additional
+burden in \reportlink{q5-mechanical}{Q5 Section 5.3}. \\
+\rowcolor{AUBPale}
+Humidity/sweat & Short sweat/high-humidity exposure was used as a robustness
+check, not an RH measurement. & \qgap\par absent & Our design includes a printed
+IDE humidity sensor and explicitly separates vapour calibration from liquid
+sweat protection. \\
+Physical integration & Small devices adhere to skin beneath a gel liner; outer
+reader modules align across the socket. & \qpartial\par partial & This minimizes
+in-socket batteries, but differs from sensors printed on modular PDMS slabs
+that become part of the liner structure. \\
+\rowcolor{AUBPale}
+Acquisition & Real-time, battery-free inner sensor with NFC/BLE relay and GUI. &
+\qyes\par reusable & The three-block sensor--gateway--display architecture is a
+strong precedent. Our implementation still must prove synchronized acquisition
+for four signal types and multiple slabs. \\
+Spatial interpretation & Multiple selected anatomical sites; no continuous
+liner-wide interpolation or displayed coverage mask. & \qpartial\par partial &
+Our coordinate manifest and blinded localization test extend the multinodal
+idea into a spatial interface-condition map; see
+\reportlink{q5-integration-mapping}{Q5 Section 5.5}. \\
+Clinical evidence & Feasibility on two users, without a discomfort-score model
+or large statistical study. & \qpartial\par partial & It supports feasibility of
+wearable measurements, not validation of our planned discomfort-risk gradient.
+\end{tabularx}
+\endgroup
+
+\vfill
+\sourceanchor{Kwak \textit{et al.} is the closest comparator for wireless
+multimodal electronics, but not for printed manufacture, shear, humidity, or
+spatial fusion \cite{q3kwak2020}.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-paterno}{}
+\sectiontitle{Q6.1 Comparator 2 -- Patern\`o Personalised Sensorised Liner}
+
+\begin{minipage}[t]{0.38\linewidth}
+\centering
+\includegraphics[width=\linewidth,height=0.27\textheight,keepaspectratio]
+  {paper_sources/figures_selected/paterno_fig3_liner_design_and_prototype.png}\par
+{\fontsize{6.65}{7.55}\selectfont\raggedright
+\textbf{Published system.} CAD geometry, cryogenically machined neoprene liner
+halves, twelve embedded iButtons, protective fabric, and the final personalised
+liner. Original Fig.~3 \cite{paterno2020}.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.59\linewidth}
+{\fontsize{7.55}{8.8}\selectfont
+\textbf{Technical architecture.}\par
+\begin{itemize}[leftmargin=1.15em,itemsep=0.18em,topsep=0.25em]
+\item Twelve DS1923-F5 Hygrochron data loggers measured temperature and RH.
+Each stainless-steel logger was 16.25~mm in diameter and 5.89~mm thick and was
+placed in a CAD-defined enclosure for direct skin contact.
+\item The non-waterproof loggers were covered by breathable waterproof fabric.
+Each was chamber-calibrated over 25--45~$^\circ$C and 20--95\%RH before use.
+\item Residual-limb and liner scans were landmark-aligned; the liner was split
+into two parts and cryogenically CNC-machined from closed-cell neoprene. The
+reported build took about 4~h and weighed 107.3~g.
+\item One transtibial participant completed 50~min rest, 30~min walking, and
+50~min post-activity rest. Data were logged locally and downloaded through a
+1-Wire USB interface rather than streamed as a real-time map
+\cite{paterno2020}.
+\end{itemize}}
+\end{minipage}
+
+\vspace{0.55em}
+\begingroup
+\fontsize{7.15}{8.35}\selectfont
+\setlength{\tabcolsep}{2.4pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.55cm}Y >{\centering\arraybackslash}p{1.55cm}Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Feature} & \color{white}\textbf{Patern\`o implementation} &
+\color{white}\textbf{Status} & \color{white}\textbf{Direct comparison with our 5.2 mm slab} \\
+True liner integration & Sensor pockets were created in a personalised liner
+derived from patient scans. & \qyes\par shared & This is the closest precedent for
+preserving fit while embedding sensors. Our route uses repeated modular
+silicone slabs rather than a split CNC-neoprene liner; see
+\reportlink{q2-whole-liner}{Q2 Section 2.7}. \\
+\rowcolor{AUBPale}
+Temperature and RH & Twelve calibrated dual-function loggers at registered
+locations. & \qyes\par shared & These are two of our four modalities and establish
+the need for chamber calibration and location identity. \\
+Pressure and shear & Not instrumented in the reported liner. & \qgap\par absent &
+Our pressure/directional-shear pair adds load transfer, cross-axis separation,
+and mechanical hysteresis risks that this system did not need to solve. \\
+\rowcolor{AUBPale}
+Sensor form factor & Rigid 5.89-mm-thick commercial logger in a blind enclosure.
+& \qpartial\par partial & The thickness is close to our complete 5.2-mm slab, but
+our printed sensor is distributed within the slab instead of occupying a rigid
+local cavity. \\
+Moisture protection & Breathable waterproof fabric protected the logger while
+allowing environmental exchange. & \qpartial\par reusable & This is a functional
+precedent for a vapour-access/liquid-exclusion barrier, but H1/H2 must verify it
+for the printed IDE and exposed silver interfaces. \\
+\rowcolor{AUBPale}
+Manufacture & Scan alignment, CAD subtraction, split design, and cryogenic CNC
+machining of neoprene. & \qpartial\par partial & The digital personalization
+workflow is reusable; the material, printing, cure, electrical routing, and
+slab-to-liner assembly are different. \\
+Acquisition and mapping & Local logging and post-test download; graphs retain
+sensor location but are not a live surface reconstruction. & \qgap\par absent &
+Our concept requires synchronized acquisition, a CAD coordinate manifest, and
+a real-time map with visible measured sites and uncertainty. \\
+\rowcolor{AUBPale}
+Human evidence & One participant and one liner architecture; comfort and
+thermal outcomes were reported. & \qpartial\par partial & Valuable wearable-use
+evidence, but insufficient to validate universal thresholds or our combined
+discomfort-risk score. \\
+\end{tabularx}
+\endgroup
+
+\vfill
+\sourceanchor{Patern\`o \textit{et al.} provides the strongest liner-integration
+and microclimate precedent. Its published limitations closely define what our
+pressure, shear, printed manufacture, and real-time mapping blocks add
+\cite{paterno2020}.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-pliance}{}
+\sectiontitle{Q6.1 Comparator 3 -- novel pliance-PMS Prosthesis System}
+
+\begin{minipage}[t]{0.43\linewidth}
+\centering
+\includegraphics[width=\linewidth,height=0.16\textheight,keepaspectratio]
+  {paper_sources/q6_comparators/crops/pliance_socket_sensors.png}\par
+\vspace{0.3em}
+\includegraphics[width=\linewidth,height=0.15\textheight,keepaspectratio]
+  {paper_sources/q6_comparators/crops/pliance_software_and_map.png}\par
+{\fontsize{6.55}{7.45}\selectfont\raggedright
+\textbf{Commercial system.} Flexible socket-mounted sensor pads, acquisition
+software, and registered 3D pressure display from the official pliance-PMS
+prosthesis datasheet \cite{novelpliance2019}.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.54\linewidth}
+{\fontsize{7.5}{8.75}\selectfont
+\textbf{Disclosed technical architecture.}\par
+\begin{itemize}[leftmargin=1.15em,itemsep=0.17em,topsep=0.25em]
+\item Flexible capacitive pads are placed at selected anatomical regions and
+connected to a pliance-PMS analyser. The analyser can scan up to 1024 elements
+and transmit by Bluetooth or store data on an SD card.
+\item Listed pad examples contain 18, 45, or 90 sensels. Each sensel is
+10$\times$10~mm; the uncoated pad thickness is below 1~mm, elasticity is about
+4\%, and the disclosed pressure range is 10--600~kPa.
+\item The product literature reports acquisition up to 20,000 sensor samples
+per second, selectable matrix localization, 2D/3D display, and synchronization
+with video and EMG.
+\item A trublu calibration device applies homogeneous air pressure to all
+elements for simultaneous calibration. The 2019 datasheet also states that the
+product was not certified as a European medical product at that time
+\cite{novelpliance2019}.
+\end{itemize}}
+\end{minipage}
+
+\vspace{0.5em}
+\begingroup
+\fontsize{7.1}{8.3}\selectfont
+\setlength{\tabcolsep}{2.35pt}\renewcommand{\arraystretch}{1.035}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.55cm}Y >{\centering\arraybackslash}p{1.55cm}Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Feature} & \color{white}\textbf{pliance-PMS implementation} &
+\color{white}\textbf{Status} & \color{white}\textbf{Direct comparison with our 5.2 mm slab} \\
+Pressure range & Calibrated capacitive pads covering 10--600~kPa. &
+\qyes\par shared & The commercial range contains our 0--250~kPa Q4 target, but
+our four-sector printed cell needs its own calibration, saturation, and
+hysteresis evidence. \\
+\rowcolor{AUBPale}
+Spatial density & 10$\times$10~mm sensels; selected pads provide 18--90
+elements and the analyser supports up to 1024. & \qyes\par benchmark & This is a
+stronger pressure-density benchmark than the current sparse multimodal slab
+layout and exposes potential missed-hotspot risk. \\
+Directional shear & No signed tangential-force channel in the disclosed PMS
+sensor set. & \qgap\par absent & Our design aims to recover $x/y$ shear from
+opposed capacitor pairs while maintaining normal-pressure separation. \\
+\rowcolor{AUBPale}
+Temperature and RH & Not measured by the PMS pads. & \qgap\par absent & Our liner
+adds separate printed meander and IDE modalities, increasing clinical context
+but also calibration and synchronization complexity. \\
+Geometry and comfort & Thin, flexible, elastic pads conform to curved sites but
+remain added measurement hardware at selected locations. & \qpartial\par partial &
+Our slab is thicker but intended to become part of the liner structure, with
+sensor placement fixed by CAD rather than temporary pad installation. \\
+\rowcolor{AUBPale}
+Calibration & Homogeneous pneumatic calibration across all capacitive elements.
+& \qyes\par reusable & The independent pressure reference and simultaneous channel
+release are directly reusable concepts for M1, although the printed stack and
+force-transfer geometry differ. \\
+Mapping software & Matrix localization, 2D/3D pressure display, Bluetooth, and
+video/EMG synchronization. & \qyes\par benchmark & This is the closest mature map
+benchmark. Our map must add four physical-unit layers, signed shear, confidence
+masks, and calibration metadata without averaging conflicting modalities. \\
+\rowcolor{AUBPale}
+Clinical interpretation & Quantifies interface pressure for socket evaluation;
+the datasheet does not validate a multimodal discomfort score. &
+\qpartial\par partial & Our display must remain an interface-condition map until
+participant-reported discomfort and clinically justified thresholds are added.
+\end{tabularx}
+\endgroup
+
+\vspace{0.45em}
+\evidencebox{Comparison verdict:}{Each comparator already solves a substantial
+functional block. The defensible project distinction is the proposed
+combination of printed pressure, directional shear, temperature, and humidity
+on coordinate-registered 5.2~mm PDMS slabs with modality-preserving software.
+This is an engineering differentiation statement, not a patentability or
+clinical-superiority claim.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-challenges-materials}{}
+\sectiontitle{Q6.2 Challenges -- Materials, Printing, and Sensor Physics}
+
+{\fontsize{8.8}{10.35}\selectfont
+\textbf{Evidence boundary.} Two fabrication milestones are confirmed: the
+sensor artwork was printed successfully on PET as the accessible first-stage
+process check, and a 5.2~mm PDMS slab was molded. These achievements do not yet
+establish direct-on-PDMS print quality, a calibrated multimodal slab, or
+whole-liner durability. The challenges below are therefore stated as
+engineering questions with published causes, project-specific consequences,
+and linked validation routes---not as claims that the prototype has failed.\par}
+
+\vspace{0.42em}
+\begingroup
+\fontsize{7.15}{8.35}\selectfont
+\setlength{\tabcolsep}{2.25pt}\renewcommand{\arraystretch}{1.045}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.38cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Challenge} &
+\color{white}\textbf{What the literature establishes} &
+\color{white}\textbf{Present design implication} &
+\color{white}\textbf{Linked evidence route} \\
+PDMS wetting and solvent swelling &
+Oxygen-plasma treatment enabled continuous AgNP printing on PDMS, while the
+same printer settings produced an apparent profile of about 3.8~$\mu$m on
+PDMS versus 0.6~$\mu$m on PET; much of the difference was attributed to
+solvent-induced PDMS swelling \cite{albrecht2018stretch}. &
+PET confirms artwork transfer and printer operation only. It cannot predict
+trace height, spreading, resistance, or sensor calibration on molded PDMS. &
+Measure contact angle, line width, dry/equilibrated profile, continuity, and
+sheet resistance using the process controls in
+\reportlink{q2-pdms-printing}{Q2 Section 2.5} and release gate
+\reportlink{q5-release}{Q5 Section 5.2}. \\
+\rowcolor{AUBPale}
+Silver adhesion, cracking, and stretch &
+Direct PDMS routes use surface activation, wider trace geometry,
+pre-stretching, or semi-embedded conductors to improve continuity under
+deformation \cite{sun2016,q4abukhalaf2018,q4abukhalaf2019}. &
+Successful printing is not equivalent to a mechanically stable electrode.
+Compression, flexion, shear, cable pull, and cure history can change resistance
+or create intermittent opens. &
+Use witness traces and full sensor coupons; record resistance during bending
+and cyclic loading, adhesion, crack images, and recovery as linked in
+\reportlink{q4-fabrication}{Q4 Section 4.3} and
+\reportlink{q5-durability}{Q5 Section 5.6}. \\
+5.2~mm force-transfer stack &
+The four-capacitor shear architecture obtains direction from differential
+capacitance; dielectric thickness, overlap, spacer geometry, normal preload,
+and viscoelastic hysteresis all affect the recovered vector
+\cite{albrecht2019}. &
+The molded thickness is a geometric fact, not evidence that local pressure and
+signed shear reach the printed electrodes without attenuation or cross-axis
+coupling. &
+Calibrate normal load and signed $x/y$ shear at several preloads, then quantify
+sensitivity, nonlinearity, hysteresis, drift, and axis coupling in
+\reportlink{q5-mechanical}{Q5 Section 5.3}. \\
+\rowcolor{AUBPale}
+Temperature-channel stability &
+Printed Ag temperature meanders require trace-specific temperature
+coefficient, response-time, bending, humidity, and self-heating
+characterization \cite{liew2020,jager2022}. &
+The meander may respond to temperature, strain, lead resistance, and changing
+thermal contact simultaneously after encapsulation. &
+Fit resistance--temperature calibration on the final stack; repeat it dry,
+humid, bent, and after cycling using
+\reportlink{q2-temperature}{Q2 Section 2.4} and
+\reportlink{q5-microclimate}{Q5 Section 5.4}. \\
+Humidity: vapour versus liquid sweat &
+Printed IDE sensors can measure RH, while embedded-liner work shows that a
+breathable waterproof barrier and chamber calibration are necessary for
+interpretable skin-interface microclimate data
+\cite{aitmammar2020,paterno2020}. &
+An open IDE may saturate or leak under liquid sweat; an aggressive barrier may
+prevent liquid failure but slow or bias the vapour response. &
+Run controlled RH steps separately from metered artificial sweat; report
+response/recovery time, hysteresis, leakage, and post-drying recovery in
+\reportlink{q2-humidity}{Q2 Section 2.4} and
+\reportlink{q5-microclimate}{Q5 Section 5.4}. \\
+\rowcolor{AUBPale}
+Hydrogel as a later interface variable &
+Hydrogel--PDMS bonding and sweat uptake are feasible, but water uptake depends
+on thickness and time and changes mechanics and transport
+\cite{yuk2016,lu2025}. No reviewed study validates a hydrogel over this exact
+four-modality prosthetic slab. &
+A hydrogel may soften contact, but it may also store sweat, delay RH and
+temperature, redistribute pressure, alter friction/shear, or expose silver to
+water and ions. It is not the baseline architecture. &
+First validate bare PDMS H0; then compare H1 islands and the H2 windowed sheet
+against H0. The structure and rejection criteria are in
+\reportlink{q2-hydrogel-interactions}{Q2 Section 2.6.1} and
+\reportlink{q2-hydrogel-structures}{Q2 Section 2.6.2}. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.4em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=3.7mm]
+  \tikzstyle{qstage}=[draw=AUBLine,rounded corners=1.2pt,minimum height=7.5mm,
+    text width=28mm,align=center,font=\fontsize{6.6}{7.4}\selectfont]
+  \node[qstage,fill=AUBGreen!14] (pet) {confirmed\\PET print};
+  \node[qstage,fill=AUBGreen!14,right=of pet] (mold) {confirmed\\5.2 mm PDMS mold};
+  \node[qstage,fill=AUBYellow!18,right=of mold] (print) {open evidence\\direct PDMS print};
+  \node[qstage,fill=AUBYellow!18,right=of print] (cal) {open evidence\\multimodal calibration};
+  \node[qstage,fill=AUBCoral!13,right=of cal] (liner) {later gate\\whole-liner survival};
+  \draw[->,thick,color=AUBRed] (pet)--(mold);
+  \draw[->,thick,color=AUBRed] (mold)--(print);
+  \draw[->,thick,color=AUBRed] (print)--(cal);
+  \draw[->,thick,color=AUBRed] (cal)--(liner);
+\end{tikzpicture}
+\end{center}
+{\fontsize{6.9}{7.9}\selectfont\color{AUBGray}
+\textbf{Figure Q6-2. Evidence progression for the material stack.} Green marks
+documented project stages; yellow marks the next measurement gates; the final
+liner gate follows only after coupon and slab evidence. This sequence is
+consistent with the fabrication evidence reviewed in
+\reportlink{q2-pdms-printing}{Q2 Section 2.5}.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-challenges-system}{}
+\sectiontitle{Q6.2 Challenges -- Integration, Mapping, Durability, and Use}
+
+\begingroup
+\fontsize{7.22}{8.43}\selectfont
+\setlength{\tabcolsep}{2.2pt}\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.35cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Challenge} &
+\color{white}\textbf{Evidence from comparable systems} &
+\color{white}\textbf{Specific risk in this design} &
+\color{white}\textbf{Required control and report link} \\
+Sensor identity and CAD coordinates &
+Patern\`o used scan-aligned anatomical landmarks and CAD-defined pockets;
+Kwak retained the identity of multiple selected sites
+\cite{paterno2020,q3kwak2020}. &
+A correct value attached to the wrong slab, modality, or coordinate creates a
+convincing but false hotspot. Curvature and assembly can shift the printed site
+away from its nominal CAD point. &
+Create a permanent channel--slab--modality--coordinate manifest and perform
+blinded stimulus localization in
+\reportlink{q5-integration-mapping}{Q5 Section 5.5}. \\
+\rowcolor{AUBPale}
+Sparse coverage and missed hotspots &
+Commercial pliance-PMS arrays disclose 10$\times$10~mm sensels and up to 1024
+elements; Turner used 144 pressure sensors arranged as twelve strips
+\cite{novelpliance2019,q3turner2021}. &
+The proposed multimodal slabs are intentionally sparser. A hotspot between
+sensors may be attenuated, shifted, or entirely absent, especially near slab
+boundaries. &
+Test centres, between-sensor points, and boundaries; report nearest-neighbour
+pitch, coverage mask, median/95th-percentile localization error, and density
+trade-offs in \reportlink{q3-metrics}{Q3 Section 3.7} and
+\reportlink{q5-integration-mapping}{Q5 Section 5.5}. \\
+Interpolation and false visual confidence &
+Turner demonstrated real-time 3D socket visualization using radial-basis
+interpolation, proving the display architecture but not that interpolated
+pixels are measured data \cite{q3turner2021}. &
+A smooth colour gradient can hide sparse coverage and imply certainty between
+physical sensors. Combining different units into one colour also risks
+misleading averaging. &
+Display pressure, signed shear, temperature, and RH separately first; retain
+sensor markers, unsupported-region masks, method/version metadata, and
+confidence flags. See \reportlink{q3-measurement-models}{Q3 Section 3.5} and
+\reportlink{q4-mapping}{Q4 Section 4.6}. \\
+\rowcolor{AUBPale}
+Sampling and multimodal synchronization &
+Kwak used real-time multimodal acquisition, Turner sampled pressure at
+200~Hz, while Patern\`o's microclimate loggers were downloaded after the
+activity protocol \cite{q3kwak2020,q3turner2021,paterno2020}. &
+Mechanical events are fast; temperature and RH are slower. Unsynchronized
+streams can incorrectly associate a pressure/slip event with a later
+microclimate response. &
+Use one monotonic clock; preserve raw timestamps and modality-specific rates;
+define resampling windows explicitly and verify combined-condition timing in
+\reportlink{q5-integration-mapping}{Q5 Section 5.5}. \\
+Cross-sensitivity and compensation &
+Published sensors are normally calibrated by modality. The Kwak architecture
+suppressed shear sensitivity; the printed shear cell relies on differential
+responses; humidity and temperature outputs depend on their environments
+\cite{q3kwak2020,albrecht2019,aitmammar2020,jager2022}. &
+Pressure, shear, bending, temperature, moisture, cable motion, and hydrogel
+swelling may change multiple electrical channels at once. A compensation
+model could overfit and remove real events. &
+Apply one controlled input at a time before combined tests; fit compensation
+on training runs and verify it on held-out combinations. Preserve raw and
+corrected values as specified in
+\reportlink{q5-integration-mapping}{Q5 Section 5.5}. \\
+\rowcolor{AUBPale}
+Cyclic drift and whole-liner routing &
+Printed Ag/PDMS conductors can survive demanding stretch tests under published
+processes, but performance depends on ink, surface treatment, geometry, and
+loading mode \cite{albrecht2018stretch,sun2016,q4abukhalaf2018}. &
+Repeated compression, bending, donning, sweat, cure interfaces, connectors, and
+strain relief may change baselines even when an isolated trace remains
+continuous. &
+Repeat calibration after staged mechanical and wet/dry exposure; inspect
+cracks and adhesion; quantify zero shift, span change, hysteresis, and channel
+loss in \reportlink{q5-durability}{Q5 Section 5.6} before the
+\reportlink{q2-whole-liner}{Q2 Section 2.7} integration step. \\
+Phantom evidence and clinical meaning &
+Published systems support interface measurement and controlled socket
+evaluation, yet the human evidence in close comparators is small and a recent
+systematic review emphasizes limitations in using pressure alone for clinical
+decisions \cite{q3kwak2020,paterno2020,q3armitage2026}. &
+A phantom can verify loading, moisture, temperature, localization, and
+repeatability; it cannot prove perceived discomfort or tissue-injury risk.
+Thresholds based only on engineering judgment must not be presented as
+clinical truth. &
+Use the modular phantom protocols in
+\reportlink{q5-phantom}{Q5 Section 5.7}. Call the output an
+\emph{interface-condition map}; reserve \emph{discomfort-risk} for later
+participant-reported and clinically reviewed validation. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.45em}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth]
+  \node[draw=AUBLine,fill=AUBPale,rounded corners,text width=31mm,align=center,
+    minimum height=9mm,font=\fontsize{6.8}{7.7}\selectfont] (raw) at (0,0)
+    {raw channel\\value + unit + time};
+  \node[draw=AUBLine,fill=AUBPale,rounded corners,text width=31mm,align=center,
+    minimum height=9mm,font=\fontsize{6.8}{7.7}\selectfont] (manifest) at (4.1,0)
+    {calibration version\\slab + CAD coordinate};
+  \node[draw=AUBLine,fill=AUBYellow!15,rounded corners,text width=31mm,align=center,
+    minimum height=9mm,font=\fontsize{6.8}{7.7}\selectfont] (map) at (8.2,0)
+    {physical-unit map\\markers + coverage mask};
+  \node[draw=AUBLine,fill=AUBCoral!12,rounded corners,text width=31mm,align=center,
+    minimum height=9mm,font=\fontsize{6.8}{7.7}\selectfont] (claim) at (12.3,0)
+    {interface-condition\\interpretation + confidence};
+  \draw[->,thick,color=AUBRed] (raw)--(manifest);
+  \draw[->,thick,color=AUBRed] (manifest)--(map);
+  \draw[->,thick,color=AUBRed] (map)--(claim);
+  \node[font=\fontsize{6.4}{7.2}\selectfont,text=AUBGray,align=center] at (6.15,-0.85)
+    {every transformation remains traceable; interpolation never replaces raw evidence};
+\end{tikzpicture}
+\end{center}
+{\fontsize{6.9}{7.9}\selectfont\color{AUBGray}
+\textbf{Figure Q6-3. System evidence chain.} The software can only make a
+defensible spatial statement if channel identity, calibration, time, and CAD
+position survive every processing stage. The architecture synthesizes the
+published acquisition and mapping precedents
+\cite{q3kwak2020,paterno2020,q3turner2021}.\par}
+
+\vspace{0.38em}
+\evidencebox{Priority conclusion:}{The highest-risk path is not any single
+sensor principle. It is preserving calibrated, synchronized, correctly located
+four-modality information after direct PDMS printing, 5.2~mm mechanical
+integration, repeated loading, moisture exposure, and spatial interpolation.
+That path is tested progressively in Q5 rather than deferred to a complete
+liner.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-team}{}
+\sectiontitle{Q6.3 Team Expertise, Ownership, and Remaining Gaps}
+
+{\fontsize{8.9}{10.45}\selectfont
+The project already spans biomedical, chemical/material, and mechanical/
+electronic work. The table records who owns each functional contribution; it
+does not imply that one member works in isolation. Interfaces between roles are
+explicit because printing, material selection, mechanics, circuitry, and
+software all affect the same calibrated signal.\par}
+
+\vspace{0.42em}
+\begingroup
+\fontsize{7.55}{8.85}\selectfont
+\setlength{\tabcolsep}{2.5pt}\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.55cm}p{2.6cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Member} & \color{white}\textbf{Discipline} &
+\color{white}\textbf{Primary responsibility} &
+\color{white}\textbf{Concrete project outputs and interfaces} \\
+Abdulrahman Kobeissi & \shortstack[l]{Biomedical\\Engineering} &
+System architecture; all printed-sensor CAD and print work; sensor proportions
+and placement; 5.2~mm silicone slab and circuit-layout design; software
+algorithms for calibration, interpolation, coordinate mapping, and
+interface-condition visualization. &
+PET print artwork and execution; CAD sensor/slab designs; multimodal placement
+logic; channel-to-coordinate manifest; processing and map pipeline. Interfaces
+with Hawraa on PDMS/hydrogel compatibility and Amir on electrical signals,
+sampling, and connector definitions. \\
+\rowcolor{AUBPale}
+Hawraa & Chemistry &
+Hydrogel and silicone material science; surface chemistry, bonding, moisture
+uptake, protection, and material compatibility. &
+PDMS and hydrogel formulation/process input; swelling, absorption, drying,
+bonding, and wet/dry compatibility criteria. Interfaces with Abdulrahman on
+sensor exposure/window geometry and with Amir on insulation, leakage, and
+material effects on the readout. \\
+Amir & \shortstack[l]{Mechanical\\Engineering} &
+Physical sensor acquisition, mechanical test implementation, signal/data
+acquisition, and circuitry/readout design. &
+Loading and acquisition hardware; circuit topology; channel excitation and
+readout; sampling and synchronization implementation; force/application
+fixtures and connector/strain-relief input. Interfaces with Abdulrahman on the
+data schema and with Hawraa on encapsulation and wet-operation constraints. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.65em}
+\qtwosubsection{Expertise not yet represented by a named specialist}
+
+\begingroup
+\fontsize{7.3}{8.55}\selectfont
+\setlength{\tabcolsep}{2.35pt}\renewcommand{\arraystretch}{1.065}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.75cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Missing specialist perspective} &
+\color{white}\textbf{Why it matters} &
+\color{white}\textbf{How the team has compensated at this stage} \\
+Certified prosthetist/orthotist and rehabilitation clinician &
+Socket fit, bony landmarks, safe loading, donning constraints, clinical
+workflow, and interpretation of whether a measured condition is meaningful to
+a prosthesis user require clinical and prosthetic practice. &
+Placement and validation are grounded in prosthetic-interface literature and
+published liner systems \cite{paterno2020,q3kwak2020,q3tang2022}. Work remains
+on benches and phantoms; no human-safety, comfort, or clinical-risk claim is
+made. External clinical review is required before participant testing. \\
+\rowcolor{AUBPale}
+Printed-electronics process/metrology specialist &
+AgNP wetting, plasma activation, sintering, profilometry, adhesion, swelling,
+crack morphology, and production yield on PDMS are process-specific. PET
+success cannot certify them. &
+The team separated the PET print stage from direct-PDMS validation, adopted
+published process controls \cite{albrecht2018stretch,sun2016,
+q4abukhalaf2018,q4abukhalaf2019}, and specified coupons, witness traces,
+profilometry/microscopy, resistance tracking, and build records in
+\reportlink{q5-release}{Q5 Section 5.2}. \\
+Human-factors, biostatistics, and regulatory/quality expertise &
+Discomfort thresholds, sample size, uncertainty, usability, traceability,
+participant protection, and the boundary between an engineering tool and a
+medical claim cannot be settled by sensor calibration alone. &
+The report predeclares test gates, uses held-out validation, retains raw and
+processed data with calibration versions, distinguishes pass/partial/fail/not
+run, and limits current language to an interface-condition map. Participant
+and clinical validation remains a separate reviewed stage; see
+\reportlink{q4-design-gate}{Q4 Section 4.7} and
+\reportlink{q5-reporting}{Q5 Section 5.8}. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.55em}
+\begin{center}
+\begin{tikzpicture}[>=stealth]
+  \node[draw=AUBRed,fill=AUBPale,rounded corners,text width=34mm,align=center,
+    minimum height=12mm,font=\fontsize{7}{8}\selectfont] (ak) at (0,0)
+    {\textbf{Abdulrahman}\\sensor CAD + printing\\placement + algorithms};
+  \node[draw=AUBRed,fill=AUBPale,rounded corners,text width=34mm,align=center,
+    minimum height=12mm,font=\fontsize{7}{8}\selectfont] (ha) at (5.1,0)
+    {\textbf{Hawraa}\\PDMS + hydrogel\\chemistry + compatibility};
+  \node[draw=AUBRed,fill=AUBPale,rounded corners,text width=34mm,align=center,
+    minimum height=12mm,font=\fontsize{7}{8}\selectfont] (am) at (10.2,0)
+    {\textbf{Amir}\\mechanics + circuitry\\signal/data acquisition};
+  \node[draw=AUBYellow!80!black,fill=AUBYellow!13,rounded corners,text width=75mm,
+    align=center,minimum height=9mm,font=\fontsize{6.8}{7.7}\selectfont] (ext)
+    at (5.1,-2.0) {external review gates: prosthetics/clinical practice
+    \quad printed-electronics metrology \quad human factors/statistics/quality};
+  \draw[<->,thick,color=AUBRed] (ak)--(ha);
+  \draw[<->,thick,color=AUBRed] (ha)--(am);
+  \draw[<->,thick,color=AUBRed] (ak) to[bend right=17] (am);
+  \draw[->,thick,color=AUBYellow!80!black] (ak)--(ext);
+  \draw[->,thick,color=AUBYellow!80!black] (ha)--(ext);
+  \draw[->,thick,color=AUBYellow!80!black] (am)--(ext);
+\end{tikzpicture}
+\end{center}
+{\fontsize{6.9}{7.9}\selectfont\color{AUBGray}
+\textbf{Figure Q6-4. Responsibility and review structure.} Internal ownership
+covers the principal engineering blocks; the lower review gate identifies
+specialist input required before human testing or clinical interpretation.\par}
+
+\vspace{0.38em}
+\evidencebox{Team conclusion:}{The principal prototype can be developed by the
+current multidisciplinary team. Literature-based controls and modular bench
+tests reduce the consequences of missing specialist expertise, but they do not
+replace external prosthetic/clinical, process-metrology, and human-validation
+review at the relevant design gates.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q6-integrated-liner-render}{}
+\sectiontitle{Q6.4 Integrated Liner Architecture}
+
+{\fontsize{9}{10.6}\selectfont
+The consolidated design places the compact multimodal slabs exclusively on the
+inner, skin-contacting surface of the liner. The rolled-open view exposes the
+distributed sensing array while preserving a smooth silicone exterior. Signal
+routing remains enclosed within the liner wall, and the burgundy electronics
+enclosure is mounted externally on the lateral side.\par}
+
+\vspace{0.35em}
+\begin{center}
+\includegraphics[width=\linewidth,height=0.64\textheight,keepaspectratio]
+  {assets/q6/smart_liner_inner_sensor_array_rolled_cutaway_v5.png}\par
+\end{center}
+{\fontsize{7.3}{8.5}\selectfont\color{AUBGray}
+\textbf{Figure Q6-5. Integrated smart-liner concept.} The main rolled-open view
+shows the dense slab array on the skin-contacting interior and the plain
+silicone exterior with its side-mounted electronics enclosure. The exploded
+view identifies the layered slab construction, while the distal inset shows
+how the inner modules continue toward the closed end of the liner. This is a
+project design visualization rather than evidence of a completed whole-liner
+prototype.\par}
+
+\vspace{0.45em}
+\evidencebox{Architecture represented:}{Inner multimodal sensing coverage;
+flexible spacing between complete slabs; protected in-wall signal routing;
+plain outer silicone; and an externally accessible lateral electronics pod.}

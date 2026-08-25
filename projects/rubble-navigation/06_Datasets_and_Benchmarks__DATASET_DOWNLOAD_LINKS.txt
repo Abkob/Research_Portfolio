@@ -1,0 +1,15 @@
+﻿DATASET DOWNLOAD LINKS
+
+AutoLand collapsed-buildings dataset
+https://autoland.cs.uni-freiburg.de/
+Approximately 1.28 million synthetic images with RGB, depth, surface normals, semantics, and camera poses.
+
+RELLIS-3D dataset and code
+https://github.com/unmannedlab/RELLIS-3D
+Includes labeled RGB images and an explicit rubble class. The collection also has other sensor modalities, but the RGB data can be used independently.
+
+RUGD dataset
+https://rugd.vision/
+Labeled RGB video frames for unstructured ground navigation.
+
+The datasets themselves were not placed in this ZIP because they are large. Their papers and official download links are included.

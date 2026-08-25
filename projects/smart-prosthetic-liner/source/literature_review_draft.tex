@@ -1,0 +1,422 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=25mm]{geometry}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\onehalfspacing
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0.25em}
+\sisetup{detect-all}
+
+\title{Analysis, Design, and Fabrication of a Multimodal Instrumented Prosthetic-Liner Slab}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction and Background}
+\label{sec:introduction}
+
+% To be developed after the literature review has fixed the terminology,
+% research gap, and defensible scope of the project.
+
+\section{Literature Review}
+\label{sec:literature-review}
+
+\subsection{The prosthetic socket--residual-limb interface as a sensing problem}
+
+The mechanical and thermal conditions at the interface between a residual limb,
+liner, and prosthetic socket strongly influence comfort and tissue health.
+The liner must simultaneously suspend the prosthesis, distribute load, limit
+relative motion, and protect soft tissue. These functions create a difficult
+measurement environment. Normal pressure is produced as load is transferred
+between the limb and socket, while tangential motion produces shear. The liner
+also forms a comparatively closed thermal and moisture barrier. Heat and
+perspiration can therefore accumulate during activity, changing both the
+condition of the skin and the mechanical behaviour of the interface. A useful
+instrumented liner should consequently measure more than one isolated variable.
+Normal pressure, shear, temperature, and humidity represent complementary
+aspects of the same physical problem.
+
+The importance of this combined view is supported by the broader interface-
+measurement literature. Al-Fakih \textit{et al.} reviewed techniques used to
+measure socket-interface stresses and showed that pressure has historically
+received more attention than shear, even though both contribute to the
+mechanical state of the residuum \cite{alfakih2016}. Commercial pressure films
+and discrete transducers can provide useful measurements, but their thickness,
+wiring, calibration, and sensitivity to curvature can disturb the interface
+being measured. Shear measurement is more demanding because a sensor must
+separate tangential loading from normal compression while remaining sufficiently
+thin and compliant. This is a central design constraint for the present work:
+the sensing system must not create a local prominence that changes the load
+distribution or becomes a new source of discomfort.
+
+Thermal and moisture measurements introduce a related set of constraints.
+Klute \textit{et al.} demonstrated that prosthetic socket and liner materials
+form barriers to heat transfer \cite{klute2007}. The consequences are not only
+subjective warmth. Increased temperature promotes perspiration, while trapped
+moisture may alter friction, reduce suspension, soften the skin, and contribute
+to irritation. Paternò \textit{et al.} accordingly argue that temperature and
+humidity should be studied alongside mechanical loading rather than treated as
+secondary comfort variables \cite{paterno2020}. The literature therefore
+supports a multimodal architecture; however, it also shows that the utility of
+such an architecture depends on integration. A sensor that is accurate in
+isolation is not necessarily suitable when embedded in a flexible liner.
+
+\subsection{Multiaxial capacitive sensing: Albrecht \textit{et al.}}
+
+Albrecht \textit{et al.} developed an inkjet-printed capacitive sensor intended
+to distinguish normal and two-directional shear loading
+\cite{albrecht2019}. The design is especially relevant because it addresses
+the cross-sensitivity problem without relying on a thick, rigid multi-axis load
+cell. Four capacitors, denoted \(C_1\)--\(C_4\), are formed by patterned
+conductive layers separated by a compliant dielectric. The electrodes use an
+E-shaped geometry. Multiple electrode ``fingers'' increase the edge length over
+which overlap changes when one conductive layer moves relative to the other.
+The initial overlap is arranged near the middle of its working range, allowing
+the capacitance of opposing elements to increase or decrease with the direction
+of shear.
+
+The four-capacitor arrangement provides a physical basis for resolving the
+loading components. Under compression, the dielectric thickness changes and
+the capacitors exhibit a broadly common-mode response. Under shear in one
+direction, one opposed capacitor pair responds differentially; the orthogonal
+pair performs the same function for the second tangential direction.
+Consequently, sums and differences of the four outputs can be used to estimate
+normal force and signed shear in two axes. This is a more appropriate model of
+the prosthetic interface than a pressure-only sensor because socket loading is
+not purely normal. Pistoning, rotation, and gait-related relative motion can
+produce tangential forces even where normal pressure appears acceptable.
+
+The reported device used inkjet-deposited conductive traces approximately
+\SI{412}{\nano\metre} thick and a compliant dielectric approximately
+\SI{40}{\micro\metre} thick. The electrode fingers were approximately
+\SI{210}{\micro\metre} wide with a \SI{40}{\micro\metre} gap, and each
+finger was approximately \SI{8}{\milli\metre} long. Over an investigated range
+of approximately \SIrange{0.1}{8}{\newton}, Albrecht \textit{et al.} reported a
+normal-force sensitivity of about \SI{5.2}{\femto\farad\per\newton} and a
+shear-force sensitivity of about
+\SI{13.1}{\femto\farad\per\newton} \cite{albrecht2019}. The differential shear
+response was direction-dependent, while the four-element arrangement could
+increase the combined output by suitable signal aggregation.
+
+These findings make the architecture a credible starting point for the slab
+sensor, but they do not by themselves establish performance inside a prosthetic
+liner. Several translation questions remain. First, the force range and
+boundary conditions of the published test must be compared with the pressures,
+contact areas, and shear forces expected in the planned slab test. Second,
+capacitance at the femtofarad-per-newton scale is vulnerable to cable,
+connector, and environmental parasitics. Third, encapsulation changes the
+effective stiffness and therefore the mechanical transfer of force to the
+dielectric. Finally, repeated flexing, sweat, and temperature variation can
+change the baseline or produce drift. The value of Albrecht's study is thus
+twofold: it supplies a defensible transducer geometry and it identifies the
+calibration problem that the present project must solve after embedding.
+
+\subsection{Printed capacitive humidity sensing: Aït-Mammar \textit{et al.}}
+
+Aït-Mammar \textit{et al.} investigated an inkjet-fabricated capacitive humidity
+sensor formed on a flexible polyimide substrate
+\cite{aitmammar2020}. Their approach used interdigitated electrodes covered by
+a hygroscopic dielectric, cellulose acetate butyrate (CAB). Interdigitated
+electrodes are attractive for a liner because both terminals can be patterned
+on one surface; a separate parallel counter-electrode is unnecessary. The
+electric field extends through the CAB layer and the surrounding environment.
+As the polymer absorbs water, its effective permittivity changes, producing a
+measurable change in capacitance.
+
+The cited device employed 52 electrode pairs with approximately
+\SI{100}{\micro\metre} gaps and a CAB sensing layer approximately
+\SI{8}{\micro\metre} thick. The conductive layer was on the order of
+\SI{300}{\nano\metre}, while the Kapton substrate was approximately
+\SI{125}{\micro\metre} thick. The study characterised the sensor over a broad
+relative-humidity range, approximately \(20\)--\(90\%\), and reported a clear
+humidity-dependent capacitance response \cite{aitmammar2020}. This construction
+is relevant to the proposed slab because it combines a thin substrate, printed
+conductors, and a solution-processable sensing film. In principle, four small
+elements can be distributed across the slab to measure spatial rather than
+single-point moisture conditions.
+
+The literature also exposes a fundamental integration conflict. A humidity
+sensor must exchange water vapour with the measured environment. Complete
+encapsulation in impermeable silicone would protect the conductors but would
+also isolate the CAB layer and suppress or delay its response. The sensing
+surface therefore needs a vapour-access path, selective membrane, or local
+exposure to the liner--skin environment. That access route must prevent liquid
+sweat from shorting the electrodes or causing uncontrolled swelling. Response
+and recovery times measured in a controlled humidity chamber cannot be assumed
+to apply under occlusion, contact pressure, condensation, or repeated wetting.
+Likewise, the published operating frequency and capacitance range must inform
+the readout circuit; they cannot simply be transferred to an arbitrary
+capacitance-to-digital converter.
+
+For the present work, Aït-Mammar's study justifies the material principle and
+planar geometry, not a finished prosthetic sensor. The required follow-on work
+is to verify CAB deposition on the available printed electrode, characterise
+film thickness and uniformity, determine whether the proposed opening or
+membrane preserves vapour access, and calibrate the completed element at
+skin-relevant temperatures. Hysteresis, saturation, recovery after exposure to
+high humidity, and cross-sensitivity to bending should be reported. These tests
+are necessary before the humidity elements can be interpreted as measurements
+of local liner microclimate.
+
+\subsection{Printed resistive temperature sensing: Liew \textit{et al.}}
+
+Liew and Lee studied inkjet-printed resistive temperature detectors fabricated
+from silver nanoparticle inks on flexible polyethylene terephthalate (PET)
+\cite{liew2020}. The transducer uses the temperature coefficient of electrical
+resistance: as temperature rises, the resistance of the printed conductor
+changes. A serpentine geometry increases conductor length within a small area,
+raising the nominal resistance and measurable temperature-dependent change
+without requiring a large sensor footprint. The reported pattern was
+approximately \SI{6.9}{\milli\metre} by \SI{13.2}{\milli\metre}, with a line
+width near \SI{0.5}{\milli\metre}, spacing near
+\SI{0.4}{\milli\metre}, and \SI{1.5}{\milli\metre} contact pads.
+
+The study compared two silver nanoparticle inks over approximately
+\SIrange{30}{100}{\degreeCelsius}. A linear relationship between resistance and
+temperature was reported for both printed conductors. The reported sensitivity
+was approximately \SI{0.1086}{\ohm\per\degreeCelsius} for one ink and
+\SI{0.0543}{\ohm\per\degreeCelsius} for the JS-B25HV ink
+\cite{liew2020}. The latter is particularly relevant where the same commercial
+ink and a Fujifilm Dimatix printer are available. The study therefore provides
+a direct process precedent for printing four temperature elements on a thin
+polymer substrate.
+
+Nevertheless, a linear result over \SIrange{30}{100}{\degreeCelsius} is not a
+complete calibration for prosthetic use. The most important physiological
+changes may occur over a much narrower interval near skin temperature. The
+readout must resolve small resistance changes within that interval while
+separating them from lead resistance, contact resistance, mechanical strain,
+and self-heating. Silver traces on PET are not mechanically neutral: bending
+and tensile strain can change resistance or initiate cracking, making a nominal
+temperature signal partly strain-dependent. Encapsulation can improve
+environmental durability but adds thermal resistance and time lag.
+
+Liew and Lee consequently support the feasibility of the printed RTD, while the
+present slab must establish application-specific metrology. Each element should
+be calibrated after printing and again after embedding, against a traceable
+reference over a skin-relevant range. Thermal response time, repeatability,
+drift, bending sensitivity, and agreement between the four elements should be
+reported. A four-wire measurement would reduce lead-resistance error where
+space and interconnect count permit; otherwise, conductor and lead resistance
+must be included in the calibration model.
+
+\subsection{Discrete temperature measurement and thermal control:
+Ghoseiri \textit{et al.}}
+
+Ghoseiri \textit{et al.} developed a temperature measurement and control system
+for transtibial prostheses using 12 temperature sensors distributed on opposing
+sides of the interface \cite{ghoseiri2018}. Their work connects temperature
+measurement to a clinically meaningful mechanism: heat accumulation promotes
+perspiration, and the combined warm and humid environment can affect comfort,
+skin condition, and prosthetic suspension. The study also shows the value of
+spatial measurements. A single temperature value cannot represent gradients
+created by local loading, anatomy, material thickness, and nonuniform heat
+transfer.
+
+The system did more than log temperature. Measured differences were used to
+control heating or cooling, demonstrating a closed-loop thermal-management
+concept. Its complexity, however, also reveals the practical limits of adding
+components to a wearable socket. Sensors, conductive paths, control
+electronics, and thermal-management hardware add stiffness, volume, power
+demand, and possible failure points. Ghoseiri \textit{et al.} identified further
+miniaturisation and system refinement as prerequisites for practical
+translation \cite{ghoseiri2018}.
+
+The present slab uses two TMP36 integrated-circuit sensors as discrete internal
+references. According to the manufacturer, the TMP36 operates from
+\SIrange{2.7}{5.5}{\volt}, has a nominal output slope of
+\SI{10}{\milli\volt\per\degreeCelsius}, and is specified over
+\SIrange{-40}{125}{\degreeCelsius} \cite{tmp36}. Its simple voltage output and
+low current make it convenient for prototype acquisition. Two sensors can
+indicate whether a thermal gradient exists across the slab and can provide an
+independent comparison with the printed RTDs.
+
+The TMP36 choice is experimental rather than automatically liner-compatible.
+The TO-92 package is substantially thicker and stiffer than a printed trace.
+Within a \SI{3.5}{\milli\metre} middle layer, a package approximately
+\SI{2.8}{\milli\metre} thick leaves little material above and below it. Local
+stiffness and stress concentration must therefore be assessed. The sensors
+measure their package temperature, not instantaneous skin temperature, and the
+surrounding silicone introduces lag. Ghoseiri's work supports distributed
+temperature measurement, while the TMP36 datasheet supports the electrical
+choice; neither source proves that this package will remain comfortable or
+mechanically safe inside a final liner.
+
+\subsection{An instrumented liner precedent: Paternò \textit{et al.}}
+
+Paternò \textit{et al.} provide the closest system-level precedent for the
+present project \cite{paterno2020}. They developed a custom transtibial liner
+with 12 embedded Hygrochron temperature-and-humidity loggers and compared its
+microclimate measurements with those obtained using a participant's
+conventional liner. The liner was designed from the user's geometry, and
+sensor locations were incorporated through a controlled manufacturing route
+that included machining. The work demonstrates that distributed temperature
+and relative-humidity measurement can be integrated into a wearable liner and
+used during a structured protocol rather than only in a benchtop chamber.
+
+The study is important for three reasons. First, it frames temperature and
+humidity as spatially varying quantities. Paternò \textit{et al.} reported mean
+conditions at the start of one protocol of approximately
+\SI{31.42}{\degreeCelsius} and \(68.13\%\) relative humidity, with values changing
+during rest and activity \cite{paterno2020}. Second, it demonstrates a route
+from user geometry to instrumented liner manufacture. Third, it acknowledges
+that the sensor must be integrated without undermining the liner's primary
+mechanical and comfort functions.
+
+Its limitations are equally instructive. The Hygrochron devices are rigid
+packages and are much larger than printed thin-film elements. The work was an
+early case study involving a limited participant sample and a controlled
+protocol. It does not establish long-term durability, washability, or universal
+comfort. Nor does it measure normal pressure or shear, so the recorded
+microclimate cannot be directly related to local mechanical loading. These
+limitations define an opportunity for the present design: printed elements may
+reduce thickness and increase spatial resolution, while a multiaxial
+capacitive element can add the mechanical variables absent from the
+instrumented-liner precedent.
+
+The proposed slab should not be presented as a direct miniaturisation of
+Paternò's liner. It combines sensing mechanisms with different substrates,
+readout requirements, environmental sensitivities, and mechanical stiffnesses.
+The slab is instead an integration experiment intended to determine whether
+those mechanisms can coexist within a silicone laminate. A flat slab is an
+appropriate preliminary specimen because layer placement, encapsulation,
+electrical continuity, cross-sensitivity, and local compliance can be examined
+before undertaking the more expensive and less repeatable manufacture of a
+full curved liner.
+
+\subsection{Synthesis and research gap}
+
+No single reviewed study supplies the complete solution required here.
+Albrecht \textit{et al.} provide a thin capacitive architecture capable of
+separating normal and tangential loading, but not a validated prosthetic-liner
+implementation. Aït-Mammar \textit{et al.} provide a printable humidity-sensing
+mechanism, but integration must preserve vapour access. Liew and Lee provide a
+printed silver RTD process, but it requires calibration near skin temperature
+and separation of thermal and strain effects. Ghoseiri \textit{et al.} show why
+distributed thermal measurement matters, but also illustrate the bulk and
+complexity of active socket systems. Paternò \textit{et al.} demonstrate that
+temperature and humidity can be logged from an instrumented liner during use,
+but their rigid packages do not provide pressure or shear data and limit
+miniaturisation.
+
+The resulting research gap is not merely the absence of another sensor. It is
+the absence of a compact, mechanically integrated test article that combines:
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+    \item directional mechanical sensing;
+    \item distributed printed temperature measurement;
+    \item distributed printed humidity measurement;
+    \item discrete temperature references; and
+    \item a silicone layer structure representative of a liner.
+\end{enumerate}
+The proposed \SI{56}{\milli\metre} by \SI{55}{\milli\metre} by
+\SI{5.2}{\milli\metre} slab addresses this gap at prototype scale. Its three
+layers comprise a \SI{0.20}{\milli\metre} first layer, a
+\SI{3.50}{\milli\metre} sensor-containing middle layer, and a
+\SI{1.50}{\milli\metre} cover layer. The planned sensing set comprises one
+four-capacitor normal/shear element, two TMP36 devices, four printed RTDs, and
+four printed humidity elements.
+
+This literature supports the architecture as a research hypothesis, not as a
+validated result. The decisive contribution must come from fabrication and
+testing. The completed slab must be evaluated for dimensional fidelity,
+electrical continuity, local stiffness, normal/shear decoupling, temperature
+accuracy, humidity response, response time, repeatability, drift, hysteresis,
+and behaviour after bending or cyclic loading. Only then can the design be
+judged suitable for progression from a flat integration coupon to a curved
+prosthetic liner.
+
+\section{Methodology}
+\label{sec:methodology}
+
+% To be written only after the actual materials, fabrication sequence,
+% instrumentation, calibration protocol, and analysis plan have been confirmed.
+
+\section{Results}
+\label{sec:results}
+
+% No results should be inserted until measurements have been obtained.
+
+\section{Discussion and Conclusion}
+\label{sec:discussion}
+
+% To be developed after the results are available.
+
+\begin{thebibliography}{99}
+
+\bibitem{alfakih2016}
+E.~A. Al-Fakih, N.~A. Abu Osman, and F.~R. Mahmad Adikan,
+``Techniques for interface stress measurements within prosthetic sockets of
+transtibial amputees: A review of the past 50 years,''
+\textit{Sensors}, vol.~16, no.~7, art.~1119, 2016.
+\href{https://doi.org/10.3390/s16071119}{doi:10.3390/s16071119}.
+
+\bibitem{klute2007}
+G.~K. Klute, G.~I. Rowe, A.~V. Mamishev, and W.~R. Ledoux,
+``The thermal conductivity of prosthetic sockets and liners,''
+\textit{Prosthetics and Orthotics International}, vol.~31, no.~3,
+pp.~292--299, 2007.
+\href{https://doi.org/10.1080/03093640601042554}
+{doi:10.1080/03093640601042554}.
+
+\bibitem{albrecht2019}
+A.~Albrecht, M.~Trautmann, M.~Becherer, P.~Lugli, and A.~Rivadeneyra,
+``Shear-force sensors on flexible substrates using inkjet printing,''
+\textit{Journal of Sensors}, vol.~2019, art.~1864239, 2019.
+\href{https://doi.org/10.1155/2019/1864239}
+{doi:10.1155/2019/1864239}.
+
+\bibitem{aitmammar2020}
+W.~Aït-Mammar, S.~Bridonneau, V.~Noël, E.~Stavrinidou, B.~Piro, and
+G.~Mattana,
+``A flexible capacitive humidity sensor based on inkjet-printed electrodes
+and a cellulose acetate butyrate sensing layer,''
+2020.
+\href{https://doi.org/10.3390/ecsa-7-08216}
+{Source details to be verified against the original project PDF before final
+submission.}
+
+\bibitem{liew2020}
+Q.~J. Liew and H.~W. Lee,
+``Inkjet-printed resistive temperature sensor based on silver nanoparticle
+ink,''
+in \textit{Proceedings of the 7th International Electronic Conference on
+Sensors and Applications}, art.~8216, 2020.
+\href{https://doi.org/10.3390/ecsa-7-08216}
+{doi:10.3390/ecsa-7-08216}.
+
+\bibitem{ghoseiri2018}
+K.~Ghoseiri, Y.~Zheng, K.~L. Leung, M.~Rahgozar, G.~Aminian,
+T.~H. Lee, and M.~R. Safari,
+``Temperature measurement and control system for transtibial prostheses,''
+\textit{Assistive Technology}, vol.~30, no.~1, pp.~16--23, 2018.
+\href{https://doi.org/10.1080/10400435.2016.1225850}
+{doi:10.1080/10400435.2016.1225850}.
+
+\bibitem{paterno2020}
+L.~Paternò, V.~Dhokia, A.~Menciassi, J.~Bilzon, and E.~Seminati,
+``A personalised prosthetic liner with embedded sensor technology,''
+\textit{BioMedical Engineering OnLine}, vol.~19, art.~71, 2020.
+\href{https://doi.org/10.1186/s12938-020-00814-y}
+{doi:10.1186/s12938-020-00814-y}.
+
+\bibitem{tmp36}
+Analog Devices,
+``TMP35/TMP36/TMP37 low voltage temperature sensors,'' Rev.~H,
+data sheet, 2021.
+\url{https://www.analog.com/media/en/technical-documentation/data-sheets/TMP35_36_37.pdf}.
+
+\end{thebibliography}
+
+\end{document}

@@ -104,11 +104,14 @@ These sources motivate feasibility and study design. Their source-reported resul
 - One anonymized prototype figure
 - Architecture, classifier rationale, evaluation plan, and limitations
 - Links to public data/study entry points
+- A [historical team-code snapshot](historical-team-code/) containing the public-safe pipeline guide and Python scripts
 
 ### Excluded
 
 - `subject_metadata.pickle` and any participant-level sensor data
 - Model files, checkpoints, and serialized objects
+- Dataset archives and speech recordings
+- Notebooks whose original/derivative cell boundaries were not sufficiently clear for republication
 - Downloaded research-paper PDFs
 - Private meeting transcript and internal working documents
 - Unverified clinical claims and illustrative dashboard metrics as results

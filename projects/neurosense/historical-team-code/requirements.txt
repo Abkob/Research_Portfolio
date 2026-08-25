@@ -1,0 +1,9 @@
+# Use a Python 3.12 environment for this stack. The local system Python 3.14
+# in this workspace does not currently resolve these packages cleanly.
+numpy
+pandas
+scikit-learn
+joblib
+tensorflow
+keras
+praat-parselmouth

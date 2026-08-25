@@ -47,4 +47,8 @@ With a prior map, hierarchical visual localization can constrain the search and 
 
 ## Source boundary
 
-The local archive contains a structured set of primary papers and dataset links. Copyrighted PDFs are not redistributed here.
+The local archive contains a structured set of primary papers and dataset links. Copyrighted PDFs are not redistributed here. Public-safe archive notes are preserved as:
+
+- [Dataset and benchmark links](06_Datasets_and_Benchmarks__DATASET_DOWNLOAD_LINKS.txt)
+- [SAR-Nets access note](01_Rubble_and_Search_Rescue__2023_Salas_Espinales_SAR_Nets_ACCESS_NOTE.txt)
+- [Rough-terrain DRL access note](01_Rubble_and_Search_Rescue__2023_Matsuo_Rough_Terrain_DRL_ACCESS_NOTE.txt)

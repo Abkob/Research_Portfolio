@@ -1,0 +1,639 @@
+% =============================================================================
+% Q4 -- detailed design requirements and technical specifications
+% =============================================================================
+\clearpage
+\sectiontitle{Q4. Detailed Design Requirements and Technical Specifications}
+
+\hypertarget{q4-requirement-basis}{}
+\qtwosubsection{4.1 Requirement basis and evidence boundary}
+
+{\fontsize{9.5}{11.2}\selectfont
+Q4 converts the functional blocks isolated in Q3 into testable engineering
+requirements. A specification is included only when its evidence status is
+clear: \textbf{P} denotes a result demonstrated in a published precedent,
+\textbf{D} denotes a value selected for the present design, and \textbf{V}
+denotes a value that must be verified on the fabricated slab. A paper can
+support a mechanism or a starting process without proving the performance of
+the present ink--printer--PDMS--sensor combination.\par}
+
+\evidencebox{Critical evidence boundary:}{No reviewed paper reports the exact
+56\,$\times$\,55\,$\times$\,5.2~mm slab with directly printed silver
+pressure/shear, temperature, and humidity sensors. The 5.2~mm thickness is a
+project CAD and molding requirement. Published work separately supports molded
+PDMS, direct Ag printing, multimodal prosthetic sensing, and prosthetic-liner
+thickness effects; Q5 must verify their integration.}
+
+\vspace{0.45em}
+\begingroup
+\fontsize{7.8}{9.15}\selectfont
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.35cm}Y >{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{4.55cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{Q1 origin $\rightarrow$ linked Q2 evidence} &
+\color{white}\textbf{Requirement purpose} &
+\color{white}\textbf{Q4 specification families} \\
+\textbf{Q1-1} $\rightarrow$ \hyperlink{q2-functional-blocks}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.1}}} / \hyperlink{q2-synthesis}{\textcolor{AUBRed}{\bfseries\underline{\S2.8}}} &
+Four-mode integration in the 5.2~mm slab & GEO, MAT, PRT, SYS \\
+\rowcolor{AUBPale}
+\textbf{Q1-2} $\rightarrow$ \hyperlink{q2-humidity}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.4.1}}} &
+Humidity vapour access and liquid protection & HUM, ENV, SAFE \\
+\textbf{Q1-3} $\rightarrow$ \hyperlink{q2-pressure-shear}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.3}}} / \hyperlink{q2-temperature}{\textcolor{AUBRed}{\bfseries\underline{\S2.4}}} / \hyperlink{q2-humidity}{\textcolor{AUBRed}{\bfseries\underline{\S2.4.1}}} &
+Detection of controlled interface conditions & MECH, TEMP, HUM \\
+\rowcolor{AUBPale}
+\textbf{Q1-4} $\rightarrow$ \hyperlink{q2-current-build}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.2}}} / \hyperlink{q2-pdms-printing}{\textcolor{AUBRed}{\bfseries\underline{\S2.5}}} &
+Manufacturability, available equipment, and cost & MFG \\
+\textbf{Q1-5} $\rightarrow$ \hyperlink{q2-whole-liner}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.7}}} / \hyperlink{q2-synthesis}{\textcolor{AUBRed}{\bfseries\underline{\S2.8}}} &
+Synchronized coordinate mapping and interpretation & DAQ, MAP, ALG \\
+\rowcolor{AUBPale}
+\textbf{Q1-6} $\rightarrow$ \hyperlink{q2-current-build}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.2}}} / \hyperlink{q2-whole-liner}{\textcolor{AUBRed}{\bfseries\underline{\S2.7}}} &
+Sensor density, coverage, and localization & MAP \\
+\textbf{Q1-7} $\rightarrow$ \hyperlink{q2-pdms-printing}{\textcolor{AUBRed}{\bfseries\underline{Q2 \S2.5}}} / \hyperlink{q2-hydrogel-interactions}{\textcolor{AUBRed}{\bfseries\underline{\S2.6.1}}} &
+Drift, environmental exposure, and durability & DUR, ENV \\
+\end{tabularx}
+\endgroup
+{\fontsize{7.55}{8.7}\selectfont\color{AUBGray}
+\textbf{Table Q4-1. Clickable Q1--Q2--Q4 traceability.} Q1 identifies the
+requirement origin; each underlined red Q2 reference opens the detailed design,
+literature, or implementation evidence used to define its Q4 specification.\par}
+
+\vspace{0.55em}
+\begingroup
+\fontsize{8.4}{9.85}\selectfont
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.15cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Project requirement} &
+\color{white}\textbf{Basis and status} & \color{white}\textbf{Acceptance evidence} \\
+GEO-01 & Active slab envelope shall be 56\,$\times$\,55~mm with nominal total
+thickness 5.2~mm. & \textbf{D:} fixed by current CAD/mold. Published 4 and
+6~mm liner models provide context only \cite{q4addacherif2025}. & Dimensioned
+CAD export; caliper thickness at centre and four corners. \\
+\rowcolor{AUBPale}
+GEO-02 & Total thickness shall be $5.2\pm0.2$~mm; five-point range shall not
+exceed 0.4~mm. & \textbf{D/V:} preliminary manufacturing tolerance, not a
+literature-derived clinical limit. & Five recorded measurements for every
+slab; reject visible voids, incomplete fill, or out-of-tolerance specimens. \\
+GEO-03 & Baseline stack shall allocate 0.20~mm skin-side cover, 3.50~mm sensor
+carrier, and 1.50~mm back encapsulation, summing to 5.20~mm. & \textbf{D/V:}
+current engineering allocation; layer transfer and local stiffness require
+verification. & Cross-sectional coupon or mold witness; report each layer and
+sensor-plane depth rather than total thickness alone. \\
+\rowcolor{AUBPale}
+MAT-01 & The first calibrated build shall use bare PDMS as H0; hydrogel is not
+part of the baseline specification. & \textbf{D:}
+\hyperlink{q2-hydrogel-study}{\textcolor{AUBRed}{\underline{Q2 Section 2.6 evidence gate}}}. Hydrogel
+changes moisture transport and stress transfer \cite{yuk2016,lu2025}. & H0
+calibration completed before any H1/H2 material comparison. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Thickness context from Adda Cherif \textit{et al.}
+\cite{q4addacherif2025}; dimensions and tolerances are explicitly identified
+as project decisions rather than published outcomes.}
+
+\clearpage
+\hypertarget{q4-implementation-geometry}{}
+\sectiontitle{Q4. Implementation Geometry and Liner Context}
+
+\qtwosubsection{4.2 Project slab, sensor placement, and thickness precedent}
+
+{\fontsize{9.25}{10.95}\selectfont
+The two supplied CAD views are implementation inputs: the render communicates
+the physical arrangement, while the blueprint supplies the coordinate and
+enclosure reference used by MAP-01. They are shown here with the published
+liner-thickness precedent because Q4 defines how the geometry becomes a
+measurable specification. Neither perspective view replaces a dimensioned
+manufacturing drawing.\par}
+
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}\centering
+  \includegraphics[width=\linewidth,height=63mm,keepaspectratio]
+    {assets/q2/q2-a_slab_design_render.png}\par
+  {\fontsize{7.6}{8.75}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q4-1A. Slab design render.} Supplied three-dimensional view
+  of the distributed sensing elements and central enclosure region.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}\centering
+  \includegraphics[width=\linewidth,height=63mm,keepaspectratio]
+    {assets/q2/q2-d_sensor_placement_blueprint.png}\par
+  {\fontsize{7.6}{8.75}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q4-1B. Sensor-placement blueprint.} Supplied CAD view showing
+  relative sensor placement, the enclosure principle, and conductor exits.\par}
+\end{minipage}
+
+\vspace{0.55em}
+\begin{center}
+  \includegraphics[width=0.72\linewidth,height=61mm,keepaspectratio]
+    {paper_sources/figures_selected/fem_fig2_liner_thickness_models.png}\par
+\end{center}
+{\fontsize{7.7}{8.9}\selectfont\color{AUBGray}
+\textbf{Figure Q4-1C. Published liner-thickness context.} Adda Cherif
+\textit{et al.} compared 2, 4, and 6~mm transfemoral liner models
+\cite{q4addacherif2025}. The study brackets the project's 5.2~mm value but does
+not validate the printed sensor stack or the exact selected thickness. CC BY
+4.0.\par}
+
+\vspace{0.45em}
+\evidencebox{Required drawing output:}{Release to fabrication requires one
+orthographic plan and one cross-section labelled with the 56\,$\times$\,55~mm
+envelope, 5.2~mm total thickness, layer depths, sensor IDs and footprints,
+coordinate origin, conductor widths, pad positions, edge clearances, enclosure
+boundary, and nominal versus measured dimensions.}
+
+\clearpage
+\sectiontitle{Q4. PDMS Molding and Direct Silver Printing}
+
+\hypertarget{q4-fabrication}{}
+\qtwosubsection{4.3 A literature-backed fabrication window}
+
+{\fontsize{9.15}{10.8}\selectfont
+The closest direct precedent is not a 5.2~mm prosthetic slab. Abu-Khalaf
+\textit{et al.} molded 1~mm Sylgard~184 specimens in acrylic molds, using a
+10:1 base-to-curing-agent ratio, 30~min vacuum degassing, and 70~$^{\circ}$C
+curing for 2~h before direct AgNP printing \cite{q4abukhalaf2018}. Albrecht
+\textit{et al.} established a separate low-temperature printing route using
+oxygen-plasma-treated PDMS, printing within 30~min, and drying at
+60~$^{\circ}$C for 30~min \cite{albrecht2018stretch}. These are \emph{separate
+published starting recipes}; their parameters must not be combined silently.\par}
+
+\vspace{0.25em}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth]
+  \tikzstyle{source}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    text width=44mm,minimum height=9mm,align=left,
+    font=\fontsize{6.5}{7.4}\selectfont]
+  \tikzstyle{action}=[draw=AUBRed!60,fill=white,rounded corners=1pt,
+    text width=35mm,minimum height=10mm,align=center,
+    font=\fontsize{6.7}{7.6}\selectfont]
+  \node[source] (a) at (2.4,3.2) {\textbf{Molding precedent}\quad 10:1
+    Sylgard 184; 30~min vacuum; 70~$^{\circ}$C, 2~h; 1~mm coupon
+    \cite{q4abukhalaf2018}};
+  \node[source] (b) at (2.4,1.8) {\textbf{Surface/print precedent}\quad oxygen
+    plasma; print within 30~min; 60~$^{\circ}$C, 30~min
+    \cite{albrecht2018stretch}};
+  \node[source] (c) at (2.4,0.4) {\textbf{Geometry precedent}\quad
+    $\sim$1.8~mm interconnect and horseshoe DOE; precure-dependent embedding
+    \cite{q4abukhalaf2019,sun2016}};
+  \node[action] (doe) at (7.6,1.8) {\textbf{Project coupon matrix}\\material
+    recipe $\times$ treatment $\times$ print delay $\times$ trace geometry};
+  \node[action] (select) at (12.1,1.8) {\textbf{Select one recorded window}\\
+    yield, dimensions, resistance, adhesion, insulation};
+  \node[action] (slab) at (16.5,1.8) {\textbf{Release to 5.2~mm slab}\\only
+    after coupon acceptance};
+  \draw[->,thick,color=AUBRed] (a.east)--(doe.west);
+  \draw[->,thick,color=AUBRed] (b.east)--(doe.west);
+  \draw[->,thick,color=AUBRed] (c.east)--(doe.west);
+  \draw[->,thick,color=AUBRed] (doe)--(select);
+  \draw[->,thick,color=AUBRed] (select)--(slab);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.4}{8.55}\selectfont\color{AUBGray}
+\textbf{Figure Q4-2. Evidence-to-process decision route.} The published routes
+remain separate inputs. A project coupon matrix selects one compatible process
+before the full slab is printed; this is an implementation diagram, not a
+reproduction of the paper figures already shown in Q2.\par}
+
+\vspace{0.3em}
+\begingroup
+\fontsize{8.0}{9.35}\selectfont
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.07}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.2cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Published precedent} &
+\color{white}\textbf{Project specification} & \color{white}\textbf{Pass evidence} \\
+MFG-01 & Sylgard~184, 10:1, 30~min vacuum, 70~$^{\circ}$C for 2~h on 1~mm
+specimens \cite{q4abukhalaf2018}. & Use as the documented candidate recipe if
+the current PDMS is Sylgard~184; otherwise record material, ratio, degassing,
+cure, and hardness as a separate recipe. & Complete fill; no visible bubbles in
+active areas; GEO-01/02 measurements pass. \\
+\rowcolor{AUBPale}
+PRT-01 & Continuous AgNP lines required plasma; printing occurred within
+30~min and drying was 60~$^{\circ}$C for 30~min
+\cite{albrecht2018stretch}. & Run untreated and treated coupons with fixed
+treatment-to-print delay before committing the slab. & Printed width/profile,
+open/short count, sheet resistance, and yield reported by treatment. \\
+PRT-02 & Reliable low-cost-printer interconnects were 1--2~mm; an independent
+DOE found a 1.78~mm straight trace optimum and 4~mm-amplitude horseshoe traces
+for strain tolerance \cite{albrecht2018stretch,q4abukhalaf2019}. & Retain the
+functional sensor fingers from their source designs; use $\geq1.8$~mm where
+space permits for long interconnects. & 100\% intended paths continuous, no
+adjacent shorts, and printed dimensions within $\pm10\%$ of artwork. \\
+\rowcolor{AUBPale}
+PRT-03 & Bare nanostructured Ag traces failed tape adhesion; thin coating or a
+PDMS sandwich was recommended \cite{albrecht2018stretch}. & No skin-contacting
+silver. Encapsulate all traces except the controlled RH vapour window. & Visual
+inspection, dry/wet insulation test, adhesion test, and pre/post resistance. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Direct molding and Ag-printing parameters are traceable to
+Abu-Khalaf \textit{et al.} and Albrecht \textit{et al.}
+\cite{q4abukhalaf2018,q4abukhalaf2019,albrecht2018stretch}; the full 5.2~mm
+process remains a project verification item.}
+
+\input{pdms_mixing_tutorial.tex}
+
+\clearpage
+\sectiontitle{Q4. Pressure and Directional-Shear Requirements}
+
+\hypertarget{q4-mechanical}{}
+\qtwosubsection{4.4 Mechanical sensing envelope, accuracy, and separation}
+
+{\fontsize{9.2}{10.85}\selectfont
+Albrecht \textit{et al.} demonstrated the selected four-capacitor topology on
+170~$\mu$m PET with a 40~$\mu$m PDMS dielectric---not on a 5.2~mm molded PDMS
+slab. The reported cell separated normal and two shear directions over
+0.1--8~N, with approximately 5.2~fF/N normal and 13.1~fF/N shear sensitivity,
+but also showed viscoelastic drift and shear hysteresis
+\cite{albrecht2019}. The topology is therefore reusable; its calibration is
+not.\par}
+
+\begin{minipage}[t]{0.61\textwidth}
+  \vspace{0pt}\centering
+  \begin{tikzpicture}[x=0.86cm,y=0.016cm]
+    \fill[AUBGreen!10] (0,0) rectangle (10,100);
+    \fill[AUBYellow!10] (0,100) rectangle (10,250);
+    \draw[->,thick] (0,0)--(10.7,0);
+    \draw[->,thick] (0,0)--(0,270);
+    \node[below=3.8mm,font=\fontsize{6.7}{7.5}\selectfont]
+      at (5,0) {signed shear (kPa)};
+    \node[rotate=90,font=\fontsize{6.7}{7.5}\selectfont]
+      at (-0.85,125) {normal pressure (kPa)};
+    \foreach \x/\lab in {0/-50,2.5/-25,5/0,7.5/25,10/50}{
+      \draw[AUBLine] (\x,0)--(\x,250);
+      \node[below,font=\fontsize{6.3}{7}\selectfont] at (\x,0) {\lab};
+    }
+    \foreach \y in {0,25,50,75,100,150,200,250}{
+      \draw[AUBLine] (0,\y)--(10,\y);
+      \node[left,font=\fontsize{6.3}{7}\selectfont] at (0,\y) {\y};
+    }
+    \foreach \x in {0,2.5,5,7.5,10}{
+      \foreach \y in {0,25,50,75,100,150,200,250}{
+        \fill[AUBRed] (\x,\y) circle (1.6pt);
+      }
+    }
+    \node[anchor=north east,font=\fontsize{6.4}{7.2}\selectfont\bfseries,
+      text=AUBGreen] at (9.8,96) {routine band};
+    \node[anchor=north east,font=\fontsize{6.4}{7.2}\selectfont\bfseries,
+      text=AUBYellow!70!black] at (9.8,246) {extended characterization};
+  \end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.35\textwidth}
+  \vspace{3mm}
+  \begin{tikzpicture}[>=stealth,node distance=2.4mm]
+    \tikzstyle{mechstep}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+      text width=42mm,minimum height=7mm,align=center,
+      font=\fontsize{6.7}{7.6}\selectfont]
+    \node[mechstep] (s1) {set normal preload};
+    \node[mechstep,below=of s1] (s2) {apply signed $x/y$ shear};
+    \node[mechstep,below=of s2] (s3) {dwell 5, 30, 300~s};
+    \node[mechstep,below=of s3] (s4) {unload and record recovery};
+    \node[mechstep,below=of s4] (s5) {reverse direction; repeat};
+    \draw[->,color=AUBRed,thick] (s1)--(s2);
+    \draw[->,color=AUBRed,thick] (s2)--(s3);
+    \draw[->,color=AUBRed,thick] (s3)--(s4);
+    \draw[->,color=AUBRed,thick] (s4)--(s5);
+  \end{tikzpicture}
+\end{minipage}
+{\fontsize{7.4}{8.55}\selectfont\color{AUBGray}
+\textbf{Figure Q4-3. Planned mechanical characterization matrix.} Red points
+are required pressure--shear combinations, not measured results. The envelope
+is selected from the interface ranges reviewed in Q3
+\cite{q3sanders1992,q3tang2022,q3zhang2001}; the sequence exposes hysteresis,
+cross-axis response, and PDMS recovery.\par}
+
+\vspace{0.5em}
+\begingroup
+\fontsize{8.2}{9.6}\selectfont
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.11}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.25cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Requirement} &
+\color{white}\textbf{Why this value was selected} & \color{white}\textbf{Verification and gate} \\
+MECH-01 & Characterize normal pressure from 0 to 250~kPa; designate 0--100~kPa
+as the routine operating band. & \textbf{D:} published interfaces include
+measured tens-of-kPa values and a reported 226~kPa finite-element peak
+\cite{q3sanders1992,q3tang2022,q3zhang2001}. These are context, not universal
+injury limits. & Dead weights/load cell and known footprint; report full-range
+and routine-band calibration, residuals, saturation, and overload recovery. \\
+\rowcolor{AUBPale}
+MECH-02 & Characterize signed shear from $-50$ to $+50$~kPa in both slab axes
+under at least three normal preloads. & \textbf{D:} selected to include
+published shear values up to roughly 40--50~kPa
+\cite{q3sanders1992,q3zhang2001}. & Independent tangential force/displacement
+reference; report vector magnitude, angle, cross-axis coupling, and slip onset. \\
+MECH-03 & Within each calibrated band: $R^2\geq0.95$, NRMSE $\leq10\%$,
+hysteresis $\leq10\%$ full scale, repeatability CV $\leq10\%$. & \textbf{D/V:}
+predeclared engineering gates; not clinical limits and not inherited from the
+published PET cell. & At least three independently fabricated slabs, increasing
+and decreasing steps, three cycles per level, and held-out verification points. \\
+\rowcolor{AUBPale}
+MECH-04 & Non-target axis response shall be $\leq15\%$ of target full-scale
+response; baseline shall recover to within 10\% full scale after unloading. &
+\textbf{D/V:} matches Q3 separation and recovery gates. PDMS viscoelasticity
+makes both checks necessary \cite{albrecht2019}. & Modality-by-modality matrix;
+5, 30, and 300~s dwell/recovery records; failure cannot be averaged into a
+combined score. \\
+MECH-05 & Shear signals may indicate a possible slip event but shall not label
+slip without an independent relative-motion reference. & \textbf{P/D:} force
+and pistoning are related but distinct measurements \cite{q3tang2022,noll2018}. &
+Synchronized camera/encoder trace; onset-time error and confusion matrix on
+held-out repetitions. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Mechanical envelope drawn from prosthetic-interface literature;
+sensor topology and its transfer limitation from Albrecht \textit{et al.}
+\cite{albrecht2019,q3sanders1992,q3tang2022,q3zhang2001}.}
+
+\clearpage
+\sectiontitle{Q4. Temperature and Humidity Requirements}
+
+\hypertarget{q4-temp-humidity}{}
+\qtwosubsection{4.5 Separate measurands, separate protection, common coordinates}
+
+{\fontsize{8.75}{10.25}\selectfont
+The source temperature meander and humidity IDE were demonstrated on PET and
+Kapton, respectively---not on molded PDMS. Their geometry and response ranges
+are starting specifications; transfer, protection, and calibration remain
+project verification items \cite{liew2020,aitmammar2020}.\par}
+
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}\centering
+  \begin{tikzpicture}
+  \begin{axis}[
+    width=\linewidth,height=38mm,
+    xmin=0,xmax=10,ymin=20,ymax=50,
+    xlabel={step index},ylabel={temperature ($^{\circ}$C)},
+    xtick={0,2,4,6,8,10},ytick={25,30,35,40,45},
+    grid=both,axis line style={AUBGray},tick label style={font=\fontsize{6}{6.8}\selectfont},
+    label style={font=\fontsize{6.5}{7.3}\selectfont}]
+    \addplot+[const plot,very thick,color=AUBRed,mark=*]
+      coordinates {(0,25)(1,25)(1,30)(2,30)(2,35)(3,35)(3,40)(4,40)
+      (4,45)(5,45)(5,40)(6,40)(6,35)(7,35)(7,30)(8,30)(8,25)(10,25)};
+  \end{axis}
+  \end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}\centering
+  \begin{tikzpicture}
+  \begin{axis}[
+    width=\linewidth,height=38mm,
+    xmin=0,xmax=10,ymin=10,ymax=100,
+    xlabel={step index},ylabel={relative humidity (\%RH)},
+    xtick={0,2,4,6,8,10},ytick={20,40,60,80,95},
+    grid=both,axis line style={AUBGray},tick label style={font=\fontsize{6}{6.8}\selectfont},
+    label style={font=\fontsize{6.5}{7.3}\selectfont}]
+    \addplot+[const plot,very thick,color=AUBBlue,mark=*]
+      coordinates {(0,20)(1,20)(1,40)(2,40)(2,60)(3,60)(3,80)(4,80)
+      (4,95)(5,95)(5,80)(6,80)(6,60)(7,60)(7,40)(8,40)(8,20)(10,20)};
+  \end{axis}
+  \end{tikzpicture}
+\end{minipage}
+{\fontsize{7.35}{8.45}\selectfont\color{AUBGray}
+\textbf{Figure Q4-4. Planned chamber profiles.} Left: increasing, decreasing,
+and recovery temperature levels. Right: the corresponding RH sequence, repeated
+at two or more temperatures. These are prescribed reference inputs, not project
+measurements; the levels follow the calibration ranges reviewed in Q2
+\cite{liew2020,aitmammar2020,paterno2020}.\par}
+
+\vspace{0.3em}
+\begingroup
+\fontsize{7.7}{9.0}\selectfont
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.02}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.2cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Project specification} &
+\color{white}\textbf{Published anchor} & \color{white}\textbf{Verification} \\
+TEMP-01 & Calibrate every temperature channel from 25 to 45~$^{\circ}$C at
+5~$^{\circ}$C steps; target error $\leq0.5$~$^{\circ}$C and displayed
+resolution $\leq0.1$~$^{\circ}$C. & Liew used 30--100~$^{\circ}$C; Patern\`o
+calibrated liner sensors over 25--45~$^{\circ}$C and demonstrated substantially
+smaller post-correction error using different devices
+\cite{liew2020,paterno2020}. & Co-located traceable RTD/thermocouple; increasing,
+decreasing, and held-out temperatures; RMSE, bias, $t_{90}$, and recovery. \\
+\rowcolor{AUBPale}
+TEMP-02 & Use the project meander geometry (6.9\,$\times$\,13.2~mm, 0.5~mm
+track, 0.4~mm gap) and quantify strain cross-sensitivity. & Geometry taken from
+Liew \textit{et al.}; their sensitivities were 0.0543 and 0.1086~$\Omega$/
+$^{\circ}$C for two inks \cite{liew2020}. & Compare resistance under temperature
+only, strain only, and combined loading; published sensitivity is not the
+project calibration coefficient. \\
+HUM-01 & Calibrate vapour response from 20\% to 95\%RH at two or more
+temperatures; target error $\leq5$\%RH, hysteresis $\leq10$\% full scale, and
+vapour $t_{90}\leq100$~s before final protection selection. & Published CAB IDE
+covered 20--90\%RH and reported response below 100~s and recovery below 5~s;
+prosthetic liner calibration extended to 95\%RH with different devices
+\cite{aitmammar2020,paterno2020}. & Reference hygrometer; increasing/decreasing
+RH, held-out levels, temperature compensation, and dry recovery. \\
+\rowcolor{AUBPale}
+HUM-02 & The humidity region shall receive vapour through a hydrophobic,
+vapour-permeable barrier; liquid shall not directly contact Ag traces or
+electrical joints. & Patern\`o protected non-waterproof sensors with breathable
+waterproof fabric; the printed IDE paper did not test prosthetic sweat
+\cite{paterno2020,aitmammar2020}. & Vapour steps followed by controlled
+artificial-sweat droplets; inspect leakage, saturation, baseline recovery, and
+post-exposure calibration. \\
+HUM-03 & Vapour RH and liquid sweat shall remain separate software states; a
+saturated or nonrecovering IDE shall be flagged, not converted to a higher
+``discomfort'' score. & \textbf{D/V:} measurement-quality requirement arising
+from the different transport mechanisms. & Quality flag triggered by out-of-
+range capacitance, recovery failure, leakage, or reference disagreement. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Temperature and RH geometry/performance precedents from Liew,
+A\"{\i}t-Mammar, and Patern\`o \textit{et al.}
+\cite{liew2020,aitmammar2020,paterno2020}.}
+
+\clearpage
+\sectiontitle{Q4. Acquisition, Coordinates, and Interface-Condition Mapping}
+
+\hypertarget{q4-mapping}{}
+\qtwosubsection{4.6 Data integrity is part of the sensor specification}
+
+{\fontsize{9.25}{10.9}\selectfont
+The physical slab does not produce a meaningful map by itself. Every channel
+must retain its units, calibration version, timestamp, and CAD coordinate
+before interpolation. Kwak \textit{et al.} demonstrated a wireless prosthetic
+interface at 30~Hz; Patern\`o \textit{et al.} logged slower temperature/RH
+channels every 5~s; Turner \textit{et al.} compared interpolation methods on a
+three-dimensional prosthetic socket \cite{q3kwak2020,paterno2020,q3turner2021}.
+These precedents justify a multirate pipeline rather than forcing every
+modality to the same physical response speed.\par}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=3mm]
+  \tikzstyle{data}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=9mm,text width=31mm,align=center,
+    font=\fontsize{6.9}{7.9}\selectfont]
+  \node[data] (d1) {raw channels\\and reference};
+  \node[data,right=of d1] (d2) {calibration +\\quality flags};
+  \node[data,right=of d2] (d3) {sensor ID $\rightarrow$\\CAD coordinate};
+  \node[data,right=of d3] (d4) {separate physical-\\unit maps};
+  \node[data,right=of d4] (d5) {optional sourced\\condition score};
+  \draw[->,thick,color=AUBRed] (d1)--(d2);
+  \draw[->,thick,color=AUBRed] (d2)--(d3);
+  \draw[->,thick,color=AUBRed] (d3)--(d4);
+  \draw[->,thick,color=AUBRed] (d4)--(d5);
+  \draw[->,dashed,color=AUBGray] (d2.south) to[bend right=25]
+    node[below,font=\fontsize{6.2}{7}\selectfont]{failed quality gate stops interpretation} (d5.south);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q4-5. Traceable mapping pipeline.} A smooth image is the last
+step, not the evidence source; failed calibration or coordinate registration
+cannot be hidden by interpolation.\par}
+
+\vspace{0.45em}
+\begingroup
+\fontsize{8.2}{9.6}\selectfont
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.11}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.25cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Requirement} &
+\color{white}\textbf{Literature/design basis} & \color{white}\textbf{Acceptance evidence} \\
+DAQ-01 & Pressure/shear shall be sampled at $\geq50$~Hz; temperature/RH at
+$\geq0.2$~Hz. All records shall share one monotonic clock. & \textbf{D:}
+50~Hz gives margin over a published 30~Hz prosthetic system; 0.2~Hz follows a
+5~s liner microclimate precedent \cite{q3kwak2020,paterno2020}. & Timestamp
+audit; channel rate, jitter, and lost samples reported during a 30~min run. \\
+\rowcolor{AUBPale}
+DAQ-02 & Inter-channel time skew shall be $\leq20$~ms for pressure/shear; packet
+loss shall be $<1\%$; raw and filtered values shall both be retained. &
+\textbf{D/V:} engineering synchronization and traceability targets. & Inject a
+common electrical/mechanical event; verify timestamps, sample count, and filter
+delay. \\
+MAP-01 & Each channel shall have a unique ID, modality, unit, slab ID, CAD
+$(x,y,z)$ coordinate, active footprint, orientation, and calibration version. &
+Personalized liner work demonstrates the importance of registered placement
+\cite{paterno2020}; this schema is project-specific. & Automated manifest-to-CAD
+check: zero duplicate IDs, missing units, or unassigned coordinates. \\
+\rowcolor{AUBPale}
+MAP-02 & Known hotspot median localization error shall not exceed half the
+nearest-neighbour sensor pitch; the 95th percentile and boundary errors shall
+also be reported. & \textbf{D/V:} Q3 preregistered gate; Turner demonstrates
+interpolation choices but not this array's accuracy \cite{q3turner2021}. &
+Blinded stimulus positions; true/detected coordinates, error vectors, and
+confidence/coverage mask. \\
+MAP-03 & Display pressure, signed shear, temperature, and RH separately before
+any fusion. Show sensor markers and measured coverage; do not extrapolate a
+clinical conclusion outside validated coverage. & Prosthetic maps can be
+smoothly interpolated, but interpolation is not measurement
+\cite{q3turner2021}. & Screenshot plus numerical test: known inputs, correct
+units, correct coordinates, no value outside coverage without a flag. \\
+\rowcolor{AUBPale}
+ALG-01 & Any combined interface-condition score shall publish its equation,
+normalization range, threshold source, version, and missing-channel rule. It
+shall not be labelled a validated discomfort-risk score without participant
+evidence. & \textbf{D:} claim boundary established in Q1--Q3 and supported by
+the variability reported in interface-pressure reviews
+\cite{q3armitage2026}. & Software unit tests, versioned configuration, and a
+display disclaimer until participant validation is completed. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Sampling precedents from Kwak and Patern\`o; spatial mapping
+precedent from Turner \textit{et al.}
+\cite{q3kwak2020,paterno2020,q3turner2021}.}
+
+\clearpage
+\sectiontitle{Q4. Durability, Safety, Manufacturability, and Traceability}
+
+\hypertarget{q4-design-gate}{}
+\qtwosubsection{4.7 Master design gate before Q5 testing}
+
+\begin{center}
+\vspace{-0.2em}
+\begin{tikzpicture}[>=stealth,node distance=3mm]
+  \tikzstyle{gate}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=7mm,text width=36mm,align=center,
+    font=\fontsize{7}{8}\selectfont]
+  \node[gate] (g1) {coupon process\\gate};
+  \node[gate,right=of g1] (g2) {flat 5.2~mm slab\\calibration gate};
+  \node[gate,right=of g2] (g3) {environmental +\\cyclic gate};
+  \node[gate,right=of g3] (g4) {curved phantom /\\liner gate};
+  \draw[->,thick,color=AUBRed] (g1)--(g2);
+  \draw[->,thick,color=AUBRed] (g2)--(g3);
+  \draw[->,thick,color=AUBRed] (g3)--(g4);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.25}{8.4}\selectfont\color{AUBGray}
+\textbf{Figure Q4-6. Build-and-test release sequence.} A failed process coupon
+or flat-slab calibration blocks curved integration. Published benchmarks
+include 1,000-cycle prosthetic-sensor and $>10{,}000$-cycle printed-PDMS
+conductor tests \cite{q3kwak2020,albrecht2018stretch}.\par}
+
+\vspace{0.25em}
+\begingroup
+\fontsize{8.0}{9.35}\selectfont
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.25cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{ID} & \color{white}\textbf{Requirement} &
+\color{white}\textbf{Evidence basis} & \color{white}\textbf{Release criterion} \\
+DUR-01 & Stage cyclic characterization at 1,000 then 10,000 cycles using
+compression, signed shear, and liner-relevant bending. & 1,000-cycle soft
+prosthetic-sensor and $>10{,}000$-cycle printed-PDMS conductor precedents
+\cite{q3kwak2020,albrecht2018stretch}. & No open/short, delamination, exposed
+silver, or leakage; report $\Delta R/R_0$, calibration shift, hysteresis, and
+24~h recovery. Do not substitute continuity for sensor accuracy. \\
+\rowcolor{AUBPale}
+ENV-01 & Repeat calibration after 35--37~$^{\circ}$C conditioning, 95\%RH,
+artificial sweat, and combined cyclic loading. & Prosthetic microclimate and
+biofluid exposure are established integration concerns
+\cite{paterno2020,q3kwak2020}. & No damage and no $>10\%$ full-scale baseline
+shift after defined recovery; failing modalities are reported separately. \\
+SAFE-01 & No conductive silver, sharp transition, or fluid path shall contact
+skin. Skin-side materials, cleaning method, and adhesives shall be identified
+before participant use. & Silicone encapsulation and protected sensor
+integration are published precedents \cite{q3kwak2020,paterno2020}; this is an
+engineering prototype, not yet cleared for human use. & Dry/wet insulation,
+visual/tactile inspection, documented material list, and institutional safety
+review before any participant protocol. \\
+\rowcolor{AUBPale}
+MFG-02 & Every slab shall carry a traveler recording material batch, mix ratio,
+degassing, cure, plasma settings, print delay, ink batch, print passes, drying,
+encapsulation, and inspection. & Direct-PDMS studies show sensitivity to
+surface treatment, geometry, precure, and solvent interaction
+\cite{albrecht2018stretch,sun2016,q4abukhalaf2019}. & No missing process fields;
+specimen ID links traveler, calibration files, and CAD coordinate manifest. \\
+MFG-03 & A bill of materials shall list quantity, supplier, unit cost, reusable
+equipment, AUB availability, and fabrication time; cost is reported, not
+guessed. & \textbf{D/V:} directly answers Q1 manufacturability; literature
+cannot establish local inventory or 2026 pricing. & Completed department
+availability table, receipts/quotes, labour log, yield, and cost per passing
+slab. \\
+\rowcolor{AUBPale}
+SYS-01 & A slab passes only if geometry, electrical continuity, modality
+calibration, cross-sensitivity, coordinate registration, environmental
+recovery, and data integrity all pass. & \textbf{D:} system-level gate derived
+from Q1 and the eight Q3 functional blocks. & Signed requirements matrix with
+P/D/V status, raw evidence path, pass/partial/fail result, and corrective
+action. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Durability precedents from printed PDMS conductors and soft
+prosthetic-interface sensors \cite{albrecht2018stretch,q3kwak2020}; process
+traceability is required because those source processes are not identical to
+the present build.}
+
+\vspace{0.35em}
+\begingroup
+\setlength{\fboxsep}{7pt}
+\fcolorbox{AUBRed}{AUBPale}{%
+\begin{minipage}{0.96\linewidth}
+{\fontsize{11.6}{13.6}\selectfont\bfseries\color{AUBRed}
+V = REQUIREMENTS DEFINED; COMPLETE 5.2 mm SYSTEM NOT YET VERIFIED}
+\par\vspace{0.28em}
+{\fontsize{8.6}{10.1}\selectfont
+The literature supports every major functional mechanism and supplies concrete
+starting processes, geometries, ranges, and validation methods. It does
+\textbf{not} supply a completed equivalent of the present slab. The final Q4
+decision is therefore to fabricate the 5.2~mm H0 PDMS slab under a recorded
+process window, apply the modality and system gates above, and advance to
+curved phantom or whole-liner integration only after the flat specimen passes.
+Hydrogel remains a later controlled comparison; the map remains an
+\emph{interface-condition map} until participant evidence supports a discomfort
+or clinical-risk interpretation.}
+\end{minipage}}
+\endgroup
+
+\clearpage

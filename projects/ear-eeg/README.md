@@ -35,6 +35,15 @@ Can ear-centered EEG support unobtrusive longitudinal monitoring while an integr
 
 Sound or vibration is a stimulus, not the sensing mechanism. The device must not independently declare coma, death, or brain death. Early software should remain research-only and abstain when signal quality or confidence is insufficient.
 
+## Archived planning files
+
+- [Detailed research plan](DETAILED_PLAN.md)
+- [Original source-archive guide](SOURCE_ARCHIVE.md)
+- [Structured source index](SOURCES.csv)
+- [I-CARE dataset access notes](I_CARE_DATASET_ACCESS.md)
+
+The archive's downloaded papers are not redistributed here; the source index preserves the evidence trail.
+
 ## Selected primary sources
 
 - Kidmose et al. (2013), *A Study of Evoked Potentials From Ear-EEG*, DOI: [10.1109/TBME.2013.2264956](https://doi.org/10.1109/TBME.2013.2264956)

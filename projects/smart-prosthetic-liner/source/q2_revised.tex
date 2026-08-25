@@ -1,0 +1,819 @@
+\sectiontitle{Q2. Functional-Block Literature and Development Map}
+
+{\fontsize{9.6}{11.35}\selectfont
+The assignment requires more than a general demonstration that the concept can
+work: it asks which functional blocks already have reasonable solutions that
+can be leveraged, which blocks still require project-specific integration, and
+where the strongest technical uncertainty remains. The comparison below treats
+published prosthetic-interface systems and printed-sensor studies as
+\textbf{similar or competing research solutions}. It does not claim that each
+paper reproduces the complete liner described in this report.\par}
+
+\hypertarget{q2-functional-blocks}{}
+\qtwosubsection{2.1 Similar and competitive solutions by functional block}
+
+\begingroup
+\fontsize{8.2}{9.65}\selectfont
+\renewcommand{\arraystretch}{1.09}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.45cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Functional block} &
+\color{white}\textbf{Closest published solution} &
+\color{white}\textbf{Reasonable solution to leverage} &
+\color{white}\textbf{Project-specific integration work} \\
+Pressure and directional shear & Four partially overlapping printed
+capacitors separate normal and signed shear response
+\cite{albrecht2018conf,albrecht2019}; textile arrays demonstrate distributed
+socket-pressure measurement \cite{tabor2021}. & Reuse the four-sector cell
+principle, differential capacitance readout, and calibrated directional loading
+method. & Print and protect the cell on the 5.2 mm PDMS slab, quantify
+cross-axis error, and preserve its physical coordinate in the multimodal map. \\
+\rowcolor{AUBPale}
+Temperature & A printed silver meander provides a repeatable
+resistance--temperature relationship on a flexible substrate \cite{liew2020}. &
+Reuse the serpentine resistive geometry and temperature-calibration framework. &
+Separate temperature response from bending, compression, conductor strain, and
+self-heating after direct printing on PDMS. \\
+Humidity and sweat route & An all-inkjet-printed interdigitated capacitive
+sensor measures relative humidity through a hygroscopic layer
+\cite{aitmammar2020}. & Reuse the IDE geometry, capacitance measurement, and
+vapour-step characterization. & Provide vapour access while limiting liquid
+sweat, leakage, saturation, slow recovery, and temperature dependence inside
+the liner. \\
+\rowcolor{AUBPale}
+Printed PDMS conductors & Plasma-assisted AgNP printing and partially embedded
+silver traces establish two direct-on-PDMS process routes
+\cite{albrecht2018stretch,sun2016}. & Use surface treatment, wide-trace process
+windows, and bending/strain characterization as starting methods. & Determine
+the actual print window, swelling, adhesion, geometry, curing, and durability
+for the project's ink, printer, sensor artwork, and molded PDMS. \\
+Sensorized liner integration & Embedded temperature/humidity sensing and a
+wireless multimodal skin-interface platform show that prosthetic-liner sensing
+can be distributed and synchronized \cite{paterno2020,q3kwak2020}. & Reuse
+staged integration, channel identification, synchronized acquisition, and
+post-assembly calibration. & Combine all four printed modalities in thin slabs,
+route connections through a molded liner, and retain calibration under
+curvature, pre-strain, donning, and repeated loading. \\
+\rowcolor{AUBPale}
+Spatial interpretation & Socket pressure maps and movement/pistoning systems
+demonstrate spatial display and independent motion ground truth
+\cite{q3turner2021,q3yu2024,noll2018}. & Reuse coordinate registration,
+known-location stimulation, interpolation checks, and movement reference
+measurements. & Fuse pressure, shear, temperature, and humidity without hiding
+modality-specific error; report localization error before interpreting a map as
+discomfort risk. \\
+Skin interface and bench model & Hydrogel--elastomer bonding, hydrogel sweat
+collection, and prosthetic socket phantoms provide separate material and test
+precedents \cite{yuk2016,lu2025,quinlan2020,phillips2025}. & Reuse established
+bonding concepts, controlled moisture comparisons, and mechanically repeatable
+phantom loading. & Compare bare and patterned skin-facing structures without
+blocking or redistributing the signals, then transfer passing slabs to a curved
+liner geometry. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Functional-block comparison synthesized from printed-sensor,
+sensorized-liner, visualization, interface-material, and prosthetic test-rig
+literature. Each project-specific statement is bounded to work that remains to
+be demonstrated on this design.}
+
+\vspace{0.5em}
+\evidencebox{Novelty boundary:}{The individual sensor principles, PDMS printing
+methods, hydrogel bonding concepts, and spatial displays are \textbf{not treated
+as independently novel}. The candidate project contribution is their
+coordinate-preserving integration as directly printed pressure, shear,
+temperature, and humidity blocks on modular 5.2 mm PDMS slabs, followed by
+multimodal calibration and liner-level mapping. A formal novelty claim would
+still require a dedicated patent and systematic prior-art search.}
+
+\vspace{0.45em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.6mm]
+  \tikzstyle{mapstep}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=7.5mm,text width=34mm,align=center,
+    font=\fontsize{6.9}{7.8}\selectfont]
+  \node[mapstep] (m1) {established sensing\\and printing blocks};
+  \node[mapstep,right=of m1] (m2) {project PDMS slab\\and CAD coordinates};
+  \node[mapstep,right=of m2] (m3) {multimodal calibration\\and protection};
+  \node[mapstep,right=of m3] (m4) {curved liner and\\spatial interpretation};
+  \draw[->,thick,color=AUBRed] (m1)--(m2);
+  \draw[->,thick,color=AUBRed] (m2)--(m3);
+  \draw[->,thick,color=AUBRed] (m3)--(m4);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q2-F1. Functional-block strategy.} Existing solutions are used
+as engineering starting points; the work concentrates on the interfaces between
+blocks and on the evidence required after each mechanical boundary changes.\par}
+
+\clearpage
+\sectiontitle{Q2. Work Completed and Current Build}
+
+\hypertarget{q2-current-build}{}
+\qtwosubsection{2.2 What has been made and what is active now}
+
+{\fontsize{9.65}{11.4}\selectfont
+Work already completed includes printing the full sensor artwork on a large PET
+sheet, molding the 5.2 mm PDMS slab, and developing the Fusion/AutoCAD sensor
+layouts and slab renders. PET was the available first-stage printing substrate,
+not a candidate liner material. The active build transfers the same functional
+blocks to the molded PDMS specimen, whose CAD envelope is approximately
+\textbf{56 mm $\times$ 55 mm $\times$ 5.2 mm}.\par}
+
+\begingroup
+\fontsize{8.85}{10.35}\selectfont
+\renewcommand{\arraystretch}{1.14}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{3.0cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Artifact or workstream} &
+\color{white}\textbf{Present state} &
+\color{white}\textbf{Role in the development sequence} \\
+Large PET process print & The complete sensor artwork has been printed on the
+available large PET sheet. & Records artwork transfer, printer operation,
+trace routing, connection access, and first-stage electrical inspection. It
+does not determine the liner substrate. \\
+\rowcolor{AUBPale}
+Molded PDMS slab & A nominal 5.2 mm PDMS specimen has been formed for direct
+printing. & Provides the intended flexible substrate for recording cure state,
+surface preparation, printed geometry, swelling, adhesion, and sensor response. \\
+Sensor artwork & Pressure/shear capacitor geometry, resistive temperature
+meander, capacitive humidity IDE, conductors, and pads are available. & Defines
+the four established sensing blocks transferred to the PDMS print and later
+checked channel by channel. \\
+\rowcolor{AUBPale}
+CAD slab and placement design & Fusion/AutoCAD renders define the slab envelope,
+relative sensor arrangement, central enclosure region, and conductor exits. &
+Supplies the coordinate reference for the printed build; a final dimensioned
+export will distinguish nominal from measured dimensions. \\
+Acquisition and mapping algorithm & Threshold logic and spatial-map generation
+are under development. & Receives calibrated channels only after sensor identity,
+units, time synchronization, and CAD coordinates are documented; algorithmic
+validation is addressed later in the report. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Project status derived from the completed PET print, molded PDMS
+specimen, supplied Fusion/AutoCAD geometry, slab renders, and stated software
+work. The literature supplies transfer methods and measurement precedents, not
+evidence that these project artifacts have already been calibrated
+\cite{albrecht2019,liew2020,aitmammar2020,albrecht2018stretch}.}
+
+\evidencebox{Drawing requirement:}{The next CAD export must label the coordinate
+origin, active footprints, conductor widths, connection pads, edge clearances,
+enclosure sections, and verified versus nominal dimensions. Perspective renders
+must not be used as dimensional evidence. The supplied render and placement
+blueprint are consolidated with the dimensional requirements and published
+liner-thickness context in
+\hyperlink{q4-implementation-geometry}{\textcolor{AUBRed}{\textbf{Q4 Section 4.2}}}.}
+
+\vspace{0.55em}
+\begin{minipage}[t]{0.29\textwidth}
+  \vspace{0pt}\centering
+  \includegraphics[width=\linewidth,height=66mm,keepaspectratio,
+    trim=285 365 285 18,clip]
+    {assets/project/pet_sensor_process_print.png}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.685\textwidth}
+  \vspace{0pt}
+  {\fontsize{8.55}{10.1}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-W1. Sensors printed on PET during the first-stage
+  fabrication trial.} The visible layouts correspond, from top to bottom, to
+  the multi-sector pressure/directional-shear electrode pattern, the resistive
+  temperature meander, and the dense capacitive humidity IDE. This project
+  photograph documents successful artwork transfer and printing on the
+  available PET process substrate.\par
+  \vspace{0.45em}
+  \textbf{Evidence boundary.} The photograph does not establish ink
+  conductivity, calibration, sensitivity, channel isolation, or performance
+  after direct printing on molded PDMS; those require electrical inspection
+  and the modality-specific validation described later in the report.\par}
+\end{minipage}
+
+\clearpage
+\sectiontitle{Q2. Functional-Block Literature---Pressure and Shear}
+
+{\fontsize{9.7}{11.5}\selectfont
+Across the reviewed force-sensing work, the consensus is that local normal and
+directional shear information can be recovered from differential sensor
+responses. The methods differ in substrate, enclosure, electrode geometry,
+readout, and loading range, so their numerical performance is \emph{source
+performance}. The established sensing principle can be reused, but the values
+cannot be transferred to the project's PDMS stack without recalibration.\par}
+
+\hypertarget{q2-pressure-shear}{}
+\qtwosubsection{2.3 Pressure and directional shear}
+
+\begin{minipage}[t]{0.38\textwidth}
+  \vspace{0pt}
+  {\fontsize{9.2}{10.8}\selectfont
+  Albrecht \textit{et al.} used four partially overlapping printed capacitors
+  to distinguish normal loading from directional shear
+  \cite{albrecht2018conf,albrecht2019}. The four capacitances, C1--C4, respond
+  differently with force direction. The journal device reported an
+  approximately linear response over 0.1--8 N, with 5.2 fF/N normal-force and
+  13.1 fF/N shear-force sensitivity. Those values belong to the published
+  device and cannot be assigned to the present slab before calibration.\par
+
+  \vspace{0.55em}
+  \textbf{Transfer requirement.} Apply known normal loads and signed shear in
+  both axes. Report sensitivity, linearity, hysteresis, cross-axis response,
+  repeatability, and spatial localization for every printed cell.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.59\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=72mm,keepaspectratio]
+    {assets/q2/sensor_literature/pressure_shear_sensor_evidence.png}\par
+  \vspace{0.2em}
+  {\fontsize{8.15}{9.4}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-S1. Pressure/shear evidence plate.} Project artwork and the
+  published four-capacitor force-cell principle reported by Albrecht
+  \textit{et al.} \cite{albrecht2019}.\par}
+\end{minipage}
+
+\vspace{0.75em}
+\begingroup
+\fontsize{8.9}{10.45}\selectfont
+\renewcommand{\arraystretch}{1.14}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.8cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Comparison dimension} &
+\color{white}\textbf{What existing solutions establish} &
+\color{white}\textbf{Adaptation in the current project} \\
+Normal versus shear & Four capacitor sectors change differently with force
+direction. & A calibrated force matrix that reconstructs normal load and signed
+shear without unacceptable cross-talk. \\
+\rowcolor{AUBPale}
+Sensor placement & Local force cells can resolve the load applied at their
+footprint. & Coverage and missed-hotspot tests using known locations between
+and around the current sensor sites. \\
+Durability & Published flexible devices report function under their own
+material stacks. & Repeated compression, bidirectional shear, bending, and
+recalibration on the molded slab. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Literature-derived mechanism summary from the four-capacitor
+printed force-cell studies \cite{albrecht2018conf,albrecht2019}; the right-hand
+column defines the adaptation from the published solution to this project.}
+
+\vspace{0.5em}
+\evidencebox{Reuse decision:}{Adopt the four-sector capacitive architecture and
+directional calibration logic. Develop only the substrate-specific printing,
+PDMS enclosure, strain/cross-axis compensation, and coordinate registration
+needed to make that established block operate inside the multimodal slab.}
+
+\clearpage
+\sectiontitle{Q2. Functional-Block Literature---Temperature and Humidity}
+
+\hypertarget{q2-temperature}{}
+\qtwosubsection{2.4 Printed temperature sensing}
+
+\begin{minipage}[t]{0.38\textwidth}
+  \vspace{0pt}
+  {\fontsize{9.15}{10.75}\selectfont
+  Liew \textit{et al.} printed serpentine silver resistors on PET and observed
+  a linear resistance--temperature relationship from 30 to 100~$^\circ$C
+  \cite{liew2020}. Their reported design was approximately
+  6.9 mm $\times$ 13.2 mm, with 0.5 mm tracks and 0.4 mm gaps. Resistance also
+  depends on printed geometry and mechanical strain, so the present meander
+  requires temperature calibration while the slab is unloaded and under
+  representative bending and compression.\par
+
+  \vspace{0.45em}
+  \textbf{Required outputs.} Temperature coefficient, offset, response time,
+  repeatability, strain error, self-heating check, and drift after cycling.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.59\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=54mm,keepaspectratio]
+    {assets/q2/sensor_literature/temperature_sensor_evidence.png}\par
+  \vspace{0.15em}
+  {\fontsize{8.1}{9.35}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-S2. Temperature evidence plate.} Project meander artwork
+  and the published resistive temperature-sensor principle from Liew
+  \textit{et al.} \cite{liew2020}.\par}
+\end{minipage}
+
+\vspace{0.85em}
+\hypertarget{q2-humidity}{}
+\qtwosubsection{2.4.1 Printed humidity sensing}
+
+\begin{minipage}[t]{0.38\textwidth}
+  \vspace{0pt}
+  {\fontsize{9.15}{10.75}\selectfont
+  A\"{\i}t-Mammar \textit{et al.} demonstrated an all-inkjet-printed
+  capacitive relative-humidity sensor using interdigitated silver electrodes
+  and a hygroscopic sensing layer \cite{aitmammar2020}. The supplied plate
+  connects the project IDE to the published geometry and micrograph. The paper
+  supports the capacitive mechanism, but it does not prove liquid-sweat
+  resistance or the response of this device inside a prosthetic liner.\par
+
+  \vspace{0.45em}
+  \textbf{Required outputs.} Vapour-response curve, temperature compensation,
+  response and recovery time, saturation, liquid-exposure survival, hysteresis,
+  drift, and repeatability after drying.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.59\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=54mm,keepaspectratio]
+    {assets/q2/sensor_literature/humidity_sensor_evidence.png}\par
+  \vspace{0.15em}
+  {\fontsize{8.1}{9.35}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-S3. Humidity evidence plate.} Project IDE artwork and
+  published capacitive humidity-sensor evidence from A\"{\i}t-Mammar
+  \textit{et al.} \cite{aitmammar2020}.\par}
+\end{minipage}
+
+\vspace{0.7em}
+\evidencebox{Consensus, difference, and gap:}{Printed resistive meanders and
+capacitive IDEs are established solutions for temperature and humidity,
+respectively. Their functional layers and measurands differ: the temperature
+trace must reject strain effects, whereas the humidity IDE requires a controlled
+vapour route and liquid-sweat protection. The project therefore reuses the two
+sensor principles while developing their PDMS-specific calibration, protection,
+cross-sensitivity control, and common coordinate mapping.}
+
+\clearpage
+\sectiontitle{Q2. Direct-on-PDMS Printing Literature}
+
+\hypertarget{q2-pdms-printing}{}
+\qtwosubsection{2.5 Process routes, transfer limits, and project controls}
+
+{\fontsize{9.55}{11.25}\selectfont
+Two direct-printing studies provide process solutions that can be leveraged
+when transferring the artwork from the successful PET print. Albrecht
+\textit{et al.} used oxygen-plasma-treated silicone and inkjet-printed AgNP
+conductors; Sun \textit{et al.} printed a silver precursor onto precured PDMS
+to create a partially embedded, semi-wrapped conductor
+\cite{albrecht2018stretch,sun2016}. The routes agree that PDMS surface and
+mechanical behaviour must be designed into the print process, but they use
+different chemistries and do not supply calibration for the present sensor
+stack.\par}
+
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=49mm,keepaspectratio]
+    {paper_sources/figures_selected/albrecht2018_fig2_pdms_pet_height_profile.png}\par
+  \vspace{0.15em}
+  {\fontsize{7.95}{9.15}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-P1. Same-printer height profiles.} Approximate average
+  heights were 3.8~$\mu$m on PDMS and 0.6~$\mu$m on PET. The apparent PDMS
+  height includes substrate swelling, not only deposited silver
+  \cite{albrecht2018stretch}. CC BY 4.0.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=49mm,keepaspectratio]
+    {paper_sources/figures_selected/sun2016_fig6_bending_resistance.png}\par
+  \vspace{0.15em}
+  {\fontsize{7.95}{9.15}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-P2. Bending comparison.} Sun \textit{et al.} reported a
+  semi-wrapped PDMS conductor with substantially better resistance retention
+  during bending than the paper's PET comparison, including repeated bending
+  shown by the normalized resistance \cite{sun2016}. CC BY 4.0.\par}
+\end{minipage}
+
+\vspace{0.65em}
+\begingroup
+\fontsize{8.55}{10.05}\selectfont
+\renewcommand{\arraystretch}{1.11}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.5cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Literature finding} &
+\color{white}\textbf{What it means} &
+\color{white}\textbf{Project control} \\
+Surface wetting & Untreated PDMS is difficult to wet. In the Albrecht process,
+oxygen plasma enabled continuous lines and printing occurred within 30 min of
+treatment. & Record treatment power/time, contact angle if available, and the
+treatment-to-print interval; do not assume the paper's recipe transfers
+unchanged. \\
+\rowcolor{AUBPale}
+Print fidelity & The paper reports satellite drops from printer inaccuracy and
+local failures in narrow lines; 1--2 mm lines were selected for reliable
+stretchable conductors in that reported process. & Measure printed width,
+edge roughness, gaps, shorts, open traces, and yield for the project's actual
+sensor geometries. \\
+Solvent interaction & The same deposited ink produced a much larger apparent
+profile on PDMS. The authors attributed most of the difference to solvent
+absorption and swelling within roughly the upper 15~$\mu$m. & Profile untreated,
+wet-printed, dried, and equilibrated specimens; separate conductor thickness
+from substrate deformation. \\
+\rowcolor{AUBPale}
+Mechanical survival & Printed silver remained conductive after more than
+10,000 reported 20\% stretch cycles, while the semi-wrapped approach maintained
+resistance through repeated bending. & Test the present ink and geometry under
+compression, bending, and shear; record in-cycle resistance, recovery time,
+drift, cracking, and adhesion. \\
+Measurement accuracy & These papers demonstrate conductors and process
+strategies, not accurate pressure, shear, temperature, and humidity sensing in
+this slab. & Establish modality-specific calibration, error, hysteresis,
+repeatability, cross-sensitivity, drift, and localization after printing. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Literature-derived PDMS printing constraints and project controls
+from Albrecht \textit{et al.} and Sun \textit{et al.}
+\cite{albrecht2018stretch,sun2016}.}
+
+\vspace{0.5em}
+\evidencebox{Method selected from the literature:}{Use direct printing on the
+molded PDMS slab, beginning with documented surface treatment and a print-window
+study. PET remains process evidence only. The Albrecht and Sun routes supply
+starting controls for wetting, trace width, swelling, adhesion, bending, and
+cycling; the final recipe and all sensor calibration are established on the
+project's own ink--printer--PDMS combination.}
+
+\clearpage
+\sectiontitle{Q2. Phase 3: Hydrogel Skin-Interface Study}
+
+\hypertarget{q2-hydrogel-study}{}
+\qtwosubsection{2.6 Literature evidence and the sensor-interference problem}
+
+{\fontsize{9.55}{11.25}\selectfont
+This is an \textbf{evidence-led development stage following successful printing
+and calibration on the molded PDMS slab}. A continuous
+hydrogel between skin and sensors can improve softness or hold moisture, but it
+can also alter every quantity being measured. It is therefore treated
+as a separate experimental variable rather than assumed to be a neutral comfort
+layer.\par}
+
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=54mm,keepaspectratio]
+    {paper_sources/figures_selected/yuk_fig1_hydrogel_elastomer_fabrication.png}\par
+  \vspace{0.15em}
+  {\fontsize{7.95}{9.15}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-H1. Hydrogel--elastomer bonding precedent.} Yuk
+  \textit{et al.} preserved microstructures while covalently bonding tough
+  hydrogels to elastomers including Sylgard 184 PDMS \cite{yuk2016}. The figure
+  supports a bonding method, not prosthetic-liner sensor accuracy. CC BY 4.0.\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth,height=54mm,keepaspectratio]
+    {paper_sources/figures_selected/lu_fig2_hydrogel_thickness_sweat_absorption.png}\par
+  \vspace{0.15em}
+  {\fontsize{7.95}{9.15}\selectfont\color{AUBGray}\raggedright
+  \textbf{Figure Q2-H2. Hydrogel thickness and sweat uptake.} Lu
+  \textit{et al.} compared agarose--glycerol sheets of different thicknesses;
+  water uptake and equilibration changed with thickness \cite{lu2025}. This was
+  a wearable patch, not a load-bearing prosthetic liner. CC BY 4.0.\par}
+\end{minipage}
+
+\vspace{0.65em}
+\begingroup
+\fontsize{8.65}{10.15}\selectfont
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.65cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Evidence theme} &
+\color{white}\textbf{What the literature supports} &
+\color{white}\textbf{What remains unproven here} \\
+Bonding to PDMS & Robust covalent interfaces and preserved microstructures are
+possible with specific surface chemistry and UV processing
+\cite{yuk2016}. & Compatibility with the printed silver, sensor films, curing
+history, cleaning, skin contact, and the project's fabrication equipment. \\
+\rowcolor{AUBPale}
+Moisture uptake & Hydrogel sheets can collect sweat, and uptake depends on
+thickness and time \cite{lu2025}. & Whether uptake prevents pooling or instead
+stores sweat beside the skin; release, drying, hygiene, and repeat-cycle
+behaviour are unknown. \\
+Sensor placement & A personalised liner study embedded temperature and humidity
+sensors in direct skin contact and found that integration geometry is central
+to interpretation \cite{paterno2020}. & The response after inserting a
+water-rich intermediate layer cannot be inferred from direct-contact data. \\
+\rowcolor{AUBPale}
+Material mechanics & Swollen hydrogels are compliant and can change dimensions;
+Yuk \textit{et al.} treated interface toughness and microstructure preservation
+as design requirements \cite{yuk2016}. & Pressure transmission, shear transfer,
+friction, swelling-induced preload, spatial blur, and cyclic durability in this
+slab. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Literature synthesis of hydrogel--elastomer bonding, sweat uptake,
+and direct-contact liner sensing \cite{yuk2016,lu2025,paterno2020}.}
+
+\vspace{0.5em}
+\evidencebox{Literature conclusion:}{The literature supports a carefully gated
+hydrogel experiment, not immediate adoption of a continuous skin-facing layer.
+No reviewed paper validates this hydrogel arrangement over the complete
+combination of
+pressure, directional shear, temperature, and humidity sensors in a prosthetic
+liner.}
+
+\clearpage
+\sectiontitle{Q2. Phase 3: Hydrogel Study---Continued}
+
+\hypertarget{q2-hydrogel-interactions}{}
+\qtwosubsection{2.6.1 Sensor interactions introduced by the hydrogel}
+
+\begingroup
+\fontsize{8.8}{10.35}\selectfont
+\renewcommand{\arraystretch}{1.13}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.1cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Modality} &
+\color{white}\textbf{Likely interference mechanism} &
+\color{white}\textbf{Required paired test} \\
+Humidity & Water absorption and diffusion can buffer a rapid humidity change,
+delay recovery, create hysteresis, or saturate the environment near the IDE.
+Liquid or ionic pathways may also increase leakage. & Compare H0 bare PDMS, H1
+islands, the H2 windowed sheet, and H3 continuous hydrogel under vapour steps,
+controlled sweat volume, drying, and repeated wet/dry cycles. \\
+\rowcolor{AUBPale}
+Temperature & Added thermal mass, thermal resistance, absorbed water, and
+evaporation can change both the steady temperature and response time at the
+skin interface. & Apply identical temperature steps and heat fluxes; report
+offset, time constant, spatial smoothing, and recovery for dry and wet states. \\
+Pressure & A soft swollen layer can redistribute normal stress, change contact
+area, attenuate peaks, introduce preload, and add viscoelastic hysteresis. & Use
+known loads and footprints; compare sensitivity, linearity, hysteresis, drift,
+peak attenuation, and hotspot localization before and after swelling. \\
+\rowcolor{AUBPale}
+Directional shear & Friction, adhesion, slip, and strain transfer change with
+water content. A continuous layer may reduce, rotate, or spread the shear
+reaching the four-capacitor cell. & Apply signed shear in both axes at controlled
+normal preload; quantify vector error, cross-axis coupling, slip, and spatial
+blur in dry and wet conditions. \\
+Printed silver & Water, ions, swelling strain, and bonding chemistry may affect
+insulation, adhesion, continuity, corrosion, or contact resistance. & Measure
+leakage, resistance, insulation, adhesion, cracking, and recovery through cyclic
+loading and wet/dry exposure. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Sensor-interference analysis derived from the material
+transport and bonding evidence reviewed in Section 2.6
+\cite{yuk2016,lu2025,paterno2020}.}
+
+\vspace{0.25em}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \x/\lab/\col in {0/H0: bare PDMS/AUBGray,
+                             4.0/H1: hydrogel islands/AUBGreen,
+                             8.0/H2: windowed sheet/AUBYellow,
+                             12.0/H3: continuous layer/AUBCoral}{
+    \fill[AUBPale] (\x,0) rectangle ++(3.2,0.38);
+    \draw[AUBGray] (\x,0) rectangle ++(3.2,0.38);
+    \draw[AUBRed,very thick] (\x+0.55,0.18)--(\x+2.65,0.18);
+    \node[below,font=\fontsize{6.8}{7.7}\selectfont,align=center]
+      at (\x+1.6,-0.08) {\lab};
+  }
+  \fill[AUBGreen!60] (4.25,0.42) rectangle (4.9,0.65);
+  \fill[AUBGreen!60] (6.3,0.42) rectangle (6.95,0.65);
+  % H2 is one connected plan-view sheet.  The white cut-outs are aligned
+  % sensor windows; they are not separate hydrogel islands.
+  \fill[AUBYellow!70] (8.0,0.42) rectangle (11.2,0.72);
+  \draw[AUBYellow!90!black] (8.0,0.42) rectangle (11.2,0.72);
+  \foreach \wx in {8.55,9.43,10.31}{
+    \fill[white] (\wx,0.49) rectangle ++(0.38,0.16);
+    \draw[AUBGray] (\wx,0.49) rectangle ++(0.38,0.16);
+  }
+  \fill[AUBCoral!55] (12.0,0.42) rectangle (15.2,0.65);
+  \node[font=\fontsize{6.6}{7.5}\selectfont,text=AUBRed] at (1.6,0.57)
+    {sensor plane};
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q2-H3. Evidence-informed hydrogel comparison.} H0 is the required
+calibration baseline; H1 uses separate pads, H2 is one connected sheet with
+aligned sensor windows (white cut-outs), and H3 covers the sensor regions. At
+the humidity location, an H2 window would use a hydrophobic vapour-permeable
+barrier rather than an open liquid path. The diagram is not to scale.\par}
+
+\vspace{0.75em}
+\hypertarget{q2-hydrogel-structures}{}
+\qtwosubsection{2.6.2 Selected structures and decision gate}
+
+\begingroup
+\fontsize{8.75}{10.3}\selectfont
+\renewcommand{\arraystretch}{1.14}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash\bfseries\color{AUBRed}}p{1.05cm}>{\raggedright\arraybackslash}p{3.3cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Option} &
+\color{white}\textbf{Structure} &
+\color{white}\textbf{Purpose} &
+\color{white}\textbf{Decision} \\
+H0 & Bare printed PDMS with minimum protective geometry. &
+Establish the reference calibration and the fastest possible transfer of each
+stimulus to its sensor. & \textbf{Mandatory baseline.} Test first. \\
+\rowcolor{AUBPale}
+H1 & Patterned hydrogel islands outside active sensor footprints and conductor
+exits. & Test skin feel and local moisture uptake while minimizing
+direct interference with sensing zones. & \textbf{Recommended first hydrogel
+experiment.} Compare directly with H0. \\
+H2 & Connected windowed hydrogel sheet covering the spaces between sensors;
+aligned cut-outs expose pressure, shear, and temperature footprints, while a
+hydrophobic vapour-permeable vent protects the humidity route. & Explore broader
+skin coverage without placing wet gel directly over active sensing zones. & Test
+only if H1 passes; reject H2 if window edges redistribute load, trap liquid, or
+shift calibration beyond limits. \\
+\rowcolor{AUBPale}
+H3 & Continuous hydrogel over all sensor regions. & Maximum continuous soft
+contact, but maximum risk of buffering and cross-sensitivity. & \textbf{Not
+recommended for the first build.} Activate only after H0--H2 evidence. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Selected H0--H3 implementation sequence. A bonded
+hydrogel/PDMS interface is literature-supported \cite{yuk2016}; its
+effect on this multimodal slab remains experimental.}
+
+\vspace{0.65em}
+\evidencebox{Phase 3 pass condition:}{Select a hydrogel configuration only if it
+has a repeatable PDMS bond, acceptable swelling and drying, no damaging liquid
+path to the silver conductors, and predefined limits for humidity delay,
+temperature lag, pressure attenuation, shear-vector error, hysteresis, drift,
+and localization. Otherwise retain the bare calibrated PDMS interface.}
+
+\clearpage
+\sectiontitle{Q2. Whole-Liner Integration Pathway}
+
+\hypertarget{q2-whole-liner}{}
+\qtwosubsection{2.7 From the validated slab to a molded silicone liner}
+
+{\fontsize{9.65}{11.4}\selectfont
+The whole liner is the subsequent systems-integration stage. Printing and calibrating
+the flat PDMS slab first isolates substrate and sensor problems before curvature,
+pre-strain, cable routing, user fit, and repeated donning are introduced. The
+complete liner will be assembled from validated sensor regions rather than
+assuming that a successful flat print can be copied directly onto a curved
+surface.\par}
+
+\begingroup
+\fontsize{8.8}{10.35}\selectfont
+\renewcommand{\arraystretch}{1.14}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{3.15cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Integration route} &
+\color{white}\textbf{Advantage} &
+\color{white}\textbf{Main risk and gate} \\
+Validated PDMS sensor tiles placed during molding & Preserves a tested printing
+surface and allows defective tiles to be rejected before liner assembly. &
+Tile edges, bonding, local stiffness, wiring exits, and strain transfer must be
+tested under liner-like curvature and compression. \\
+\rowcolor{AUBPale}
+Printed flat PDMS sheet formed or laminated into the liner & Keeps printing on
+a planar surface while enabling a larger connected array. & Forming can impose
+pre-strain, wrinkle conductors, move coordinates, and change calibration. \\
+Direct printing on a curved cured liner & Reduces assembly interfaces in
+principle. & Most difficult first route: printhead clearance, drop landing,
+wetting, focal distance, curing, and inspection vary with curvature. \\
+\rowcolor{AUBPale}
+Recommended sequence & Calibrate flat sensor slabs or tiles, test them under
+known curvature, then integrate only passing units into a molded liner. &
+Recalibrate after integration and compare with the original flat baseline. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Integration routes selected for comparative implementation.
+Published personalized-liner
+work supports staged sensor integration and post-assembly testing, not any one
+of these manufacturing routes \cite{paterno2020}.}
+
+\vspace{0.35em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=3mm]
+  \tikzstyle{stage}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    minimum height=7mm,text width=33mm,align=center,
+    font=\fontsize{7}{8}\selectfont]
+  \node[stage] (s1) {flat PDMS\\calibration};
+  \node[stage,right=of s1] (s2) {curvature and\\pre-strain check};
+  \node[stage,right=of s2] (s3) {tile/liner\\integration};
+  \node[stage,right=of s3] (s4) {post-molding\\recalibration};
+  \draw[->,thick,color=AUBRed] (s1)--(s2);
+  \draw[->,thick,color=AUBRed] (s2)--(s3);
+  \draw[->,thick,color=AUBRed] (s3)--(s4);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q2-L1. Whole-liner evidence ladder.} Coordinate accuracy and
+calibration are rechecked whenever the mechanical boundary condition changes.\par}
+
+\vspace{0.8em}
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}
+  \figureplaceholder{54mm}{Dimensioned printed-slab section}{
+  Add the final orthographic plan and cross-section. Label printed layers,
+  active sensor footprints, protective PDMS, conductor exits, coordinate
+  origin, nominal 5.2 mm thickness, and verified dimensions.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+  \vspace{0pt}
+  \figureplaceholder{54mm}{Molded-liner integration design}{
+  Show validated sensor slabs or tiles placed at defined liner coordinates,
+  routing toward the acquisition module, curvature, molding boundaries, and
+  the sequence of post-integration calibration tests.}
+\end{minipage}
+
+\vspace{0.65em}
+\evidencebox{Stage boundary:}{The CAD liner render defines the integration-stage
+design. It becomes works-like evidence after the flat printed PDMS slab
+passes its electrical, sensor, environmental, mechanical, and coordinate gates.}
+
+\clearpage
+\sectiontitle{Q2. Literature Synthesis and Implementation Roadmap}
+
+\hypertarget{q2-synthesis}{}
+\qtwosubsection{2.8 Reused solutions, completed work, and integration focus}
+
+\begingroup
+\fontsize{8.5}{10}\selectfont
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.9cm}Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Literature-backed block} &
+\color{white}\textbf{Project evidence available now} &
+\color{white}\textbf{System-specific implementation output} \\
+Printed sensor topologies & Pressure/shear, temperature, and humidity artwork
+has been created and printed together on the large PET process sheet. & Transfer
+the established geometries to PDMS and produce separate calibration,
+cross-sensitivity, repeatability, and drift records for every channel. \\
+\rowcolor{AUBPale}
+Direct PDMS conductors & A 5.2 mm PDMS slab has been molded; two published
+printing routes define starting controls for wetting and mechanical survival
+\cite{albrecht2018stretch,sun2016}. & Record the project's surface treatment,
+print window, profile, continuity, adhesion, curing, swelling, and cyclic
+electrical response. \\
+Coordinate-aware sensor layout & Fusion/AutoCAD slab renders and a placement
+blueprint define relative sensor positions; the acquisition and mapping
+algorithm is under development. & Export a dimensioned coordinate table, bind
+each electrical channel to one sensor and position, and verify the mapping with
+known-location stimuli. \\
+\rowcolor{AUBPale}
+Sensorized liner systems & Embedded and wireless prosthetic-interface studies
+provide precedents for synchronized distributed sensing
+\cite{paterno2020,q3kwak2020}. & Preserve channel identity through flat-slab,
+curvature, molding, connection routing, and post-integration recalibration. \\
+Skin-facing material system & Hydrogel bonding and sweat-collection studies
+identify workable material methods and important thickness/time effects
+\cite{yuk2016,lu2025}. & Compare bare PDMS with patterned structures only after
+the bare slab is calibrated; retain the structure that preserves mechanical,
+thermal, and humidity measurements. \\
+Spatial interpretation and bench model & Published socket maps, movement
+references, and mock limbs provide visualization and controlled-test precedents
+\cite{q3turner2021,noll2018,quinlan2020,phillips2025}. & Quantify localization,
+spatial blur, update stability, and modality disagreement on a repeatable phantom
+before assigning a user-facing discomfort-risk interpretation. \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Synthesis of the functional-block literature in Sections
+2.3--2.7 and the project artifacts documented in Section 2.2. The right-hand
+column states implementation outputs rather than completed results.}
+
+\vspace{0.65em}
+\hypertarget{q2-roadmap}{}
+\qtwosubsection{2.9 Research-backed implementation roadmap}
+
+\begingroup
+\fontsize{8.3}{9.75}\selectfont
+\renewcommand{\arraystretch}{1.09}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash\bfseries\color{AUBRed}}p{0.8cm}>{\raggedright\arraybackslash\bfseries}p{3.25cm}Y>{\raggedright\arraybackslash}p{2.7cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{Stage} &
+\color{white}\textbf{Build or study} &
+\color{white}\textbf{Evidence transition} &
+\color{white}\textbf{Status} \\
+A & Functional-block and closest-solution map & Identify the established
+solution used for each block and bound the integration gap. & \textbf{Completed
+in this review} \\
+\rowcolor{AUBPale}
+B & Full artwork printed on PET & Preserve the print record, continuity results,
+defects, routing, and connection access as process evidence. & \textbf{Completed
+build} \\
+C & Molded 5.2 mm PDMS slab and direct print & Establish the actual surface
+treatment, printed geometry, swelling, adhesion, electrical integrity, and
+yield on the intended substrate. & \textbf{Active build} \\
+\rowcolor{AUBPale}
+D & Separate sensor calibrations & Generate pressure/shear matrices,
+temperature calibration, humidity response/recovery, strain effects, and
+cross-sensitivity before signal fusion. & \textbf{Follows the stable PDMS print} \\
+E & Multimodal slab on controlled phantom & Apply known single and combined
+stimuli; measure repeatability, drift, localization, spatial blur, and incorrect
+channel activation. & \textbf{Follows separate calibration} \\
+\rowcolor{AUBPale}
+F & Patterned skin-interface comparison & Compare H0 bare PDMS with H1 islands
+and the H2 windowed sheet for moisture handling, transfer error, drying,
+adhesion, and cycling. &
+\textbf{Follows the bare baseline} \\
+G & Curved liner and spatial software integration & Recheck coordinates and
+calibration after curvature/molding, then connect the verified channels to the
+threshold and spatial-map pipeline. & \textbf{System-integration stage} \\
+\end{tabularx}
+\endgroup
+\sourceanchor{Roadmap ordered from completed artifacts to substrate transfer,
+modality calibration, controlled multimodal testing, skin-interface comparison,
+and liner/software integration. Phantom and localization methods are informed by
+\cite{quinlan2020,phillips2025,q3turner2021,noll2018}.}
+
+\vspace{0.55em}
+\evidencebox{Q2 conclusion:}{The literature does not justify re-inventing or
+claiming novelty for the individual sensor mechanisms. It supports a build
+strategy that leverages established pressure/shear, temperature, humidity,
+PDMS-printing, liner-sensing, and spatial-interpretation solutions. The work
+specific to this project is the measured integration of those blocks on the
+5.2 mm PDMS slab and then in a coordinate-preserving molded liner. The completed
+PET print, molded PDMS specimen, sensor artwork, and CAD layouts are reported as
+completed work; later roadmap stages are not presented as measured results.}
+
+\clearpage

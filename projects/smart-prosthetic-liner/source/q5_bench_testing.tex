@@ -1,0 +1,1000 @@
+% =============================================================================
+% Q5 -- bench and simulated-use testing
+% =============================================================================
+\clearpage
+\hypertarget{q5-overview}{}
+\sectiontitle{Q5. Bench and Simulated-Use Testing}
+
+\providecommand{\reportlink}[2]{%
+  \hyperlink{#1}{\textcolor{AUBRed}{\bfseries\underline{#2}}}}
+
+% Compact, non-floating literature panels used throughout Q5. A fixed image
+% height keeps each multi-paper plate on one page while preserving aspect ratio.
+\providecommand{\qfivelitpanel}[3]{%
+  \begin{minipage}[t]{0.485\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,height=#1,keepaspectratio]{#2}\par
+    \vspace{0.18em}
+    \raggedright{\fontsize{7.0}{8.05}\selectfont #3\par}
+  \end{minipage}}
+
+\qtwosubsection{5.1 Literature-backed test programme and evidence boundary}
+
+{\fontsize{9.3}{10.95}\selectfont
+Q5 converts the literature synthesis, functional blocks, and specifications
+into a controlled test programme. The cited papers establish sensing
+principles, reference apparatus, loading sequences, environmental ranges, and
+reporting metrics. They do not establish the performance of the present
+ink--printer--PDMS--sensor combination. The project must generate its own raw
+records, calibration models, uncertainty estimates, plots, and pass/partial/
+fail decisions. This structure follows the assignment requirement to state the
+test, materials and tools, rationale, expected outcome, and impact on the
+overall design.\par}
+
+\evidencebox{Interpretation rule:}{An ``expected outcome'' below is a
+predeclared engineering expectation, not a measured result. A literature value
+is marked as precedent; a Q4 value is a project specification; only a recorded
+project measurement can close a verification item.}
+
+\vspace{0.45em}
+\begingroup
+\fontsize{7.55}{8.85}\selectfont
+\setlength{\tabcolsep}{2.5pt}\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash\bfseries}p{1.25cm}Y >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.5cm}}
+\rowcolor{AUBRed}
+\color{white}\textbf{Origin} & \color{white}\textbf{Clickable evidence chain} &
+\color{white}\textbf{Q4 requirement family} & \color{white}\textbf{Q5 test IDs} \\
+\reportlink{q1-question-1}{Q1-1} &
+\reportlink{q2-functional-blocks}{Q2 2.1} $\rightarrow$
+\reportlink{q3-functional-blocks}{Q3A} & GEO, MAT, PRT, SYS & F0, X1, SYS1 \\
+\rowcolor{AUBPale}
+\reportlink{q1-question-2}{Q1-2} &
+\reportlink{q2-humidity}{Q2 2.4.1} $\rightarrow$
+\reportlink{q3-microclimate-evidence}{Q3 3.3} & HUM, ENV, SAFE & H1, H2, D1 \\
+\reportlink{q1-question-3}{Q1-3} &
+\reportlink{q2-pressure-shear}{Q2 2.3} / \reportlink{q2-temperature}{2.4}
+$\rightarrow$ \reportlink{q3-operational-definitions}{Q3 3.1} &
+MECH, TEMP, HUM & M1--M3, T1, H1 \\
+\rowcolor{AUBPale}
+\reportlink{q1-question-4}{Q1-4} &
+\reportlink{q2-current-build}{Q2 2.2} $\rightarrow$
+\reportlink{q2-pdms-printing}{Q2 2.5} & MFG, PRT, MAT & F0, R1 \\
+\reportlink{q1-question-5}{Q1-5} &
+\reportlink{q2-whole-liner}{Q2 2.7} $\rightarrow$
+\reportlink{q3-measurement-models}{Q3 3.5} & DAQ, MAP, ALG & X1, MAP1, SYS1 \\
+\rowcolor{AUBPale}
+\reportlink{q1-question-6}{Q1-6} &
+\reportlink{q2-current-build}{Q2 2.2} $\rightarrow$
+\reportlink{q3-metrics}{Q3 3.7} & MAP, GEO & MAP1, S1 \\
+\reportlink{q1-question-7}{Q1-7} &
+\reportlink{q2-pdms-printing}{Q2 2.5} $\rightarrow$
+\reportlink{q3-validation-outputs}{Q3 3.8} & DUR, ENV, SAFE & D1, D2, R1 \\
+\end{tabularx}
+\endgroup
+{\fontsize{7.45}{8.6}\selectfont\color{AUBGray}
+\textbf{Table Q5-1. Clickable Q1--Q5 traceability.} The links open the detailed
+literature, operational definitions, and metrics instead of repeating those
+sections. The complete specification set is in
+\reportlink{q4-requirement-basis}{Q4 Section 4.1}.\par}
+
+\vspace{0.55em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.5mm]
+  \tikzstyle{qfivegate}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    text width=29mm,minimum height=10mm,align=center,
+    font=\fontsize{6.7}{7.6}\selectfont]
+  \node[qfivegate] (a) {F0\quad print, geometry, continuity};
+  \node[qfivegate,right=of a] (b) {M/T/H\quad individual calibration};
+  \node[qfivegate,right=of b] (c) {X/MAP\quad integration and location};
+  \node[qfivegate,right=of c] (d) {D\quad environmental and cyclic};
+  \node[qfivegate,right=of d] (e) {S/SYS\quad phantom and release};
+  \draw[->,thick,color=AUBRed] (a)--(b);
+  \draw[->,thick,color=AUBRed] (b)--(c);
+  \draw[->,thick,color=AUBRed] (c)--(d);
+  \draw[->,thick,color=AUBRed] (d)--(e);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-1. Gated execution sequence.} A failure at an earlier gate
+triggers rework or a documented partial result; it cannot be hidden by a later
+combined score. This implements the sequence defined in
+\reportlink{q3-execution-sequence}{Q3 Section 3.6} and
+\reportlink{q4-design-gate}{Q4 Section 4.7}.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-release}{}
+\sectiontitle{Q5. Specimen Release and Print-Quality Bench Tests}
+
+\qtwosubsection{5.2 F0 --- release each printed specimen before calibration}
+
+{\fontsize{9.15}{10.75}\selectfont
+The PET sheet in \reportlink{q2-current-build}{Q2 Section 2.2} demonstrates
+first-stage artwork transfer; it is not the calibration specimen. F0 applies
+to direct-on-PDMS coupons and then to the complete 56\,$\times$\,55\,$\times$
+5.2~mm slab. Liew \textit{et al.} used optical microscopy and design-to-print
+dimensional comparison before electrical temperature characterization
+\cite{liew2020}. Albrecht \textit{et al.} combined optical inspection,
+profilometry, and electrical monitoring for printed electrodes and PDMS-based
+conductors \cite{albrecht2019,albrecht2018stretch}. These methods support the
+inspection categories below; the acceptance limits remain those declared in
+\reportlink{q4-fabrication}{Q4 Section 4.3}.\par}
+
+\begingroup
+\fontsize{7.8}{9.15}\selectfont
+\setlength{\tabcolsep}{2.7pt}\renewcommand{\arraystretch}{1.07}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.05cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Step} & \color{white}\textbf{Materials and tools} &
+\color{white}\textbf{Recorded evidence and rationale} &
+\color{white}\textbf{Expected outcome and design impact} \\
+F0-1 & Printed coupon/slab, CAD export, caliper, optical microscope or USB
+microscope, scale target. & Photograph every modality and pad; measure line
+width, gap, active footprint, edge clearance, slab dimensions, and layer
+thickness. This detects print spreading, nozzle loss, mold error, and
+misregistration before electrical fitting. & Complete image set and dimension
+table. Out-of-tolerance geometry changes the print file, surface treatment,
+drop spacing, mold, or alignment method before calibration. \\
+\rowcolor{AUBPale}
+F0-2 & Four-wire meter where available; otherwise calibrated DMM, guarded LCR
+meter, probes, documented cables. & Record conductor resistance, open/short
+status, pad-to-pad isolation, and the zero-load baseline of every channel.
+Repeat after 10~min to identify unstable contacts. & Every channel has a unique
+ID and stable baseline. An open, short, or drifting contact is repaired or the
+specimen is rejected; missing channels are not interpolated away. \\
+F0-3 & Profilometer where available; alternatively a sacrificial step coupon,
+microscope focus method, or cross-sectional witness. & Record printed height
+and PDMS swelling/relief. The same-printer study reported a much larger
+apparent profile on PDMS than PET, partly from solvent-induced swelling
+\cite{albrecht2018stretch}. & Geometry is reported as measured, not inferred
+from deposited ink volume. Excess swelling changes drying, surface treatment,
+or the chosen ink route. \\
+\rowcolor{AUBPale}
+F0-4 & Adhesive-tape screen, gentle bend mandrel, insulation probe, camera. &
+Inspect adhesion, cracking, exposed silver, encapsulation discontinuity, and
+continuity before and after a non-destructive handling screen. & Only intact,
+insulated, electrically continuous specimens advance. Failure changes
+encapsulation, trace geometry, or handling fixtures. \\
+F0-5 & Batch traveller, printer log, ink lot, PDMS ratio/cure record, specimen
+label. & Preserve printer settings, substrate preparation time, cure, drying,
+inspection, and operator. Direct-on-PDMS performance is sensitive to surface
+treatment and process history \cite{q4abukhalaf2018,q4abukhalaf2019}. & A
+traceable build record links every later result to one specimen and prevents
+selective reporting of only successful prints. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.5em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=3mm]
+  \tikzstyle{trav}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    text width=34mm,minimum height=8mm,align=center,
+    font=\fontsize{6.8}{7.7}\selectfont]
+  \node[trav] (a) {build record\\ink + PDMS + printer};
+  \node[trav,right=of a] (b) {geometry\\image + dimensions};
+  \node[trav,right=of b] (c) {electrical\\continuity + isolation};
+  \node[trav,right=of c] (d) {release\\advance / rework / reject};
+  \draw[->,color=AUBRed,thick] (a)--(b);
+  \draw[->,color=AUBRed,thick] (b)--(c);
+  \draw[->,color=AUBRed,thick] (c)--(d);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-2. F0 specimen traveller.} The released specimen ID becomes
+the key used by every calibration file, CAD coordinate, photograph, and
+durability record.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-lit-fabrication}{}
+\sectiontitle{Q5 Literature Evidence Plate: Direct Printing and Release}
+
+{\fontsize{8.75}{10.25}\selectfont
+These four source figures are the visual basis for F0. They show the substrate
+effect, an implemented PDMS-printing workflow, a geometry/process response,
+and the electrical calibration obtained from an inkjet-printed meander. They
+support the methods in \reportlink{q5-release}{Q5 Section 5.2} and the material
+route in \reportlink{q2-pdms-printing}{Q2 Section 2.5}; they are not results
+from the present 5.2~mm slab.\par}
+
+\vspace{0.55em}
+\noindent
+\qfivelitpanel{0.195\textheight}
+  {paper_sources/figures_selected/albrecht2018_fig2_pdms_pet_height_profile.png}
+  {\textbf{(a) Substrate-dependent printed profile.} Original Fig.~2 in
+  Albrecht \textit{et al.}: silver printed with the same settings produced an
+  apparent mean height of 3.8~$\mu$m on PDMS and 0.6~$\mu$m on PET, with PDMS
+  swelling identified as a major contributor \cite{albrecht2018stretch}.
+  \href{https://doi.org/10.3390/polym10121413}{Open DOI}.}
+\hfill
+\qfivelitpanel{0.195\textheight}
+  {paper_sources/q5_figures/crops/abukhalaf2018_fig4.png}
+  {\textbf{(b) Implemented direct-on-PDMS process.} Original Fig.~4 in
+  Abu-Khalaf \textit{et al.}: pre-stretching and clamping, surface treatment,
+  inkjet printing, and oven sintering of silver traces on PDMS
+  \cite{q4abukhalaf2018}.
+  \href{https://doi.org/10.3390/ma11122377}{Open DOI}.}
+
+\vspace{0.75em}
+\noindent
+\qfivelitpanel{0.185\textheight}
+  {paper_sources/q5_figures/crops/abukhalaf2019_fig4.png}
+  {\textbf{(c) Geometry--process trade-off.} Original Fig.~4 in Abu-Khalaf
+  \textit{et al.}: response-surface prediction of breakdown strain versus
+  printed line width and number of layers. It supports recording geometry and
+  print history before durability interpretation \cite{q4abukhalaf2019}.
+  \href{https://doi.org/10.3390/ma12203329}{Open DOI}.}
+\hfill
+\qfivelitpanel{0.185\textheight}
+  {paper_sources/q5_figures/crops/liew2020_fig5.png}
+  {\textbf{(d) Printed-meander calibration precedent.} Original Fig.~5 in
+  Liew \textit{et al.}: six resistance--temperature series for commercial and
+  in-house AgNP inks. F0 first verifies the printed geometry and continuity;
+  T1 then fits this type of calibration \cite{liew2020}.
+  \href{https://doi.org/10.3390/ecsa-7-08216}{Open DOI}.}
+
+\vfill
+{\fontsize{6.7}{7.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-L1. Literature evidence for specimen release and direct
+printing.} Panels are reproduced as source excerpts with their original
+figure numbers and citations. Open-access MDPI figures are used under their
+article licences. The acceptance thresholds remain the project requirements
+in \reportlink{q4-fabrication}{Q4 Section 4.3}.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-mechanical}{}
+\sectiontitle{Q5. Pressure and Directional-Shear Bench Testing}
+
+\qtwosubsection{5.3 M1--M3 --- calibration, separation, and spatial coverage}
+
+{\fontsize{8.9}{10.45}\selectfont
+The closest direct force-cell precedent used a voice-coil actuator with an
+integrated force sensor, an Agilent E4980A LCR meter at 100~kHz and 1~V AC, and
+0.1--8~N loading in 20\% increments every 5~s, followed by unloading and three
+repeated cycles \cite{albrecht2018conf,albrecht2019}. Q5 reuses the stepped
+loading, unloading, directional reversal, and independent force reference. It
+does not copy the paper's calibration coefficients because the present sensor
+is printed and enclosed in a different 5.2~mm PDMS structure. The project
+envelope and gates are clickable in
+\reportlink{q4-mechanical}{Q4 Section 4.4}.\par}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth]
+  \fill[AUBPale] (0,0) rectangle (13.6,1.0);
+  \draw[fill=white,draw=AUBLine] (4.8,1.0) rectangle (8.8,1.45);
+  \node[font=\fontsize{6.8}{7.6}\selectfont] at (6.8,1.22) {released 5.2 mm slab on rigid fixture};
+  \draw[fill=AUBGray!20,draw=AUBGray] (6.25,1.45) rectangle (7.35,1.75);
+  \node[font=\fontsize{6.2}{7}\selectfont] at (6.8,1.60) {known footprint};
+  \draw[->,very thick,color=AUBRed] (6.8,2.8)--(6.8,1.78);
+  \node[font=\fontsize{7}{8}\selectfont\bfseries,text=AUBRed] at (7.55,2.5) {$F_N$};
+  \draw[<->,very thick,color=AUBBlue] (4.8,1.95)--(8.8,1.95);
+  \node[font=\fontsize{7}{8}\selectfont\bfseries,text=AUBBlue] at (9.25,1.95) {$\pm F_T$};
+  \node[font=\fontsize{6.5}{7.3}\selectfont,align=center] at (2.2,1.25)
+    {load cell or calibrated force gauge\\plus vertical/tangential stage};
+  \node[font=\fontsize{6.5}{7.3}\selectfont,align=center] at (11.4,1.25)
+    {LCR/DAQ records $C_1$--$C_4$\\and a common time base};
+  \draw[->,color=AUBGray] (3.45,1.25)--(4.65,1.25);
+  \draw[->,color=AUBGray] (8.95,1.25)--(10.1,1.25);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-3. Mechanical bench arrangement.} A motorized actuator is
+preferred for controlled ramps; calibrated masses, a force gauge, and a
+low-friction translation stage are acceptable lower-cost implementations if
+force and displacement are recorded independently.\par}
+
+\vspace{0.35em}
+\begingroup
+\fontsize{7.65}{8.95}\selectfont
+\setlength{\tabcolsep}{2.6pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.0cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Test} & \color{white}\textbf{Procedure and tools} &
+\color{white}\textbf{Rationale and expected outcome} &
+\color{white}\textbf{Output and design impact} \\
+M1 & Apply increasing/decreasing normal pressure from 0 to 250~kPa through a
+measured footprint; use at least three cycles per level and held-out points.
+Record force, displacement, $C_1$--$C_4$, dwell, and recovery. & Establishes
+the usable range, saturation, viscoelastic hysteresis, and baseline recovery.
+All four capacitors should change coherently under normal loading. & Calibration
+curve, residuals, $R^2$, NRMSE, hysteresis, coefficient of variation, and
+recovery. Failure changes footprint, spacer/cover thickness, preload,
+electrode overlap, or fitting model. \\
+\rowcolor{AUBPale}
+M2 & At three or more normal preloads, apply signed shear from $-50$ to
+$+50$~kPa in both slab axes; reverse direction and include 5, 30, and 300~s
+dwells. Record an independent tangential force/displacement reference. & Tests
+direction separation and normal-load cross-coupling. Opposed capacitor pairs
+should change with opposite signs for the driven axis, while the non-target
+pair remains bounded \cite{albrecht2019}. & Vector sensitivity, angular error,
+cross-axis response, hysteresis, and recovery. Failure changes alignment,
+four-sector geometry, dielectric thickness, or compensation matrix. \\
+M3 & Apply M1/M2 stimuli at registered sensor centres, between adjacent cells,
+and near slab boundaries. Randomize positions and blind the software operator.
+& Determines whether spacing and placement detect localized conditions rather
+than only centre loads. & Coverage mask, missed-event rate, true/detected
+coordinate pairs, and edge error. Failure changes sensor density, placement,
+interpolation boundaries, or the claimed coverage region. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.35em}
+\begin{align*}
+P&=F_N/A, & \tau&=F_T/A, &
+C_z&=\tfrac14(C_1+C_2+C_3+C_4),\\[-0.3em]
+C_x&=C_1-C_3, & C_y&=C_2-C_4, &
+H_{FS}&=\max|y_{\uparrow}-y_{\downarrow}|/FS.
+\end{align*}
+{\fontsize{7.45}{8.6}\selectfont\color{AUBGray}
+Pressure and shear are assigned only after the reference footprint, force,
+sign convention, calibration version, and uncertainty are recorded. A force
+signal alone is not proof of slip; relative motion requires the independent
+reference described in \reportlink{q3-ground-truth}{Q3 Section 3.4}
+\cite{q3tang2022,noll2018}.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-lit-mechanical}{}
+\sectiontitle{Q5 Literature Evidence Plate: Force and Motion Benches}
+
+{\fontsize{8.75}{10.25}\selectfont
+The closest published apparatus separate controlled normal force, controlled
+shear, and relative limb--socket motion. This plate therefore supports the
+independent references and signed loading sequence in
+\reportlink{q5-mechanical}{Q5 Section 5.3}, not a claim that the present slab
+will reproduce the published transfer functions.\par}
+
+\vspace{0.55em}
+\noindent
+\qfivelitpanel{0.19\textheight}
+  {paper_sources/q5_figures/crops/albrecht2018conf_fig1.png}
+  {\textbf{(a) Controlled normal/shear fixtures.} Original Fig.~1 in Albrecht
+  \textit{et al.} (ALLSENSORS 2018): voice-coil/force-sensor arrangements for
+  normal loading and rotatable signed shear \cite{albrecht2018conf}. The image
+  directly motivates separate $F_N$ and $F_T$ references in M1--M2.}
+\hfill
+\qfivelitpanel{0.19\textheight}
+  {paper_sources/q5_figures/crops/albrecht2019_fig9.png}
+  {\textbf{(b) Normal/shear channel separation.} Original Fig.~9 in
+  Albrecht \textit{et al.}: time-domain normal-force response and opposite
+  capacitance signs under reversed shear direction in the printed sensor
+  \cite{albrecht2019}.
+  \href{https://doi.org/10.1155/2019/1864239}{Open DOI}.}
+
+\vspace{0.75em}
+\noindent
+\qfivelitpanel{0.205\textheight}
+  {paper_sources/q5_figures/crops/tang2022_fig1.png}
+  {\textbf{(c) Synchronized interface stress and motion.} Original Fig.~1 in
+  Tang \textit{et al.}: pressure/shear acquisition synchronized with a 3D
+  motion-capture system and force plate \cite{q3tang2022}. This is the
+  precedent for treating slip or pistoning as an independently labelled event.
+  \href{https://doi.org/10.1177/09544119221110712}{Open DOI}.}
+\hfill
+\qfivelitpanel{0.205\textheight}
+  {paper_sources/q5_figures/crops/noll2018_fig2.png}
+  {\textbf{(d) Low-motion test rig and liner surfaces.} Original Fig.~2 in
+  Noll \textit{et al.}: a movable cantilever, fixed 2D-motion sensor, and five
+  liner/reference textures \cite{noll2018}. It supports an independent motion
+  check under controlled surface and direction changes.
+  \href{https://doi.org/10.3390/s18072170}{Open DOI}.}
+
+\vfill
+{\fontsize{6.7}{7.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-L2. Mechanical validation precedents.} The two Albrecht
+papers establish the force-cell apparatus and printed-capacitor response;
+Tang and Noll establish the separate relative-motion reference required before
+using the word ``slip.'' Rights remain with the cited authors/publishers where
+an article licence is not explicitly stated in the supplied source.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-microclimate}{}
+\sectiontitle{Q5. Temperature, Humidity, and Sweat-Protection Tests}
+
+\qtwosubsection{5.4 T1, H1, and H2 --- separate thermal, vapour, and liquid evidence}
+
+{\fontsize{8.75}{10.3}\selectfont
+Liew \textit{et al.} inspected the printed meander and calibrated resistance
+from 30 to 100~$^{\circ}$C in 10~$^{\circ}$C increments with a digital
+multimeter \cite{liew2020}. J\"ager \textit{et al.} later characterized
+inkjet-printed resistive sensors through temperature cycles and reported TCR,
+hysteresis, non-repeatability, drift, and maximum error following an
+IEC-based method \cite{jager2022}. A\"{\i}t-Mammar \textit{et al.} swept
+20--90\%RH at 25~$^{\circ}$C in a climatic chamber, used increasing and
+decreasing steps, and separately applied 20--80\%RH transients while measuring
+with a reference hygrometer \cite{aitmammar2020}. Q5 adopts these measurement
+patterns within the prosthetic-interface ranges specified in
+\reportlink{q4-temp-humidity}{Q4 Section 4.5}; it keeps vapour calibration and
+liquid-sweat protection as different tests.\par}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=5mm]
+  \tikzstyle{envbox}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    text width=54mm,minimum height=22mm,align=center,
+    font=\fontsize{6.8}{7.7}\selectfont]
+  \node[envbox] (t) {\textbf{T1: temperature chamber/block}\\
+    25--45~$^{\circ}$C, 5~$^{\circ}$C steps\\reference RTD/thermocouple + DMM/DAQ};
+  \node[envbox,right=of t] (h) {\textbf{H1: vapour chamber}\\
+    20--95\%RH, up/down steps\\reference hygrometer + LCR/DAQ};
+  \node[envbox,right=of h] (s) {\textbf{H2: protected liquid exposure}\\
+    controlled artificial-sweat volume\\barrier inspection + recovery calibration};
+  \draw[->,color=AUBRed,thick] (t)--(h);
+  \draw[->,color=AUBRed,thick] (h)--(s);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.45}{8.6}\selectfont\color{AUBGray}
+\textbf{Figure Q5-4. Ordered microclimate evidence.} T1 and H1 establish dry
+calibration before H2 challenges the selected protective structure. Saturated
+salt solutions provide literature-defined RH fixed points when a programmable
+chamber is unavailable \cite{greenspan1977}; a calibrated reference hygrometer
+must still be logged beside the specimen.\par}
+
+\vspace{0.35em}
+\begingroup
+\fontsize{7.55}{8.85}\selectfont
+\setlength{\tabcolsep}{2.5pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{0.95cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Test} & \color{white}\textbf{Materials, tools, and sequence} &
+\color{white}\textbf{Expected evidence} & \color{white}\textbf{Design impact} \\
+T1 & Released slab, temperature chamber/block, co-located calibrated RTD or
+thermocouple, DMM/DAQ. Apply 25--45~$^{\circ}$C at 5~$^{\circ}$C steps up and
+down; stabilize, hold out intermediate temperatures, and repeat after bending.
+& Resistance-temperature model, TCR, sensitivity, bias, RMSE, $t_{90}$,
+hysteresis, non-repeatability, and drift. Expected: monotonic repeatable
+response with Q4 error and recovery gates met. & Revise meander geometry,
+readout current, thermal isolation, encapsulation, compensation, or sampling
+rate. A wide 30--100~$^{\circ}$C coupon screen is not substituted for the
+25--45~$^{\circ}$C integrated-slab calibration. \\
+\rowcolor{AUBPale}
+H1 & Vapour chamber or sealed salt-reference vessels, calibrated hygrometer,
+temperature reference, LCR/DAQ. Apply 20--95\%RH up/down at two or more
+temperatures, with held-out RH levels and dry recovery. & Capacitance-RH model,
+temperature compensation, hysteresis, repeatability, $t_{10\rightarrow90}$,
+$t_{90\rightarrow10}$, saturation, and dry baseline. Expected: stable vapour
+response through the selected vent/barrier. & Revise IDE spacing/coating,
+barrier area, vent geometry, temperature compensation, equilibration time, or
+the stated RH range. \\
+H2 & Artificial sweat of documented composition, micropipette or syringe,
+hydrophobic vapour-permeable barrier, absorbent containment, camera, leakage
+inspection, and H1 references. Apply controlled volumes outside the protected
+region; dry and repeat held-out H1 points. & Liquid ingress, leakage current,
+short/open status, peak saturation, recovery time, and post-exposure
+calibration shift. Expected: vapour access without liquid contact with silver
+or joints. & Reject the barrier, increase sealed perimeter, move the sensor,
+separate the liquid state in software, or add a replaceable protective layer.
+Do not interpret saturation as higher discomfort. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.3em}
+\begin{align*}
+\alpha&=\frac{R(T)-R_0}{R_0(T-T_0)}, &
+S_T&=\frac{\Delta R}{\Delta T}, &
+D_{post}&=\frac{y_{post}-y_{pre}}{FS}\times100\%.
+\end{align*}
+{\fontsize{7.4}{8.55}\selectfont\color{AUBGray}
+The published humidity response below 100~s and recovery below 5~s belong to
+the CAB-coated Kapton device, not to the protected PDMS slab
+\cite{aitmammar2020}. The barrier and PDMS enclosure require new project
+response-time measurements.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-lit-microclimate}{}
+\sectiontitle{Q5 Literature Evidence Plate: Temperature and Humidity}
+
+{\fontsize{8.75}{10.25}\selectfont
+These figures show the actual curve shapes and reference values behind T1 and
+H1. They justify regression, error, hysteresis, and fixed-RH checks in
+\reportlink{q5-microclimate}{Q5 Section 5.4}; H2 remains a separate liquid-sweat
+protection test because neither dry calibration plot proves liquid exclusion.\par}
+
+\vspace{0.55em}
+\noindent
+\qfivelitpanel{0.205\textheight}
+  {paper_sources/q5_figures/crops/jager2022_fig5.png}
+  {\textbf{(a) Standardized temperature error reporting.} Original Fig.~5 in
+  J\"ager \textit{et al.}: a fitted characteristic curve paired with the
+  cycle-by-cycle measurement-error curve. The same data are used to quantify
+  TCR, hysteresis, non-repeatability, and maximum error \cite{jager2022}.
+  \href{https://doi.org/10.3390/s22218145}{Open DOI}.}
+\hfill
+\qfivelitpanel{0.205\textheight}
+  {paper_sources/q5_figures/crops/aitmammar2020_fig4.png}
+  {\textbf{(b) Humidity upsweep/downsweep.} Original Fig.~4 in
+  A\"{\i}t-Mammar \textit{et al.}: normalized capacitance versus RH for three
+  devices, including the separation between adsorption and desorption curves
+  \cite{aitmammar2020}. This is the visual precedent for the H1 hysteresis
+  metric. \href{https://doi.org/10.1557/adv.2020.86}{Open DOI}.}
+
+\vspace{0.8em}
+\begin{center}
+\includegraphics[width=0.90\linewidth,height=0.285\textheight,keepaspectratio]
+  {paper_sources/q5_figures/crops/greenspan1977_table2.png}
+\end{center}
+{\fontsize{7.0}{8.05}\selectfont
+\textbf{(c) Chamber-independent RH reference values.} Table~2 in Greenspan
+lists equilibrium RH versus temperature for saturated salt solutions. Q5 may
+use selected salts as fixed points only when the specimen temperature and a
+calibrated reference hygrometer are recorded \cite{greenspan1977}.
+\href{https://nvlpubs.nist.gov/nistpubs/jres/81A/jresv81An1p89_A1b.pdf}
+{Open NIST full text}.\par}
+
+\vfill
+{\fontsize{6.7}{7.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-L3. Microclimate calibration precedents.} The J\"ager and
+A\"{\i}t-Mammar curves define outputs to calculate; Greenspan supplies
+reference states, not sensor performance. All three must be regenerated for
+the final protected PDMS slab using project data.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-integration-mapping}{}
+\sectiontitle{Q5. Multimodal Cross-Sensitivity and Map Validation}
+
+\qtwosubsection{5.5 X1 and MAP1 --- prove that a correct map follows correct channels}
+
+{\fontsize{8.95}{10.55}\selectfont
+Cross-sensitivity is tested by applying one controlled input while recording
+every channel, followed by selected combined conditions. Kwak \textit{et al.}
+demonstrated synchronized multimodal prosthetic-interface acquisition at
+30~Hz, Patern\`o \textit{et al.} registered sensor locations and logged slower
+temperature/RH data, and Turner \textit{et al.} compared spatial interpolation
+on a three-dimensional socket \cite{q3kwak2020,paterno2020,q3turner2021}.
+These precedents support synchronized acquisition and spatial visualization;
+they do not prove this slab's coordinate mapping or combined score. The data
+schema and claim boundary are in \reportlink{q4-mapping}{Q4 Section 4.6}.\par}
+
+\begingroup
+\fontsize{7.65}{8.95}\selectfont
+\setlength{\tabcolsep}{2.6pt}\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.05cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Run} & \color{white}\textbf{Controlled input} &
+\color{white}\textbf{Channels and ground truth} &
+\color{white}\textbf{Required interpretation} \\
+X1-1 & Normal pressure only, several levels and coordinates. & Force/load cell,
+$C_1$--$C_4$, temperature, RH, timestamps. & Quantify mechanical target
+response and apparent thermal/RH interference; do not remove it by averaging. \\
+\rowcolor{AUBPale}
+X1-2 & Signed shear only under fixed normal preloads. & Tangential force and
+displacement, four capacitances, temperature, RH. & Quantify target-axis,
+cross-axis, and non-mechanical response. \\
+X1-3 & Temperature only at controlled RH. & Reference temperature, meander
+resistance, force channels, RH channel. & Separate temperature coefficient from
+thermomechanical baseline shifts. \\
+\rowcolor{AUBPale}
+X1-4 & Vapour RH only at controlled temperature, then protected liquid sweat. &
+Reference RH/temperature, IDE capacitance, leakage/continuity, all other
+channels. & Separate vapour response, swelling/load redistribution, liquid
+saturation, and electrical failure. \\
+X1-5 & Predeclared combinations: pressure+shear; temperature+RH;
+pressure+shear+heat+moisture. & All references and channels on one monotonic
+clock; raw and filtered records retained. & Fit compensation only on training
+runs; verify on held-out combinations. Report each physical-unit map before
+any interface-condition score. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.4em}
+\begin{minipage}[t]{0.52\textwidth}
+  \vspace{0pt}\centering
+  \begin{tikzpicture}[x=0.72cm,y=0.72cm,>=stealth]
+    \draw[step=1,AUBLine] (0,0) grid (8,5);
+    \foreach \x/\y in {1/1,3/1,5/1,7/1,1/3,3/3,5/3,7/3}{
+      \fill[AUBBlue] (\x,\y) circle (2pt);}
+    \fill[AUBRed] (5.6,2.6) circle (3.2pt);
+    \draw[AUBRed,thick] (5.6,2.6) circle (7pt);
+    \fill[AUBYellow!80!black] (5.1,2.9) circle (2.7pt);
+    \draw[->,thick,color=AUBRed] (5.6,2.6)--(5.1,2.9);
+    \node[font=\fontsize{6.4}{7.2}\selectfont,text=AUBRed,anchor=west]
+      at (5.8,2.35) {true input};
+    \node[font=\fontsize{6.4}{7.2}\selectfont,text=AUBYellow!70!black,anchor=east]
+      at (4.85,3.2) {detected};
+    \node[font=\fontsize{6.2}{7}\selectfont,text=AUBGray] at (4,-0.55)
+      {CAD coordinate plane with measured sensor sites};
+  \end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \vspace{0pt}
+  {\fontsize{8.25}{9.7}\selectfont
+  For MAP1, randomize known stimulus coordinates at sensor centres, between
+  sensors, and near boundaries. The operator viewing the software is blinded
+  to the true coordinate. Save the stimulus coordinate, detected coordinate,
+  nearest-neighbour pitch, interpolation method, coverage mask, and confidence
+  flag.\par
+  \[
+  e_{loc}=\sqrt{(x_d-x_t)^2+(y_d-y_t)^2}
+  \]
+  Report median, 95th percentile, and boundary error; do not report only a
+  visually convincing heatmap.\par}
+\end{minipage}
+
+{\fontsize{7.45}{8.6}\selectfont\color{AUBGray}
+\textbf{Figure Q5-5. Blinded localization test.} Blue dots are measured sensor
+sites, red is the applied coordinate, and yellow is the algorithm output. The
+Q4 gate is median error no greater than half the nearest-neighbour pitch;
+sensor markers and unsupported regions remain visible.\par}
+
+\vspace{0.35em}
+\evidencebox{Expected outcome and impact:}{A successful run preserves channel
+identity, unit, timestamp, calibration version, and CAD coordinate; localizes
+held-out inputs within the Q4 gate; and leaves pressure, signed shear,
+temperature, and RH viewable separately. Failure changes sampling,
+synchronization, shielding, channel compensation, sensor density, coordinate
+registration, interpolation, or the displayed claim. The map remains an
+\emph{interface-condition map} until participant evidence validates a
+discomfort or clinical-risk interpretation.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-lit-integration}{}
+\sectiontitle{Q5 Literature Evidence Plate: Multimodal Mapping}
+
+{\fontsize{8.75}{10.25}\selectfont
+The literature already provides reasonable solutions for synchronized
+multimodal acquisition, embedded liner microclimate sensing, and 3D surface
+visualization. X1 and MAP1 therefore test whether those functional ideas remain
+valid for the present printed-slab geometry and CAD manifest; see
+\reportlink{q5-integration-mapping}{Q5 Section 5.5} and
+\reportlink{q3-measurement-models}{Q3 Section 3.5}.\par}
+
+\vspace{0.55em}
+\noindent
+\qfivelitpanel{0.255\textheight}
+  {paper_sources/q5_figures/crops/kwak2020_fig1.png}
+  {\textbf{(a) Wireless multimodal prosthetic interface.} Original Fig.~1 in
+  Kwak \textit{et al.}: pressure and temperature sensors, NFC/BLE modules,
+  wearable placement, and the functional data path \cite{q3kwak2020}.
+  \href{https://doi.org/10.1126/scitranslmed.abc4327}{Open DOI}. The figure is
+  a system precedent, not evidence for the present silver/PDMS channels.}
+\hfill
+\qfivelitpanel{0.255\textheight}
+  {paper_sources/q5_figures/crops/turner2021_fig3.png}
+  {\textbf{(b) Interpolated socket-surface display.} Original Fig.~3 in
+  Turner \textit{et al.}: radial-basis interpolation applied to a 3D
+  transtibial socket model \cite{q3turner2021}. It supports a live
+  coordinate-registered visualization while reinforcing the need to report
+  true-versus-detected location error.
+  \href{https://doi.org/10.3390/prosthesis3040035}{Open DOI}.}
+
+\vspace{0.75em}
+\begin{center}
+\includegraphics[width=0.88\linewidth,height=0.25\textheight,keepaspectratio]
+  {paper_sources/figures_selected/paterno_fig4_temperature_humidity_results.png}
+\end{center}
+{\fontsize{7.0}{8.05}\selectfont
+\textbf{(c) Embedded-liner microclimate data.} Original Fig.~4 in Patern\`o
+\textit{et al.}: thermography, sensor locations, and temperature/RH traces
+from a personalised liner with embedded sensors \cite{paterno2020}. It is a
+direct precedent for synchronized physical-unit channels and location-aware
+interpretation. \href{https://doi.org/10.1186/s12938-020-00814-y}{Open DOI}.\par}
+
+\vfill
+{\fontsize{6.7}{7.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-L4. Existing functional solutions leveraged by X1/MAP1.}
+The novel project question is not whether maps or multimodal loggers can exist;
+it is whether calibrated signals from the present sensor slabs retain channel,
+time, and coordinate identity well enough to support an accurate map.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-durability}{}
+\sectiontitle{Q5. Environmental, Cyclic, and Recovery Testing}
+
+\qtwosubsection{5.6 D1--D2 --- measure drift instead of assuming durability}
+
+{\fontsize{8.9}{10.45}\selectfont
+Directly printed silver conductors on PDMS have shown strong dependence on
+strain, recovery time, and cycle count; Albrecht \textit{et al.} reported
+conductive traces after 10,000 cycles but with a large resistance increase
+under their specific geometry and 20\% strain protocol
+\cite{albrecht2018stretch}. Kwak \textit{et al.} reported 1,000-cycle soft
+prosthetic-sensor testing, while Patern\`o \textit{et al.} demonstrated
+temperature/RH operation in a liner microclimate \cite{q3kwak2020,paterno2020}.
+These are durability precedents, not substitutes for the present slab's
+post-exposure recalibration. Q5 follows the release gate in
+\reportlink{q4-design-gate}{Q4 Section 4.7}.\par}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.7mm]
+  \tikzstyle{dur}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    text width=30mm,minimum height=10mm,align=center,
+    font=\fontsize{6.6}{7.5}\selectfont]
+  \node[dur] (a) {baseline F0 + modality calibration};
+  \node[dur,right=of a] (b) {35--37~$^{\circ}$C + high RH conditioning};
+  \node[dur,right=of b] (c) {artificial sweat + protected exposure};
+  \node[dur,right=of c] (d) {1,000 then 10,000 load/bend cycles};
+  \node[dur,right=of d] (e) {24 h recovery + full recalibration};
+  \draw[->,thick,color=AUBRed] (a)--(b);
+  \draw[->,thick,color=AUBRed] (b)--(c);
+  \draw[->,thick,color=AUBRed] (c)--(d);
+  \draw[->,thick,color=AUBRed] (d)--(e);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-6. D1--D2 exposure sequence.} Intermediate inspections at
+defined cycle counts distinguish progressive damage from a single final
+failure. Conditioning, load, and recovery records share the specimen ID.\par}
+
+\vspace{0.4em}
+\begingroup
+\fontsize{7.65}{8.95}\selectfont
+\setlength{\tabcolsep}{2.55pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.05cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Test} & \color{white}\textbf{Exposure and tools} &
+\color{white}\textbf{Measurements} & \color{white}\textbf{Expected outcome and impact} \\
+D1-1 & Chamber or sealed enclosure at 35--37~$^{\circ}$C and high RH; reference
+temperature/RH; powered slab where safe. & Baseline, resistance/capacitance,
+noise, leakage, drift, visual condition, and modality calibration before,
+during, and after conditioning. & No damage and no Q4-exceeding calibration
+shift after recovery. Failure changes materials, encapsulation, compensation,
+operating range, or recalibration interval. \\
+\rowcolor{AUBPale}
+D1-2 & Controlled artificial sweat, selected barrier, absorbent containment,
+camera, electrical isolation/leakage checks. & Liquid path, saturation,
+recovery, open/short status, adhesion, corrosion/discolouration, and H1
+recalibration. & No liquid contact with exposed silver or joints; vapour
+response recovers. Failure changes barrier, seal, vent position, replaceable
+layer, or cleaning instructions. \\
+D2-1 & Cyclic normal compression and signed shear fixture; force/displacement
+reference; staged 1,000-cycle screen then 10,000-cycle characterization. & Raw
+signals at defined cycle intervals; $\Delta R/R_0$, $\Delta C/C_0$, sensitivity,
+hysteresis, repeatability, baseline recovery, and inspection images. & No
+open/short, delamination, or unsafe exposure; performance remains inside Q4
+gates. Failure changes trace geometry, neutral-axis placement, PDMS stack,
+bonding, or claimed service interval. \\
+\rowcolor{AUBPale}
+D2-2 & Mandrels or curved phantom representing intended liner curvature;
+controlled bend radius and cycle count. & Continuity during bending,
+strain-only cross-sensitivity, crack location, and post-bend modality
+calibration. & Bending must not be interpreted as temperature, humidity, or
+load without compensation. Failure changes routing, strain relief, sensor
+orientation, or enclosure geometry. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.35em}
+\begin{align*}
+D_y(\%)&=\frac{y_{post}-y_{pre}}{FS}\times100, &
+\Delta R/R_0&=\frac{R_N-R_0}{R_0}, &
+CV(\%)&=100\,s/\bar y.
+\end{align*}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+Report raw and normalized changes because a small percentage change near zero
+can be misleading. Recovery at 5, 30, 300~s and 24~h separates short-term PDMS
+relaxation from persistent damage.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-phantom}{}
+\sectiontitle{Q5. Simulated-Use Phantom Testing}
+
+\qtwosubsection{5.7 S1 --- controlled curved-interface scenarios before human use}
+
+{\fontsize{8.9}{10.45}\selectfont
+The three build precedents, photographs, and material lists are retained in
+\reportlink{q3-phantom-precedents}{Q3 Section 3.4.1} and are not duplicated
+here. Patern\`o \textit{et al.} built an anatomically informed variable-volume
+transfemoral simulator using silicone tissue layers, a sealed hydraulic
+chamber, and motorized syringe pumps \cite{paterno2025socket}. McGrath
+\textit{et al.} built a silicone residuum with molded pores that released
+water inside a liner/socket under cyclic loading \cite{mcgrath2021sweat}.
+Phillips \textit{et al.} reported a lower-cost dual-hardness urethane mock limb
+with water-filled TPU bladders and motorized syringe control
+\cite{phillips2025}. Q5 uses these as selectable modules because no single
+phantom provides traceable normal load, signed shear, vapour RH, liquid sweat,
+temperature, and anatomical motion simultaneously.\par}
+
+\begingroup
+\fontsize{7.55}{8.85}\selectfont
+\setlength{\tabcolsep}{2.5pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{2.0cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Candidate module} & \color{white}\textbf{Materials and tools} &
+\color{white}\textbf{Q5 role and ground truth} &
+\color{white}\textbf{Limitation and decision impact} \\
+A --- variable-volume anatomical simulator & Molded silicone anatomical/tissue
+layers, sealed hydraulic chamber, syringe pumps, frame, volume/displacement
+reference, force/load references. & Apply repeatable volume changes and
+interface loading while checking pressure/shear localization, coverage, and
+map stability. & Higher fabrication complexity; it does not by itself provide
+controlled vapour RH. Select when anatomical loading and volume change are the
+dominant questions. \\
+\rowcolor{AUBPale}
+B --- sweating residuum/socket simulator & 3D-printed bone/core, silicone,
+molded pores, water reservoir/pump, liner/check socket, cyclic actuator,
+collected-volume measurement. & Challenge liquid-sweat protection and
+moisture-induced changes during cyclic loading; record delivered and recovered
+water volume. & Liquid delivery is not RH calibration. Use only after H1 dry
+vapour calibration; select when sweat management and wet slip are priorities. \\
+C --- low-cost bladder mock limb & Dual-hardness urethane, water-filled TPU
+bladders, mold/printed parts, Arduino-class control, motorized syringe, force/
+displacement reference. & Reproduce controlled shape/pressure change at lower
+reported construction cost and compare known actuation with mapped response. &
+Biofidelity and shear require separate validation. Select when reproducible
+low-cost pressure/shape testing is the priority. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.45em}
+\begin{center}
+\begin{tikzpicture}[>=stealth,node distance=2.6mm]
+  \tikzstyle{sim}=[draw=AUBLine,fill=AUBPale,rounded corners=1pt,
+    text width=31mm,minimum height=9mm,align=center,
+    font=\fontsize{6.6}{7.5}\selectfont]
+  \node[sim] (a) {dry seated baseline\\known coordinate zero};
+  \node[sim,right=of a] (b) {known normal load / volume change};
+  \node[sim,right=of b] (c) {signed motion or cyclic loading};
+  \node[sim,right=of c] (d) {controlled liquid delivery if Module B};
+  \node[sim,right=of d] (e) {unload, dry recovery, recalibrate};
+  \draw[->,thick,color=AUBRed] (a)--(b);
+  \draw[->,thick,color=AUBRed] (b)--(c);
+  \draw[->,thick,color=AUBRed] (c)--(d);
+  \draw[->,thick,color=AUBRed] (d)--(e);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.45}{8.6}\selectfont\color{AUBGray}
+\textbf{Figure Q5-7. S1 simulated-use sequence.} Ground truth comes from the
+phantom actuator, reference load/displacement, delivered liquid volume, and
+known CAD locations. The sensor map is the device under test, not the source of
+the event label.\par}
+
+\vspace{0.4em}
+\evidencebox{Expected outcome and impact:}{The curved assembly retains
+electrical continuity and coordinate identity, detects the correct imposed
+event and location within the Q4 gates, and returns toward baseline after
+unloading/drying. Failure changes slab placement, liner integration, routing,
+encapsulation, protection, calibration, interpolation, or the chosen phantom
+module. This is simulated-use evidence only; it does not authorize a human-use
+or clinical discomfort claim.}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-lit-phantoms}{}
+\sectiontitle{Q5 Literature Evidence Plate: Residual-Limb Phantoms}
+
+{\fontsize{8.75}{10.25}\selectfont
+The three proposed modules in \reportlink{q5-phantom}{Q5 Section 5.7} are all
+implemented research systems. Their published photographs are shown together
+so the project can choose a build route from demonstrated hardware rather than
+from a generic sketch. Their separate strengths also explain why no one module
+is treated as a universal ground truth.\par}
+
+\vspace{0.55em}
+\noindent
+\qfivelitpanel{0.245\textheight}
+  {assets/q3/phantoms/paterno2025_fig5a.png}
+  {\textbf{(a) Anatomical variable-volume simulator.} Original Fig.~5a in
+  Patern\`o \textit{et al.}: anatomical skeletal/tissue structure, silicone
+  layers, sealed hydraulic chamber, and two motorized syringe pumps for
+  controlled residual-limb volume change \cite{paterno2025socket}.
+  \href{https://doi.org/10.1002/aisy.202400995}{Open DOI}.}
+\hfill
+\qfivelitpanel{0.245\textheight}
+  {assets/q3/phantoms/mcgrath2021_fig1.jpg}
+  {\textbf{(b) Sweating residuum/socket simulator.} Original Fig.~1 in
+  McGrath \textit{et al.}: a 3D-printed bone/core encased in porous silicone,
+  supplied with water and tested inside a liner/check socket under cyclic
+  loading \cite{mcgrath2021sweat}.
+  \href{https://doi.org/10.33137/cpoj.v4i1.35213}{Open DOI}.}
+
+\vspace{0.8em}
+\begin{center}
+\includegraphics[width=0.83\linewidth,height=0.25\textheight,keepaspectratio]
+  {assets/q3/phantoms/phillips2025_fig1.png}
+\end{center}
+{\fontsize{7.0}{8.05}\selectfont
+\textbf{(c) Lower-cost biofidelic mock residual limb.} Original Fig.~1 in
+Phillips \textit{et al.}: dual-hardness urethane tissues, water-filled TPU
+bladders, mold components, and a motorized syringe/Arduino-class control route
+reported at below CAD~400 \cite{phillips2025}.
+\href{https://doi.org/10.33137/cpoj.v8i2.45759}{Open DOI}.\par}
+
+\vfill
+{\fontsize{6.7}{7.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-L5. Implemented phantom candidates.} Patern\`o supplies
+anatomical volume change, McGrath supplies controlled liquid sweat during
+cyclic loading, and Phillips supplies a reproducible lower-cost pressure/shape
+platform. These images are duplicated here intentionally because Q5 uses them
+to choose test hardware; the detailed materials comparison remains in
+\reportlink{q3-phantom-precedents}{Q3 Section 3.4.1}.\par}
+
+% -----------------------------------------------------------------------------
+\clearpage
+\hypertarget{q5-reporting}{}
+\sectiontitle{Q5. Analysis Outputs, Decision Rules, and Design Feedback}
+
+\qtwosubsection{5.8 SYS1 and R1 --- convert each test into auditable evidence}
+
+{\fontsize{9.0}{10.6}\selectfont
+Every test produces a raw file, reference file, specimen/build record, analysis
+script or calculation sheet, figure, numerical metric table, and decision.
+The output formats below implement the metrics defined in
+\reportlink{q3-metrics}{Q3 Section 3.7} and the planned evidence panels in
+\reportlink{q3-validation-outputs}{Q3 Section 3.8}. Literature figures may
+explain precedent, but only project records occupy the measured-result panels.\par}
+
+\begingroup
+\fontsize{7.55}{8.85}\selectfont
+\setlength{\tabcolsep}{2.55pt}\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash\bfseries\color{AUBRed}}p{1.05cm}Y Y Y}
+\rowcolor{AUBRed}
+\color{white}\textbf{Output} & \color{white}\textbf{Required plot/table} &
+\color{white}\textbf{Decision rule} & \color{white}\textbf{Design feedback} \\
+F0 & Annotated print photograph, CAD-versus-measured dimensions, continuity/
+isolation table, build traveller. & Advance only intact, identified, traceable
+specimens; otherwise rework/reject with cause. & Print parameters, mold,
+surface preparation, alignment, contacts, or encapsulation. \\
+\rowcolor{AUBPale}
+M1--M3 & Reference input and raw channels versus time; calibration with
+residuals; loading/unloading hysteresis; cross-axis and recovery; localization
+error map. & Apply MECH-01--MECH-05 individually. Averages cannot hide a
+failed direction, boundary, or recovery gate. & Electrode/spacer geometry,
+preload, footprint, placement, compensation, or coverage claim. \\
+T1/H1/H2 & Reference and sensor versus time; fitted calibration and held-out
+error; $t_{90}$; hysteresis; temperature compensation; pre/post-liquid shift.
+& Apply TEMP-01/02 and HUM-01--03 separately. Saturation or quality failure is
+flagged rather than converted into a condition score. & Meander/IDE geometry,
+barrier, vent, seal, compensation, range, or recalibration. \\
+\rowcolor{AUBPale}
+X1/MAP1 & Modality-by-modality matrix; timestamp audit; true/detected coordinate
+scatter; error vectors; coverage/confidence mask; separate physical-unit maps.
+& Apply DAQ-01/02, MAP-01--03, and ALG-01. Combined interpretation is blocked
+when calibration, time, coordinate, or quality metadata are missing. & DAQ,
+shielding, synchronization, manifest, sensor density, interpolation, thresholds,
+or displayed wording. \\
+D1/D2/S1 & Drift/recovery versus exposure or cycle count; inspection images;
+pre/post calibration; event and location results against phantom ground truth.
+& Apply DUR, ENV, SAFE, and SYS gates per modality and specimen. Report
+pass/partial/fail/not run with the evidence path. & Materials, routing, barrier,
+stack, service interval, phantom module, or decision to remain at flat-slab
+testing. \\
+R1 & Batch yield, quantities, supplier/unit cost, reusable equipment, labour,
+failed-print causes, and AUB availability status. & No guessed availability or
+cost; attach inventory confirmation, receipts/quotes, and build time. & Process
+simplification, supplier choice, sensor count, reusable fixtures, or scope. \\
+\end{tabularx}
+\endgroup
+
+\vspace{0.45em}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[fill=AUBPale,draw=AUBLine] (0,0) rectangle (4.0,1.15);
+  \draw[fill=AUBPale,draw=AUBLine] (4.3,0) rectangle (8.3,1.15);
+  \draw[fill=AUBPale,draw=AUBLine] (8.6,0) rectangle (12.6,1.15);
+  \draw[fill=AUBPale,draw=AUBLine] (12.9,0) rectangle (16.9,1.15);
+  \node[font=\fontsize{7}{8}\selectfont,align=center] at (2,0.72)
+    {\textbf{PASS}\\all applicable gates met};
+  \node[font=\fontsize{7}{8}\selectfont,align=center] at (6.3,0.72)
+    {\textbf{PARTIAL}\\usable block; stated limitation};
+  \node[font=\fontsize{7}{8}\selectfont,align=center] at (10.6,0.72)
+    {\textbf{FAIL}\\requirement not met; redesign};
+  \node[font=\fontsize{7}{8}\selectfont,align=center] at (14.9,0.72)
+    {\textbf{NOT RUN}\\no conclusion; reason recorded};
+  \draw[AUBRed,thick] (0,-0.18)--(16.9,-0.18);
+\end{tikzpicture}
+\end{center}
+{\fontsize{7.5}{8.7}\selectfont\color{AUBGray}
+\textbf{Figure Q5-8. Required verdict vocabulary.} A partial result preserves a
+useful functional block while identifying its limitation; ``not run'' is not a
+failure and cannot be presented as evidence.\par}
+
+\vspace{0.45em}
+\evidencebox{Q5 completion criterion:}{Q5 is complete when every planned test
+has a specimen ID, apparatus/reference description, controlled inputs, raw and
+processed outputs, metric definitions, acceptance rule, actual status, and
+design action. Before data collection, the section is correctly reported as a
+literature-backed validation plan. After testing, planned panels are replaced
+with measured project plots without changing the preregistered decision rules.}
+
+\sourceanchor{Bench methods and performance reporting are grounded in printed
+force, temperature, humidity, PDMS-conductor, prosthetic-interface, mapping,
+and phantom studies
+\cite{albrecht2019,liew2020,jager2022,aitmammar2020,
+albrecht2018stretch,q3kwak2020,paterno2020,q3turner2021,
+paterno2025socket,mcgrath2021sweat,phillips2025}.}
