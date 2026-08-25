@@ -14,11 +14,22 @@ _An anonymized reconstruction of the project dashboard. Values are illustrative 
 | Modality | Smartphone accelerometer and gyroscope (IMU) |
 | Primary question | Can passive phone sensing help summarize medication ON/OFF patterns between neurology visits? |
 | Intended users | Patient/caregiver, visiting nurse, and treating neurologist |
-| Public stage | Team concept, signal-processing plan, product requirements, and dashboard prototype |
+| Public stage | Team concept note, signal-processing plan, dashboard prototype, and historical code snapshot |
 | Validation status | Not clinically validated; no diagnostic claim |
 | Public boundary | No participant data, serialized metadata, model weights, meeting transcript, or downloaded papers |
 
 The source archive used two working names: **NeuroSense** in the concept note and product requirements, and **Watar** in the interface and pitch prototype. This case study uses NeuroSense as the descriptive project name while preserving that provenance.
+
+## Public artifact manifest
+
+| Artifact | View | Editable source | Provenance |
+|---|---|---|---|
+| NeuroSense concept note | [PDF](reports/neurosense-concept-note.pdf) | [DOCX](documents/neurosense-concept-note.docx) | Team Beirut 332 document; explicitly lists Abdulrahman Kobaissi among the five team members |
+| Rule-based tremor classifier plan | [PDF](reports/neurosense-classifier-plan.pdf) | [DOCX](documents/neurosense-classifier-plan.docx) | Team archive; individual authorship is not recorded, so it is not presented as sole-authored work |
+| Weekly digest prototype | [PNG](assets/neurosense-weekly-digest-anonymized.png) | — | Anonymized reconstruction using illustrative data |
+| Signal-processing implementation | [Historical team-code snapshot](historical-team-code/) | — | Public-safe archival code; no model, dataset, or private metadata |
+
+The classifier-plan DOCX was lightly reformatted for legibility before its PDF export; the technical content and explicit non-clinical boundary were preserved.
 
 ## Why the problem matters
 
@@ -101,6 +112,8 @@ These sources motivate feasibility and study design. Their source-reported resul
 ### Included
 
 - This original technical case-study synthesis
+- The team concept note in PDF and editable DOCX formats
+- The team classifier plan in PDF and editable DOCX formats
 - One anonymized prototype figure
 - Architecture, classifier rationale, evaluation plan, and limitations
 - Links to public data/study entry points
@@ -113,7 +126,8 @@ These sources motivate feasibility and study design. Their source-reported resul
 - Dataset archives and speech recordings
 - Notebooks whose original/derivative cell boundaries were not sufficiently clear for republication
 - Downloaded research-paper PDFs
-- Private meeting transcript and internal working documents
+- Private meeting transcript, the internal product-requirements draft, and the unfinished pitch deck
+- Raw interface screenshots containing person-like demo details; the public reconstruction above is anonymized
 - Unverified clinical claims and illustrative dashboard metrics as results
 
 ## Collaboration and authorship
