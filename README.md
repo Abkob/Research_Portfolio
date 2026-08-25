@@ -10,6 +10,10 @@ This repository makes the boundary between research stages explicit. Some projec
 |---|---|---|---|
 | ECG/EEG | Automated peri-ictal ECG feature extraction | Implemented research software | [ECG_FE_Detector_Interface](https://github.com/Abkob/ECG_FE_Detector_Interface) |
 | EEG/ECoG | Patient-aware seizure feature studies | Exploratory implementation | [Research_BCI](https://github.com/Abkob/Research_BCI) |
+| BCI / assistive robotics | MotorBrace EEG–EMG intent detection and knee orthosis | Team research prototype | [MotorBrace_BCI_EMG](https://github.com/Abkob/MotorBrace_BCI_EMG) |
+| Precision agriculture / CV | AARS drone-guided WeedBot and SoilBot system | Multidisciplinary prototype research | [AARS_Agro_Remediation](https://github.com/Abkob/AARS_Agro_Remediation) |
+| Medical imaging | Brain-tumor segmentation and ensemble experiment log | Provenance-bounded reproduction study | [Case study](case-studies/brain-tumor-segmentation-experiment-log.md) |
+| Environmental vision | COCO fire-detection data preparation | Small exploratory implementation | [Case study](case-studies/fire-detection-data-preparation.md) |
 | Ear-EEG | Ambulatory sensing and stimulation concept | Evidence map and staged research plan | [Case study](case-studies/ear-eeg-research-plan.md) |
 | Mobile health / IMU | NeuroSense Parkinson's monitoring | Team design study and clinician-dashboard prototype | [Case study](case-studies/neurosense-parkinsons-monitoring.md) |
 | Assistive sensing | Multimodal prosthetic-liner sensor slab | Team design and literature-to-requirements study | [Case study](case-studies/smart-prosthetic-liner.md) |
@@ -35,6 +39,10 @@ Signal quality comes before inference. My ECG and EEG work emphasizes domain-spe
 ### Literature-to-engineering translation
 
 I use literature to define what should be measured, which geometry or method is transferable, what performance is only source-reported, and what must be revalidated in a new material, device, cohort, or site.
+
+### Cross-domain prototyping
+
+MotorBrace and AARS connect model development to physical-system requirements. Both repositories distinguish implemented notebooks from proposed sensing, control, and deployment layers, so architecture diagrams do not overstate validation.
 
 ### Reproducible systems
 
