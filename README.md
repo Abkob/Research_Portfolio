@@ -14,7 +14,7 @@ Every project listed below has at least one inspectable public artifact. Authore
 | [Ear-EEG research plan](projects/ear-eeg/) | Evidence map and staged validation plan | Detailed plan, source index, dataset-access notes |
 | [NeuroSense Parkinson's monitoring](projects/neurosense/) | Team digital-health design study | Concept note and classifier-plan PDFs/DOCX, anonymized interface, historical team-code snapshot |
 | [ECG feature detector](https://github.com/Abkob/ECG_FE_Detector_Interface) | Implemented research software | Package, tests, notebooks, reports, ECG/EEG literature review |
-| [BCI and epilepsy research](https://github.com/Abkob/Research_BCI) | Exploratory implementation | EEG/ECoG notebooks, patient-aware experiments, provenance notes |
+| BCI and epilepsy research | Private exploratory implementation | EEG/ECoG notebooks, patient-aware experiments, and provenance notes available on request |
 | [MotorBrace](https://github.com/Abkob/MotorBrace_BCI_EMG) | Team research prototype | Sanitized notebooks, proposal and mechanical-design reports |
 
 ## Computer vision, robotics, and imaging
